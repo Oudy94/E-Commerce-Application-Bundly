@@ -1,5 +1,18 @@
 import asyncHandler from 'express-async-handler'
+import Farmer from '../models/farmerModel.js'
+import FoodItem from '../models/foodItemModel.js'
 import Product from '../models/productModel.js'
+
+// to include nested tables to the api response
+// (see .populate in controllers)
+// otherwise there will be IDs in response instead of data
+// https://mongoosejs.com/docs/populate.html#population
+const nestedDocs = {
+  path: 'foodItems',
+  populate: {
+    path: 'farmer',
+  },
+}
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -21,6 +34,7 @@ const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
+    .populate(nestedDocs)
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
@@ -29,7 +43,7 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
+  const product = await Product.findById(req.params.id).populate(nestedDocs)
 
   if (product) {
     res.json(product)
@@ -63,7 +77,6 @@ const createProduct = asyncHandler(async (req, res) => {
     price: 0,
     user: req.user._id,
     image: '/images/sample.jpg',
-    brand: 'Sample brand',
     category: 'Sample category',
     countInStock: 0,
     numReviews: 0,
@@ -83,7 +96,6 @@ const updateProduct = asyncHandler(async (req, res) => {
     price,
     description,
     image,
-    brand,
     category,
     countInStock,
   } = req.body
@@ -95,7 +107,6 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.price = price
     product.description = description
     product.image = image
-    product.brand = brand
     product.category = category
     product.countInStock = countInStock
 
