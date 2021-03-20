@@ -15,9 +15,8 @@ import {
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState("");
-  const [persons, setPersons] = useState(1);
-  const [price, setPrice] = useState();
-  const [bundlePerWeek, setBundlePerWeek] = useState(2);
+  const [persons, setPersons] = useState("1");
+  const [bundlePerWeek, setBundlePerWeek] = useState("2");
 
   const keyword = match.params.keyword;
 
@@ -32,20 +31,17 @@ const PlanScreen = ({ history, match }) => {
   const weekly = [3, 4, 6];
 
   useEffect(() => {
-    console.log(products);
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber));
     }
-    console.log("hi");
-  }, []);
+  }, [products, keyword, pageNumber, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    dispatch(createPlan(bundle, bundlePerWeek, persons));
-    history.push(
-      `/login?redirect=cart/${bundle}?qty=${bundlePerWeek}&size=${persons}`
-    );
+    const size = Number(persons);
+    const qty = Number(bundlePerWeek);
+    dispatch(createPlan(bundle, qty, size));
+    history.push(`/cart/${bundle}?qty=${qty}&size=${size}`);
   };
 
   return (
@@ -76,7 +72,6 @@ const PlanScreen = ({ history, match }) => {
                     value={product._id}
                     onClick={(e) => {
                       setBundle(e.target.value);
-                      setPrice(product.price);
                     }}
                   >
                     <i className='fas fa-hands'></i> {product.name}
@@ -134,6 +129,7 @@ const PlanScreen = ({ history, match }) => {
           <Button
             type='submit'
             variant='success'
+            disabled={!bundle}
             className=' shadow p-3 mb-5 bg-body rounded'
           >
             Select This
