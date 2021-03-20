@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
+import GoogleAuth from '../components/GoogleAuth'
+import FacebookAuth from '../components/FacebookAuth'
 import { register } from '../actions/userActions'
 
 const RegisterScreen = ({ location, history }) => {
@@ -87,6 +89,10 @@ const RegisterScreen = ({ location, history }) => {
           Register
         </Button>
       </Form>
+
+      <div class='or'> OR </div>
+      <GoogleAuth />
+      <FacebookAuth />
 
       <Row className='py-3'>
         <Col>
