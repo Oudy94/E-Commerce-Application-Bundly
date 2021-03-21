@@ -24,12 +24,14 @@ export const createPlan = (plan) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(`/plan`, plan, config);
+    const { data } = await axios.post(`/api/plan`, plan, config);
 
     dispatch({
       type: PLAN_CREATE_SUCCESS,
       payload: data,
     });
+    console.log(data);
+    localStorage.setItem("planItems", JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message
