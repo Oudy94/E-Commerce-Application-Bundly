@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { createPlan } from "../actions/planActions";
-import { listProducts } from "../actions/productActions";
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import { createPlan } from "../actions/planActions"
+import { listProducts } from "../actions/productActions"
 import {
   Row,
   Col,
@@ -11,38 +11,41 @@ import {
   Container,
   ButtonGroup,
   Image,
-} from "react-bootstrap";
+  ButtonToolbar,
+} from "react-bootstrap"
+import { set } from "mongoose"
 
 const PlanScreen = ({ history, match }) => {
-  const [bundle, setBundle] = useState("");
-  const [persons, setPersons] = useState("1");
-  const [bundlePerWeek, setBundlePerWeek] = useState("2");
+  const [bundle, setBundle] = useState("")
+  const [persons, setPersons] = useState("1")
+  const [bundlePerWeek, setBundlePerWeek] = useState("2")
+  const [flag, setFlag] = useState(true)
 
-  const keyword = match.params.keyword;
+  const keyword = match.params.keyword
 
-  const pageNumber = match.params.pageNumber || 1;
+  const pageNumber = match.params.pageNumber || 1
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const productList = useSelector((state) => state.productList);
-  const { products } = productList;
+  const productList = useSelector((state) => state.productList)
+  const { products } = productList
 
-  const family = [2, 3, 4];
-  const weekly = [3, 4, 6];
+  const family = [2, 3, 4]
+  const weekly = [3, 4, 6]
 
   useEffect(() => {
     if (products.length === 0) {
-      dispatch(listProducts(keyword, pageNumber));
+      dispatch(listProducts(keyword, pageNumber))
     }
-  }, [products, keyword, pageNumber, dispatch]);
+  }, [dispatch])
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    const size = Number(persons);
-    const qty = Number(bundlePerWeek);
-    dispatch(createPlan(bundle, qty, size));
-    history.push(`/cart/${bundle}?qty=${qty}&size=${size}`);
-  };
+    e.preventDefault()
+    const size = Number(persons)
+    const qty = Number(bundlePerWeek)
+    dispatch(createPlan(bundle, qty, size))
+    history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
+  }
 
   return (
     <Container className='p-3 '>
@@ -53,6 +56,7 @@ const PlanScreen = ({ history, match }) => {
         <Row className=' shadow p-3 mb-5 bg-body rounded'>
           <Col md={{ span: 4, offset: 1 }}>
             <h2>Select the healthy bundle for you</h2>
+
             {products.map((product) => (
               <Row className='mb-3' key={product._id}>
                 <Col md={4}>
@@ -67,11 +71,14 @@ const PlanScreen = ({ history, match }) => {
                 </Col>
                 <Col md={6}>
                   <Button
+                    active={!flag}
                     variant='outline-success'
                     className='rounded mt-3'
                     value={product._id}
                     onClick={(e) => {
-                      setBundle(e.target.value);
+                      setBundle(e.target.value)
+                      let s = !e.target.active
+                      setFlag(s)
                     }}
                   >
                     <i className='fas fa-hands'></i> {product.name}
@@ -137,7 +144,7 @@ const PlanScreen = ({ history, match }) => {
         </Row>
       </Form>
     </Container>
-  );
-};
+  )
+}
 
-export default PlanScreen;
+export default PlanScreen

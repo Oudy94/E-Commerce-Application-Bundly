@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import {
   Row,
   Col,
@@ -10,68 +10,68 @@ import {
   Button,
   Form,
   Container,
-} from "react-bootstrap";
-import Rating from "../components/Rating";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
+} from "react-bootstrap"
+import Rating from "../components/Rating"
+import Message from "../components/Message"
+import Loader from "../components/Loader"
+import Meta from "../components/Meta"
 import {
   listProductDetails,
   createProductReview,
-} from "../actions/productActions";
-import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
+} from "../actions/productActions"
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants"
 
 const ProductScreen = ({ history, match, keyword, pageNumber }) => {
-  const [qty, setQty] = useState(1);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
-  const [size, setSize] = useState(0);
-  const [isShown, setIsShown] = useState(false);
+  const [qty, setQty] = useState(1)
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState("")
+  const [size, setSize] = useState(0)
+  const [isShown, setIsShown] = useState(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const productDetails = useSelector((state) => state.productDetails)
+  const { loading, error, product } = productDetails
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
-  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const productReviewCreate = useSelector((state) => state.productReviewCreate)
   const {
     success: successProductReview,
     loading: loadingProductReview,
     error: errorProductReview,
-  } = productReviewCreate;
+  } = productReviewCreate
 
   useEffect(() => {
     if (successProductReview) {
-      setRating(0);
-      setComment("");
+      setRating(0)
+      setComment("")
     }
     if (!product._id || product._id !== match.params.id) {
-      dispatch(listProductDetails(match.params.id));
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+      dispatch(listProductDetails(match.params.id))
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview, product._id]);
+  }, [dispatch, match, successProductReview, product._id])
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}&size=${size}`);
-  };
+    history.push(`/cart/${match.params.id}?qty=${qty}&size=${size}`)
+  }
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     dispatch(
       createProductReview(match.params.id, {
         rating,
         comment,
       })
-    );
-  };
+    )
+  }
 
   const getPrice = () => {
-    if (!size || !qty || !product.price) return 0;
-    return (product.price * size * qty).toFixed(2);
-  };
+    if (!size || !qty || !product.price) return 0
+    return (product.price * size * qty).toFixed(2)
+  }
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
@@ -140,7 +140,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                                 as='select'
                                 value={qty}
                                 onChange={(e) => {
-                                  setQty(e.target.value);
+                                  setQty(e.target.value)
                                 }}
                               >
                                 {[...Array(product.countInStock).keys()].map(
@@ -297,7 +297,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
         )
       )}
     </>
-  );
-};
+  )
+}
 
-export default ProductScreen;
+export default ProductScreen

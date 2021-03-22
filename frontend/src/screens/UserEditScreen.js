@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import FormContainer from '../components/FormContainer'
-import { getUserDetails, updateUser } from '../actions/userActions'
-import { USER_UPDATE_RESET } from '../constants/userConstants'
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import { Form, Button } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import Message from "../components/Message"
+import Loader from "../components/Loader"
+import FormContainer from "../components/FormContainer"
+import { getUserDetails, updateUser } from "../actions/userActions"
+import { USER_UPDATE_RESET } from "../constants/userConstants"
 
 const UserEditScreen = ({ match, history }) => {
   const userId = match.params.id
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
   const [isAdmin, setIsAdmin] = useState(false)
 
   const dispatch = useDispatch()
@@ -30,7 +30,7 @@ const UserEditScreen = ({ match, history }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET })
-      history.push('/admin/userlist')
+      history.push("/admin/userlist")
     } else {
       if (!user.name || user._id !== userId) {
         dispatch(getUserDetails(userId))
