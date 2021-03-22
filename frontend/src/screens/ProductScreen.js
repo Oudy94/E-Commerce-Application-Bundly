@@ -54,8 +54,8 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
     }
   }, [dispatch, match, successProductReview]);
 
-  const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}&size=${size}`);
+  const addToPlanHandler = () => {
+    history.push(`/plan/${match.params.id}`);
   };
 
   const submitHandler = (e) => {
@@ -88,93 +88,15 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
             <Col md={8}>
               <Image src={product.image} alt={product.name} fluid />
             </Col>
-            
-            <Col md={4}>
+            <Col md={4} className='pt-5'>
               <Card>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>
-                        <strong>${getPrice()}</strong>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  {product.countInStock > 0 && (
-                    <>
-                      <ListGroup.Item>
-                        <Form>
-                          <Form.Group controlId="size">
-                            <Form.Label>Size</Form.Label>
-                            <Form.Control
-                              as="select"
-                              value={size}
-                              onChange={(e) => setSize(e.target.value)}
-                            >
-                              <option value="">Select...</option>
-                              <option value="1">Small - 1 Person</option>
-                              <option value="2">Big - 2 People</option>
-                              <option value="3">Mega - 4 People</option>
-                            </Form.Control>
-                          </Form.Group>
-                        </Form>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Qty</Col>
-                          <Col>
-                            <Form.Control
-                              as="select"
-                              value={qty}
-                              onChange={(e) => {
-                                setQty(e.target.value);
-                              }}
-                            >
-                              {[...Array(product.countInStock).keys()].map(
-                                (x) => (
-                                  <option key={x + 1} value={x + 1}>
-                                    {x + 1}
-                                  </option>
-                                )
-                              )}
-                            </Form.Control>
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-                    </>
-                  )}
-
-                  <ListGroup.Item
-                    onMouseEnter={() => setIsShown(true)}
-                    onMouseLeave={() => setIsShown(false)}
-                  >
-                    {!size && (
-                      <p className="text-danger">
-                        Please choose your bundle size!
-                      </p>
-                    )}
                     <Button
-                      onClick={addToCartHandler}
+                      onClick={addToPlanHandler}
                       className="btn-success"
                       type="button"
-                      disabled={
-                        !product.countInStock || !size
-                      }
                     >
-                      Add To Cart
+                      Proceed To Plan Your Bundle
                     </Button>
-                  </ListGroup.Item>
-                </ListGroup>
               </Card>
             </Col>
           </Row>
@@ -184,7 +106,6 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${getPrice()}</ListGroup.Item>
                   <ListGroup.Item>
                   <h4>Products In This Bundle:</h4>
                  <Container>
