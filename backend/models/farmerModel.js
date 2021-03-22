@@ -1,33 +1,33 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 export const farmerSchema = mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
-      default: 'Local Producer',
+      default: 'Local Producer'
     },
     city: {
       type: String,
       required: true,
-      default: 'Amsterdam',
+      default: 'Amsterdam'
     },
     address: {
       type: String,
-      required: false,
+      required: false
     },
     image: {
       type: String,
-      required: true,
+      required: true
     },
     description: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
-const Farmer = mongoose.model('Farmer', farmerSchema);
-export default Farmer;
+)
+const Farmer = mongoose.model('Farmer', farmerSchema)
+export default Farmer

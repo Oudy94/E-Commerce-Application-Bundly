@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 // Foodstuff products
 const foodItemSchema = mongoose.Schema(
@@ -6,31 +6,31 @@ const foodItemSchema = mongoose.Schema(
     farmer: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'Farmer',
+      ref: 'Farmer'
     },
     name: {
       type: String,
       required: true,
-      default: 'New Food Item',
+      default: 'New Food Item'
     },
     price: {
       type: Number,
       required: true,
-      default: 0,
+      default: 0
     },
 
     image: {
       type: String,
-      required: true,
+      required: true
     },
     description: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
-const FoodItem = mongoose.model('FoodItem', foodItemSchema);
-export default FoodItem;
+)
+const FoodItem = mongoose.model('FoodItem', foodItemSchema)
+export default FoodItem
