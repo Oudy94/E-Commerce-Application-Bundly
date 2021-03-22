@@ -1,11 +1,6 @@
 import puppeteer from 'puppeteer'
 import fs from 'fs'
 
-// import pkg from 'node-html-parser';
-// const { parse } = pkg;
-// const url = 'https://www.hellofresh.nl/?locale=nl-NL';
-// const url = 'https://www.glamour.com/story/healthy-food-delivery-services';
-
 const url =
   'https://www.freshdirect.com/browse.jsp?pageType=browse&id=veg_org&pageSize=30&all=true&activePage=0&sortBy=Sort_ExpertRatingHigh&orderAsc=false&activeTab=product&brandFilterGroup=clearall'
 
