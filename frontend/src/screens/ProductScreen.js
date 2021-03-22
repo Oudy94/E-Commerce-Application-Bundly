@@ -89,7 +89,25 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
               <Image src={product.image} alt={product.name} fluid />
             </Col>
             <Col md={4} className='pt-5'>
-              <Card>
+              <Row>
+            {product.reviews.length > 0 && (
+                  <ListGroup.Item>
+                    <p>Average Rating</p>
+                    <p>
+                      {
+                        <Rating
+                          value={product.rating}
+                          text={`${product.numReviews} review${
+                            product.numReviews !== 1 ? 's' : ''
+                          }`}
+                        />
+                      }
+                    </p>
+                  </ListGroup.Item>
+                )}
+              </Row>
+              <Row>
+              <Card className='my-5'>
                     <Button
                       onClick={addToPlanHandler}
                       className='btn-success'
@@ -98,6 +116,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                       Proceed To Plan Your Bundle
                     </Button>
               </Card>
+              </Row>
             </Col>
           </Row>
           <Row>
@@ -132,22 +151,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
               <h2>Reviews</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant='flush'>
-                {product.reviews.length > 0 && (
-                  <ListGroup.Item>
-                    <p>Average Rating</p>
-                    <p>
-                      {
-                        <Rating
-                          value={product.rating}
-                          text={`${product.numReviews} review${
-                            product.numReviews !== 1 ? 's' : ''
-                          }`}
-                        />
-                      }
-                    </p>
-                  </ListGroup.Item>
-                )}
-
+               
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
