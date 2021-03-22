@@ -11,6 +11,10 @@ const FacebookAuth = () => {
     dispatch(authFacebook(response.accessToken, response.userID))
   }
 
+  const responseFailFacebook = () => {
+    alert(error)
+  }
+
   return (
     <div>
       <FacebookLogin
@@ -18,17 +22,16 @@ const FacebookAuth = () => {
         render={(renderProps) => (
           <Button
             onClick={renderProps.onClick}
-            className='btn btn-block my-2 btn-facebook'
+            className="btn btn-block my-2 btn-facebook"
             style={{ backgroundColor: '#3C66C4', border: 'none' }}
           >
-            <i style={{ float: 'left' }} className='fab fa-facebook-f py-1'></i>
+            <i style={{ float: 'left' }} className="fab fa-facebook-f py-1"></i>
             Continue with Facebook
           </Button>
         )}
         autoLoad={false}
-        // fields='name,email,picture'
-        // onClick={componentClicked}
         callback={responseFacebook}
+        onFailure={responseFailFacebook}
       />
     </div>
   )

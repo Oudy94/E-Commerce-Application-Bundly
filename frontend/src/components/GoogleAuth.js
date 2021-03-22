@@ -12,7 +12,7 @@ const GoogleAuth = () => {
   }
 
   const responseFailGoogle = (error) => {
-    console.log(error)
+    alert(error)
   }
 
   return (
@@ -23,12 +23,12 @@ const GoogleAuth = () => {
           <Button
             onClick={renderProps.onClick}
             disabled={renderProps.disabled}
-            className='btn btn-block my-2 btn-google'
+            className="btn btn-block my-2 btn-google"
             style={{ backgroundColor: '#CF4332', border: 'none' }}
           >
             <i
               style={{ float: 'left' }}
-              className='fab fa-google-plus-g py-1'
+              className="fab fa-google-plus-g py-1"
             ></i>
             Continue with Google
           </Button>
