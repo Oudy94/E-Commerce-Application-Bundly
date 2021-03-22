@@ -8,11 +8,11 @@ const reviewSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
-    },
+      ref: 'User'
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 
@@ -21,52 +21,54 @@ const productSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
+      ref: 'User'
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
+    foodItems: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'FoodItem'
+      }
+    ],
     image: {
       type: String,
-      required: true,
-    },
-    brand: {
-      type: String,
-      required: true,
+      required: true
     },
     category: {
       type: String,
-      required: true,
+      required: true
     },
     description: {
       type: String,
-      required: true,
+      required: true
     },
     reviews: [reviewSchema],
     rating: {
       type: Number,
       required: true,
-      default: 0,
+      default: 0
     },
     numReviews: {
       type: Number,
       required: true,
-      default: 0,
+      default: 0
     },
     price: {
       type: Number,
       required: true,
-      default: 0,
+      default: 0
     },
     countInStock: {
       type: Number,
       required: true,
-      default: 0,
-    },
+      default: 0
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 
