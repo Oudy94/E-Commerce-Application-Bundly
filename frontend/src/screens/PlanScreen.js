@@ -15,8 +15,8 @@ import {
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState('')
-  const [persons, setPersons] = useState('1')
-  const [bundlePerWeek, setBundlePerWeek] = useState('2')
+  const [persons, setPersons] = useState('')
+  const [bundlePerWeek, setBundlePerWeek] = useState('')
 
   const keyword = match.params.keyword
 
@@ -137,7 +137,7 @@ const PlanScreen = ({ history, match }) => {
           <Button
             type='submit'
             variant='success'
-            disabled={!bundle}
+            disabled={!bundle || !persons || !bundlePerWeek}
             className='shadow p-3 mb-5 bg-body rounded'
           >
             Select This
