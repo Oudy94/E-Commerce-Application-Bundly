@@ -15,8 +15,8 @@ import {
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState('')
-  const [persons, setPersons] = useState('1')
-  const [bundlePerWeek, setBundlePerWeek] = useState('2')
+  const [persons, setPersons] = useState('')
+  const [bundlePerWeek, setBundlePerWeek] = useState('')
 
   const keyword = match.params.keyword
 
@@ -34,7 +34,7 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [products, keyword, pageNumber, dispatch])
+  }, [dispatch, keyword, pageNumber])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -69,6 +69,7 @@ const PlanScreen = ({ history, match }) => {
                   <Button
                     variant='outline-success'
                     className='rounded mt-3'
+                    active={bundle === product._id ? true : false}
                     value={product._id}
                     onClick={(e) => {
                       setBundle(e.target.value)
@@ -93,9 +94,12 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
+                      active={persons == person ? true : false}
                       className='rounded me-3'
                       value={person}
-                      onClick={(e) => setPersons(e.target.value)}
+                      onClick={(e) => {
+                        setPersons(e.target.value)
+                      }}
                     >
                       {person}
                     </Button>
@@ -113,9 +117,12 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
+                      active={bundlePerWeek == number ? true : false}
                       className='rounded'
                       value={number}
-                      onClick={(e) => setBundlePerWeek(e.target.value)}
+                      onClick={(e) => {
+                        setBundlePerWeek(e.target.value)
+                      }}
                     >
                       {number}
                     </Button>
@@ -129,8 +136,8 @@ const PlanScreen = ({ history, match }) => {
           <Button
             type='submit'
             variant='success'
-            disabled={!bundle}
-            className=' shadow p-3 mb-5 bg-body rounded'
+            disabled={!bundle || !persons || !bundlePerWeek}
+            className='shadow p-3 mb-5 bg-body rounded'
           >
             Select This
           </Button>

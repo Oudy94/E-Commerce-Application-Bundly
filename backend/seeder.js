@@ -4,7 +4,7 @@ import users from './data/users.js'
 import {
   farmersDataSet,
   foodItemsDataSet,
-  bundlesDataSet
+  bundlesDataSet,
 } from './data/bundles.js'
 import User from './models/userModel.js'
 import Farmer from './models/farmerModel.js'
@@ -35,7 +35,7 @@ const importData = async () => {
       foodItemsDataSet.map((product, index) => ({
         ...product,
         farmer:
-          index < farmers.length ? farmers[index] : farmers[farmers.length - 1]
+          index < farmers.length ? farmers[index] : farmers[farmers.length - 1],
       }))
     )
 
@@ -43,7 +43,7 @@ const importData = async () => {
       bundlesDataSet.map((bundle) => ({
         ...bundle,
         foodItems,
-        user: adminUser
+        user: adminUser,
       }))
     )
 

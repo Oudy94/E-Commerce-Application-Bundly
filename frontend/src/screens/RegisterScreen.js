@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
+import FacebookAuth from '../components/FacebookAuth'
+import GoogleAuth from '../components/GoogleAuth'
 import { register } from '../actions/userActions'
 
 const RegisterScreen = ({ location, history }) => {
@@ -17,7 +19,10 @@ const RegisterScreen = ({ location, history }) => {
   const dispatch = useDispatch()
 
   const userRegister = useSelector((state) => state.userRegister)
-  const { loading, error, userInfo } = userRegister
+  const { loading, error } = userRegister
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
@@ -83,10 +88,14 @@ const RegisterScreen = ({ location, history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type='submit' variant='primary'>
+        <Button type='submit' variant='success' className='mt-2 btn btn-block'>
           Register
         </Button>
       </Form>
+
+      <div class='or'> OR </div>
+      <GoogleAuth />
+      <FacebookAuth />
 
       <Row className='py-3'>
         <Col>

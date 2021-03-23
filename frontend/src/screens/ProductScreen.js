@@ -20,29 +20,23 @@ import {
   createProductReview,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
-
 const ProductScreen = ({ history, match, keyword, pageNumber }) => {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const [size, setSize] = useState(0)
   const [isShown, setIsShown] = useState(false)
-
   const dispatch = useDispatch()
-
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
-
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
   const productReviewCreate = useSelector((state) => state.productReviewCreate)
   const {
     success: successProductReview,
     loading: loadingProductReview,
     error: errorProductReview,
   } = productReviewCreate
-
   useEffect(() => {
     if (successProductReview) {
       setRating(0)
@@ -53,11 +47,9 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
   }, [dispatch, match, successProductReview])
-
   const addToPlanHandler = () => {
     history.push(`/plan/${match.params.id}`)
   }
-
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
@@ -67,7 +59,6 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       })
     )
   }
-
   const getPrice = () => {
     if (!size || !qty || !product.price) return 0
     return (product.price * size * qty).toFixed(2)
@@ -81,33 +72,34 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
-      ) : product && (
-        <>
-          <Meta title={product.name} />
-          <Row>
-            <Col md={8}>
-              <Image src={product.image} alt={product.name} fluid />
-            </Col>
-            <Col md={4} className='pt-5'>
-              <Row>
-            {product.reviews.length > 0 && (
-                  <ListGroup.Item>
-                    <p>Average Rating</p>
-                    <p>
-                      {
-                        <Rating
-                          value={product.rating}
-                          text={`${product.numReviews} review${
-                            product.numReviews !== 1 ? 's' : ''
-                          }`}
-                        />
-                      }
-                    </p>
-                  </ListGroup.Item>
-                )}
-              </Row>
-              <Row>
-              <Card className='my-5'>
+      ) : (
+        product && (
+          <>
+            <Meta title={product.name} />
+            <Row>
+              <Col md={8}>
+                <Image src={product.image} alt={product.name} fluid />
+              </Col>
+              <Col md={4} className='pt-5'>
+                <Row>
+                  {product.reviews.length > 0 && (
+                    <ListGroup.Item>
+                      <p>Average Rating</p>
+                      <p>
+                        {
+                          <Rating
+                            value={product.rating}
+                            text={`${product.numReviews} review${
+                              product.numReviews !== 1 ? 's' : ''
+                            }`}
+                          />
+                        }
+                      </p>
+                    </ListGroup.Item>
+                  )}
+                </Row>
+                <Row>
+                  <Card className='my-5'>
                     <Button
                       onClick={addToPlanHandler}
                       className='btn-success'
@@ -115,109 +107,111 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                     >
                       Proceed To Plan Your Bundle
                     </Button>
-              </Card>
-              </Row>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <ListGroup variant='flush'>
-                <ListGroup.Item>
-                  <h3>{product.name}</h3>
-                </ListGroup.Item>
+                  </Card>
+                </Row>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <ListGroup variant='flush'>
                   <ListGroup.Item>
-                  <h4>Products In This Bundle:</h4>
-                 <Container>
-                  <Row>
-                   
-                  {product.foodItems?.map((item) => (
-                    <Col md={2} className='py-3'>
-                      <img src={item.image} alt={item.name} className='product-img'/>  
-                      <p>{item.name}</p>
-                      <p>€{item.price}</p>
-                      <p>Farmer: {item.farmer.name}</p>
-                      <hr/>
-                      </Col>
-                  ))}
-                
-                  </Row>
-                  </Container>
-                </ListGroup.Item>
-              </ListGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={6}>
-              <h2>Reviews</h2>
-              {product.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant='flush'>
-               
-                {product.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
-                    <p>{review.createdAt.substring(0, 10)}</p>
-                    <p>{review.comment}</p>
+                    <h3>{product.name}</h3>
                   </ListGroup.Item>
-                ))}
-                <ListGroup.Item>
-                  <h2>Rate Our Bundle</h2>
-                  {successProductReview && (
-                    <Message variant='success'>
-                      Review submitted successfully
-                    </Message>
-                  )}
-                  {loadingProductReview && <Loader />}
-                  {errorProductReview && (
-                    <Message variant='danger'>{errorProductReview}</Message>
-                  )}
-                  {userInfo ? (
-                    <Form onSubmit={submitHandler}>
-                      <Form.Group controlId='rating'>
-                        <Form.Label>Rating</Form.Label>
-                        <Form.Control
-                          as='select'
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
+                  <ListGroup.Item>
+                    <h4>Products In This Bundle:</h4>
+                    <Container>
+                      <Row>
+                        {product.foodItems?.map((item) => (
+                          <Col md={2} className='py-3'>
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className='product-img'
+                            />
+                            <p>{item.name}</p>
+                            <p>€{item.price}</p>
+                            <p>Farmer: {item.farmer.name}</p>
+                            <hr />
+                          </Col>
+                        ))}
+                      </Row>
+                    </Container>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <h2>Reviews</h2>
+                {product.reviews.length === 0 && <Message>No Reviews</Message>}
+                <ListGroup variant='flush'>
+                  {product.reviews.map((review) => (
+                    <ListGroup.Item key={review._id}>
+                      <strong>{review.name}</strong>
+                      <Rating value={review.rating} />
+                      <p>{review.createdAt.substring(0, 10)}</p>
+                      <p>{review.comment}</p>
+                    </ListGroup.Item>
+                  ))}
+                  <ListGroup.Item>
+                    <h2>Rate Our Bundle</h2>
+                    {successProductReview && (
+                      <Message variant='success'>
+                        Review submitted successfully
+                      </Message>
+                    )}
+                    {loadingProductReview && <Loader />}
+                    {errorProductReview && (
+                      <Message variant='danger'>{errorProductReview}</Message>
+                    )}
+                    {userInfo ? (
+                      <Form onSubmit={submitHandler}>
+                        <Form.Group controlId='rating'>
+                          <Form.Label>Rating</Form.Label>
+                          <Form.Control
+                            as='select'
+                            value={rating}
+                            onChange={(e) => setRating(e.target.value)}
+                          >
+                            <option value=''>Select...</option>
+                            <option value='1'>1 - Old</option>
+                            <option value='2'>2 - Fair</option>
+                            <option value='3'>3 - Good</option>
+                            <option value='4'>4 - Fresh</option>
+                            <option value='5'>5 - Super Fresh</option>
+                          </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId='comment'>
+                          <Form.Label>Comment</Form.Label>
+                          <Form.Control
+                            as='textarea'
+                            row='3'
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                          ></Form.Control>
+                        </Form.Group>
+                        <Button
+                          disabled={loadingProductReview}
+                          type='submit'
+                          variant='success'
                         >
-                          <option value=''>Select...</option>
-                          <option value='1'>1 - Old</option>
-                          <option value='2'>2 - Fair</option>
-                          <option value='3'>3 - Good</option>
-                          <option value='4'>4 - Fresh</option>
-                          <option value='5'>5 - Super Fresh</option>
-                        </Form.Control>
-                      </Form.Group>
-                      <Form.Group controlId='comment'>
-                        <Form.Label>Comment</Form.Label>
-                        <Form.Control
-                          as='textarea'
-                          row='3'
-                          value={comment}
-                          onChange={(e) => setComment(e.target.value)}
-                        ></Form.Control>
-                      </Form.Group>
-                      <Button
-                        disabled={loadingProductReview}
-                        type='submit'
-                        variant='success'
-                      >
-                        Submit
-                      </Button>
-                    </Form>
-                  ) : (
-                    <Message>
-                      Please <Link to='/login'>sign in</Link> to write a review{' '}
-                    </Message>
-                  )}
-                </ListGroup.Item>
-              </ListGroup>
-            </Col>
-          </Row>
-        </>
+                          Submit
+                        </Button>
+                      </Form>
+                    ) : (
+                      <Message>
+                        Please <Link to='/login'>sign in</Link> to write a
+                        review{' '}
+                      </Message>
+                    )}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Col>
+            </Row>
+          </>
+        )
       )}
     </>
   )
 }
-
 export default ProductScreen

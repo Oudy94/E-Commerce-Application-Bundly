@@ -7,6 +7,8 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
+import Bundly from '../components/Bundly'
+import BundleCategory from '../components/BundleCategory'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions'
 
@@ -28,13 +30,18 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta />
       {!keyword ? (
-        <ProductCarousel />
+        <>
+          <ProductCarousel />
+          <Bundly />
+        </>
       ) : (
         <Link to='/' className='btn btn-light'>
           Go Back
         </Link>
       )}
-      <h1>Latest Products</h1>
+      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
+      <BundleCategory />
+      <h1 className='homepage-headings my-5'>Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
