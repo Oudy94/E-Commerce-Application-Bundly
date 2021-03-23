@@ -62,7 +62,7 @@ const LoginScreen = ({ location, history }) => {
         </Button>
       </Form>
 
-      <div class='or'> OR </div>
+      <div className='or'> OR </div>
       <GoogleAuth />
       <FacebookAuth />
 
