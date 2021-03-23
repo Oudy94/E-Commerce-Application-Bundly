@@ -53,7 +53,6 @@ const PlanScreen = ({ history, match }) => {
         <Row className=' shadow p-3 mb-5 bg-body rounded'>
           <Col md={{ span: 4, offset: 1 }}>
             <h2>Select the healthy bundle for you</h2>
-
             {products.map((product) => (
               <Row className='mb-3' key={product._id}>
                 <Col md={4}>
