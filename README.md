@@ -1,3 +1,1 @@
-https = true
-REACT_APP_FACEBOOK_CLIENT_ID = 1339399879754941
-REACT_APP_GOOGLE_CLIENT_ID = 119981778612-9dkamr69paamkkmbt6ugqlo2a7s0cv2m.apps.googleusercontent.com
+

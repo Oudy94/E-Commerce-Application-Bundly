@@ -11,15 +11,12 @@ import {
   Container,
   ButtonGroup,
   Image,
-  ButtonToolbar,
 } from "react-bootstrap"
-import { set } from "mongoose"
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState("")
   const [persons, setPersons] = useState("1")
   const [bundlePerWeek, setBundlePerWeek] = useState("2")
-  const [flag, setFlag] = useState(true)
 
   const keyword = match.params.keyword
 
@@ -37,7 +34,7 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch])
+  }, [dispatch, keyword, pageNumber])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -71,14 +68,12 @@ const PlanScreen = ({ history, match }) => {
                 </Col>
                 <Col md={6}>
                   <Button
-                    active={!flag}
                     variant='outline-success'
                     className='rounded mt-3'
+                    active={bundle === product._id ? true : false}
                     value={product._id}
                     onClick={(e) => {
                       setBundle(e.target.value)
-                      let s = !e.target.active
-                      setFlag(s)
                     }}
                   >
                     <i className='fas fa-hands'></i> {product.name}
@@ -100,9 +95,12 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
+                      active={persons == person ? true : false}
                       className='rounded me-3'
                       value={person}
-                      onClick={(e) => setPersons(e.target.value)}
+                      onClick={(e) => {
+                        setPersons(e.target.value)
+                      }}
                     >
                       {person}
                     </Button>
@@ -120,9 +118,12 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
+                      active={bundlePerWeek == number ? true : false}
                       className='rounded'
                       value={number}
-                      onClick={(e) => setBundlePerWeek(e.target.value)}
+                      onClick={(e) => {
+                        setBundlePerWeek(e.target.value)
+                      }}
                     >
                       {number}
                     </Button>
@@ -137,7 +138,7 @@ const PlanScreen = ({ history, match }) => {
             type='submit'
             variant='success'
             disabled={!bundle}
-            className=' shadow p-3 mb-5 bg-body rounded'
+            className='shadow p-3 mb-5 bg-body rounded'
           >
             Select This
           </Button>
