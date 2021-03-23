@@ -1,8 +1,8 @@
-import axios from "axios"
-import asyncHandler from "express-async-handler"
-import { OAuth2Client } from "google-auth-library"
-import generateToken from "../utils/generateToken.js"
-import User from "../models/userModel.js"
+import axios from 'axios'
+import asyncHandler from 'express-async-handler'
+import { OAuth2Client } from 'google-auth-library'
+import generateToken from '../utils/generateToken.js'
+import User from '../models/userModel.js'
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -22,7 +22,7 @@ const authUser = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(401)
-    throw new Error("Invalid email or password")
+    throw new Error('Invalid email or password')
   }
 })
 
@@ -36,7 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400)
-    throw new Error("User already exists")
+    throw new Error('User already exists')
   }
 
   const user = await User.create({
@@ -55,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(400)
-    throw new Error("Invalid user data")
+    throw new Error('Invalid user data')
   }
 })
 
@@ -74,7 +74,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(404)
-    throw new Error("User not found")
+    throw new Error('User not found')
   }
 })
 
@@ -102,7 +102,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(404)
-    throw new Error("User not found")
+    throw new Error('User not found')
   }
 })
 
@@ -122,10 +122,10 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   if (user) {
     await user.remove()
-    res.json({ message: "User removed" })
+    res.json({ message: 'User removed' })
   } else {
     res.status(404)
-    throw new Error("User not found")
+    throw new Error('User not found')
   }
 })
 
@@ -133,13 +133,13 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select("-password")
+  const user = await User.findById(req.params.id).select('-password')
 
   if (user) {
     res.json(user)
   } else {
     res.status(404)
-    throw new Error("User not found")
+    throw new Error('User not found')
   }
 })
 
@@ -164,7 +164,7 @@ const updateUser = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(404)
-    throw new Error("User not found")
+    throw new Error('User not found')
   }
 })
 
@@ -194,7 +194,7 @@ const authUserFacebook = asyncHandler(async (req, res) => {
         })
       } else {
         res.status(401)
-        throw new Error("Invalid email or password")
+        throw new Error('Invalid email or password')
       }
     } else {
       const newUser = await User.create({
@@ -213,12 +213,12 @@ const authUserFacebook = asyncHandler(async (req, res) => {
         })
       } else {
         res.status(400)
-        throw new Error("Invalid user data")
+        throw new Error('Invalid user data')
       }
     }
   } catch (error) {
     res.status(400)
-    throw new Error("Something went wrong...")
+    throw new Error('Something went wrong...')
   }
 })
 
@@ -252,7 +252,7 @@ const authUserGoogle = asyncHandler(async (req, res) => {
           })
         } else {
           res.status(401)
-          throw new Error("Invalid email or password")
+          throw new Error('Invalid email or password')
         }
       } else {
         const newUser = await User.create({
@@ -271,16 +271,16 @@ const authUserGoogle = asyncHandler(async (req, res) => {
           })
         } else {
           res.status(400)
-          throw new Error("Invalid user data")
+          throw new Error('Invalid user data')
         }
       }
     } else {
       res.status(400)
-      throw new Error("Email address not verified")
+      throw new Error('Email address not verified')
     }
   } catch (error) {
     res.status(400)
-    throw new Error("Something went wrong...")
+    throw new Error('Something went wrong...')
   }
 })
 

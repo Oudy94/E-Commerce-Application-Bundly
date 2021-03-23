@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { Form, Button, Row, Col } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-import Message from "../components/Message"
-import Loader from "../components/Loader"
-import FormContainer from "../components/FormContainer"
-import FacebookAuth from "../components/FacebookAuth"
-import GoogleAuth from "../components/GoogleAuth"
-import { register } from "../actions/userActions"
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Form, Button, Row, Col } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import FormContainer from '../components/FormContainer'
+import FacebookAuth from '../components/FacebookAuth'
+import GoogleAuth from '../components/GoogleAuth'
+import { register } from '../actions/userActions'
 
 const RegisterScreen = ({ location, history }) => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
 
   const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const RegisterScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const redirect = location.search ? location.search.split("=")[1] : "/"
+  const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
     if (userInfo) {
@@ -35,7 +35,7 @@ const RegisterScreen = ({ location, history }) => {
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match")
+      setMessage('Passwords do not match')
     } else {
       dispatch(register(name, email, password))
     }
@@ -99,8 +99,8 @@ const RegisterScreen = ({ location, history }) => {
 
       <Row className='py-3'>
         <Col>
-          Have an Account?{" "}
-          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+          Have an Account?{' '}
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
             Login
           </Link>
         </Col>

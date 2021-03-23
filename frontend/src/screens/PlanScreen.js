@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
-import { createPlan } from "../actions/planActions"
-import { listProducts } from "../actions/productActions"
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { createPlan } from '../actions/planActions'
+import { listProducts } from '../actions/productActions'
 import {
   Row,
   Col,
@@ -11,12 +11,12 @@ import {
   Container,
   ButtonGroup,
   Image,
-} from "react-bootstrap"
+} from 'react-bootstrap'
 
 const PlanScreen = ({ history, match }) => {
-  const [bundle, setBundle] = useState("")
-  const [persons, setPersons] = useState("1")
-  const [bundlePerWeek, setBundlePerWeek] = useState("2")
+  const [bundle, setBundle] = useState('')
+  const [persons, setPersons] = useState('1')
+  const [bundlePerWeek, setBundlePerWeek] = useState('2')
 
   const keyword = match.params.keyword
 

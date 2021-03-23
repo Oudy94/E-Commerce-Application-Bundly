@@ -1,11 +1,11 @@
-import axios from "axios"
+import axios from 'axios'
 import {
   PLAN_CREATE_REQUEST,
   PLAN_CREATE_SUCCESS,
   PLAN_CREATE_FAIL,
-} from "../constants/planConstants"
+} from '../constants/planConstants'
 
-import { logout } from "./userActions"
+import { logout } from './userActions'
 
 export const createPlan = (plan) => async (dispatch, getState) => {
   try {
@@ -19,7 +19,7 @@ export const createPlan = (plan) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
@@ -31,13 +31,13 @@ export const createPlan = (plan) => async (dispatch, getState) => {
       payload: data,
     })
     console.log(data)
-    localStorage.setItem("planItems", JSON.stringify(data))
+    localStorage.setItem('planItems', JSON.stringify(data))
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message
-    if (message === "Not authorized, token failed") {
+    if (message === 'Not authorized, token failed') {
       dispatch(logout())
     }
     dispatch({

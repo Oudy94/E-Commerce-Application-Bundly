@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Row,
   Col,
@@ -10,21 +10,21 @@ import {
   Button,
   Form,
   Container,
-} from "react-bootstrap"
-import Rating from "../components/Rating"
-import Message from "../components/Message"
-import Loader from "../components/Loader"
-import Meta from "../components/Meta"
+} from 'react-bootstrap'
+import Rating from '../components/Rating'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import {
   listProductDetails,
   createProductReview,
-} from "../actions/productActions"
-import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants"
+} from '../actions/productActions'
+import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
 const ProductScreen = ({ history, match, keyword, pageNumber }) => {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
-  const [comment, setComment] = useState("")
+  const [comment, setComment] = useState('')
   const [size, setSize] = useState(0)
   const [isShown, setIsShown] = useState(false)
 
@@ -46,7 +46,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
   useEffect(() => {
     if (successProductReview) {
       setRating(0)
-      setComment("")
+      setComment('')
     }
     if (!product._id || product._id !== match.params.id) {
       dispatch(listProductDetails(match.params.id))
@@ -107,8 +107,8 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                         <Col>Status:</Col>
                         <Col>
                           {product.countInStock > 0
-                            ? "In Stock"
-                            : "Out Of Stock"}
+                            ? 'In Stock'
+                            : 'Out Of Stock'}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -222,7 +222,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                           <Rating
                             value={product.rating}
                             text={`${product.numReviews} review${
-                              product.numReviews !== 1 ? "s" : ""
+                              product.numReviews !== 1 ? 's' : ''
                             }`}
                           />
                         }
@@ -286,7 +286,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                     ) : (
                       <Message>
                         Please <Link to='/login'>sign in</Link> to write a
-                        review{" "}
+                        review{' '}
                       </Message>
                     )}
                   </ListGroup.Item>

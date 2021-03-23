@@ -1,52 +1,44 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from "react-bootstrap";
-import Message from "../components/Message";
-import { addToCart, removeFromCart } from "../actions/cartActions";
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
+import Message from '../components/Message'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const CartScreen = ({ match, location, history }) => {
-  const productId = match.params.id;
+  const productId = match.params.id
   const splitParams = location.search
     .substring(1, location.search.length)
-    .split("&");
+    .split('&')
   const params = splitParams.reduce((acc, value) => {
-    const [key, val] = value.split("=");
+    const [key, val] = value.split('=')
     return {
       ...acc,
       [key]: val,
-    };
-  }, {});
+    }
+  }, {})
 
-  const size = Number(params.size);
-  const qty = params.qty ? Number(params.qty) : 1;
+  const size = Number(params.size)
+  const qty = params.qty ? Number(params.qty) : 1
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
+  const cart = useSelector((state) => state.cart)
+  const { cartItems } = cart
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty, size));
+      dispatch(addToCart(productId, qty, size))
     }
-  }, [dispatch, productId, qty, size]);
+  }, [dispatch, productId, qty, size])
 
   const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
-  };
+    dispatch(removeFromCart(id))
+  }
 
   const checkoutHandler = () => {
-    history.push("/login?redirect=shipping");
-  };
+    history.push('/login?redirect=shipping')
+  }
 
   return (
     <Row>
@@ -73,7 +65,7 @@ const CartScreen = ({ match, location, history }) => {
                     $
                     {cartItems
                       .reduce((acc, item) => {
-                        return acc + item.qty * item.price * item.size;
+                        return acc + item.qty * item.price * item.size
                       }, 0)
                       .toFixed(2)}
                   </Col>
@@ -139,7 +131,7 @@ const CartScreen = ({ match, location, history }) => {
         </Card>
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default CartScreen;
+export default CartScreen

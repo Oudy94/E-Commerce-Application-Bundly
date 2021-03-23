@@ -1,12 +1,12 @@
-import React, { useEffect } from "react"
-import { Link } from "react-router-dom"
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-import Message from "../components/Message"
-import CheckoutSteps from "../components/CheckoutSteps"
-import { createOrder } from "../actions/orderActions"
-import { ORDER_CREATE_RESET } from "../constants/orderConstants"
-import { USER_DETAILS_RESET } from "../constants/userConstants"
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import Message from '../components/Message'
+import CheckoutSteps from '../components/CheckoutSteps'
+import { createOrder } from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -14,9 +14,9 @@ const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart)
 
   if (!cart.shippingAddress.address) {
-    history.push("/shipping")
+    history.push('/shipping')
   } else if (!cart.paymentMethod) {
-    history.push("/payment")
+    history.push('/payment')
   }
   //   Calculate prices
   const addDecimals = (num) => {
@@ -70,8 +70,8 @@ const PlaceOrderScreen = ({ history }) => {
               <h2>Shipping</h2>
               <p>
                 <strong>Address:</strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
-                {cart.shippingAddress.postalCode},{" "}
+                {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
+                {cart.shippingAddress.postalCode},{' '}
                 {cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
