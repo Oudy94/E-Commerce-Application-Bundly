@@ -12,7 +12,7 @@ const GoogleAuth = () => {
   }
 
   const responseFailGoogle = (error) => {
-    console.log(error)
+    alert(error)
   }
 
   return (

@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import FacebookAuth from '../components/FacebookAuth'
 import GoogleAuth from '../components/GoogleAuth'
+import FacebookAuth from '../components/FacebookAuth'
 import { register } from '../actions/userActions'
 
 const RegisterScreen = ({ location, history }) => {

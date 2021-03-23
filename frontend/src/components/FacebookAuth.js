@@ -11,6 +11,10 @@ const FacebookAuth = () => {
     dispatch(authFacebook(response.accessToken, response.userID))
   }
 
+  const responseFailFacebook = (error) => {
+    alert(error)
+  }
+
   return (
     <div>
       <FacebookLogin
@@ -26,9 +30,8 @@ const FacebookAuth = () => {
           </Button>
         )}
         autoLoad={false}
-        // fields='name,email,picture'
-        // onClick={componentClicked}
         callback={responseFacebook}
+        onFailure={responseFailFacebook}
       />
     </div>
   )
