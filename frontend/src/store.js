@@ -8,7 +8,7 @@ import {
   productCreateReducer,
   productUpdateReducer,
   productReviewCreateReducer,
-  productTopRatedReducer,
+  productTopRatedReducer
 } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
@@ -21,6 +21,7 @@ import {
   userUpdateReducer,
   userAuthFaceBookReducer,
   userAuthGoogleReducer,
+  userHistoryRoutesReducer
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -28,7 +29,7 @@ import {
   orderPayReducer,
   orderDeliverReducer,
   orderListMyReducer,
-  orderListReducer,
+  orderListReducer
 } from './reducers/orderReducers'
 import { planCreateReducer } from './reducers/planReducers'
 
@@ -50,13 +51,15 @@ const reducer = combineReducers({
   userUpdate: userUpdateReducer,
   userAuthFaceBook: userAuthFaceBookReducer,
   userAuthGoogle: userAuthGoogleReducer,
+  userHistoryRoutes: userHistoryRoutesReducer,
+
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
-  plan: planCreateReducer,
+  plan: planCreateReducer
 })
 
 const planItemsFromStorage = localStorage.getItem('planItems')
@@ -74,14 +77,17 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {}
-
+const routesFromStorage = localStorage.getItem('routesHistory')
+  ? JSON.parse(localStorage.getItem('routesHistory'))
+  : []
 const initialState = {
   plan: { planItems: planItemsFromStorage },
   cart: {
     cartItems: cartItemsFromStorage,
-    shippingAddress: shippingAddressFromStorage,
+    shippingAddress: shippingAddressFromStorage
   },
   userLogin: { userInfo: userInfoFromStorage },
+  userHistoryRoutes: { routesHistory: routesFromStorage }
 }
 
 const middleware = [thunk]
