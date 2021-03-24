@@ -7,7 +7,7 @@ const products = [
     price: 19.99,
     countInStock: 3,
     rating: 0,
-    numReviews: 0,
+    numReviews: 0
   },
   {
     name: 'Bundle 2',
@@ -17,7 +17,7 @@ const products = [
     price: 24.99,
     countInStock: 10,
     rating: 0,
-    numReviews: 0,
+    numReviews: 0
   },
   {
     name: 'Bundle 3',

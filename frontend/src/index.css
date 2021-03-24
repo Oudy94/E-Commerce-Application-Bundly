@@ -49,15 +49,17 @@ h2 {
   top: 0;
 }
 
+.carousel-caption h2 {
+  color: #000;
+}
+
 .carousel img {
-  height: 25rem;
+  max-height: 300px;
   padding: 4rem;
   margin: 3rem;
   border-radius: 50%;
-
-  /* margin-left: auto;
-  margin-right: auto; */
 }
+
 .carousel a {
   margin: 0 auto;
 }
