@@ -19,6 +19,10 @@ import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import PlanScreen from './screens/PlanScreen'
+import ReactGA from 'react-ga'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+
 import { createRoutesHistory } from './actions/userActions'
 
 function usePageViews() {
@@ -33,7 +37,6 @@ function usePageViews() {
         window.GA_INITIALIZED = true
       }
       ReactGA.set({ page: location.pathname })
-      console.log(location.pathname)
       dispatch(createRoutesHistory(location.pathname))
       ReactGA.pageview(location.pathname)
     }

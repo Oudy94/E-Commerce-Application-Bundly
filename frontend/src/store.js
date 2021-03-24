@@ -77,9 +77,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {}
-const routesFromStorage = localStorage.getItem('routesHistory')
-  ? JSON.parse(localStorage.getItem('routesHistory'))
-  : []
+
 const initialState = {
   plan: { planItems: planItemsFromStorage },
   cart: {
@@ -87,7 +85,7 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage
   },
   userLogin: { userInfo: userInfoFromStorage },
-  userHistoryRoutes: { routesHistory: routesFromStorage }
+  userHistoryRoutes: { routesHistory: [] }
 }
 
 const middleware = [thunk]

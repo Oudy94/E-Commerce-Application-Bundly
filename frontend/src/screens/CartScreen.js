@@ -27,14 +27,12 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
-  const userHistoryRoutes = useSelector((state) => state.userHistoryRoutes)
-  const { routesHistory } = userHistoryRoutes
-  const signupOriginPath = routesHistory[routesHistory.length - 3]
+  const EventGaTracker = useEventGaTracker('addToCart')
 
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty, size))
-      EventGaTracker('successfull addToCart', signupOriginPath)
+      EventGaTracker('successfull addToCart', productId)
     }
   }, [dispatch, productId, qty, size])
 

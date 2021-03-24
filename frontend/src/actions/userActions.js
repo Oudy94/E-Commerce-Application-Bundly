@@ -382,11 +382,12 @@ export const createRoutesHistory = (path) => (dispatch, getState) => {
   } = getState()
 
   const routesHistoryArr = Object.values(routesHistory)
-
-  routesHistoryArr?.push(path)
+  if (routesHistoryArr) {
+    routesHistoryArr.push(path)
+  }
   if (routesHistoryArr.length > 4) {
     routesHistoryArr.shift()
   }
-
+  console.log(routesHistoryArr)
   dispatch({ type: USER_HISTORY_SUCCESS, payload: routesHistoryArr })
 }
