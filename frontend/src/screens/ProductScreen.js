@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, useCallback } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Row,
   Col,
@@ -10,11 +10,11 @@ import {
   Button,
   Form,
   Container,
-} from "react-bootstrap";
-import Rating from "../components/Rating";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import Meta from "../components/Meta";
+} from 'react-bootstrap'
+import Rating from '../components/Rating'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import {
   listProductDetails,
   createProductReview,
@@ -22,11 +22,11 @@ import {
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 
 const ProductScreen = ({ history, match, keyword, pageNumber }) => {
-  const [qty, setQty] = useState(1);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
-  const [size, setSize] = useState(0);
-  const [isShown, setIsShown] = useState(false);
+  const [qty, setQty] = useState(1)
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState('')
+  const [size, setSize] = useState(0)
+  const [isShown, setIsShown] = useState(false)
 
   const dispatch = useDispatch();
 
@@ -54,9 +54,9 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
     }
   }, [dispatch, match, successProductReview]);
 
-  const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}&size=${size}`);
-  };
+  const addToPlanHandler = () => {
+    history.push(`/plan/${match.params.id}`)
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -80,7 +80,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant='danger'>{error}</Message>
       ) : product && (
         <>
           <Meta title={product.name} />
@@ -88,94 +88,62 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
             <Col md={8}>
               <Image src={product.image} alt={product.name} fluid />
             </Col>
-            
-            <Col md={4}>
-              <Card>
-                <ListGroup variant="flush">
+            <Col md={4} className='pt-5'>
+              <Row>
+            {product.reviews.length > 0 && (
                   <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>
-                        <strong>${getPrice()}</strong>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  {product.countInStock > 0 && (
-                    <>
-                      <ListGroup.Item>
-                        <Form>
-                          <Form.Group controlId="size">
-                            <Form.Label>Size</Form.Label>
-                            <Form.Control
-                              as="select"
-                              value={size}
-                              onChange={(e) => setSize(e.target.value)}
-                            >
-                              <option value="">Select...</option>
-                              <option value="1">Small - 1 Person</option>
-                              <option value="2">Big - 2 People</option>
-                              <option value="3">Mega - 4 People</option>
-                            </Form.Control>
-                          </Form.Group>
-                        </Form>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Qty</Col>
-                          <Col>
-                            <Form.Control
-                              as="select"
-                              value={qty}
-                              onChange={(e) => {
-                                setQty(e.target.value);
-                              }}
-                            >
-                              {[...Array(product.countInStock).keys()].map(
-                                (x) => (
-                                  <option key={x + 1} value={x + 1}>
-                                    {x + 1}
-                                  </option>
-                                )
-                              )}
-                            </Form.Control>
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-                    </>
-                  )}
-
-                  <ListGroup.Item
-                    onMouseEnter={() => setIsShown(true)}
-                    onMouseLeave={() => setIsShown(false)}
-                  >
-                    {!size && (
-                      <p className="text-danger">
-                        Please choose your bundle size!
-                      </p>
-                    )}
-                    <Button
-                      onClick={addToCartHandler}
-                      className="btn-success"
-                      type="button"
-                      disabled={
-                        !product.countInStock || !size
+                    <p>Average Rating</p>
+                    <p>
+                      {
+                        <Rating
+                          value={product.rating}
+                          text={`${product.numReviews} review${
+                            product.numReviews !== 1 ? 's' : ''
+                          }`}
+                        />
                       }
-                    >
-                      Add To Cart
-                    </Button>
+                    </p>
                   </ListGroup.Item>
-                </ListGroup>
+                )}
+              </Row>
+              <Row>
+              <Card className='my-5'>
+                    <Button
+                      onClick={addToPlanHandler}
+                      className='btn-success'
+                      type='button'
+                    >
+                      Proceed To Plan Your Bundle
+                    </Button>
               </Card>
+              </Row>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  <h3>{product.name}</h3>
+                </ListGroup.Item>
+                  <ListGroup.Item>
+                  <h4>Products In This Bundle:</h4>
+                 <Container>
+                  <Row>
+                   
+                  {product.foodItems?.map((item) => (
+                    <Col md={2} className='py-3'>
+                      <img src={item.farmer.image} alt={item.farmer.name} className='product-img'/>
+                      <p>{item.name}</p>
+                      <p>€{item.price}</p>
+                      <p>Farmer: {item.farmer.name}</p>
+                      <hr/>
+                      </Col>
+                  ))}
+                
+                  </Row>
+                  </Container>
+                </ListGroup.Item>
+              </ListGroup>
             </Col>
           </Row>
           <Row>
@@ -210,23 +178,8 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
             <Col md={6}>
               <h2>Reviews</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant="flush">
-                {product.reviews.length > 0 && (
-                  <ListGroup.Item>
-                    <p>Average Rating</p>
-                    <p>
-                      {
-                        <Rating
-                          value={product.rating}
-                          text={`${product.numReviews} review${
-                            product.numReviews !== 1 ? "s" : ""
-                          }`}
-                        />
-                      }
-                    </p>
-                  </ListGroup.Item>
-                )}
-
+              <ListGroup variant='flush'>
+               
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
@@ -255,12 +208,12 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                           value={rating}
                           onChange={(e) => setRating(e.target.value)}
                         >
-                          <option value="">Select...</option>
-                          <option value="1">1 - Old</option>
-                          <option value="2">2 - Fair</option>
-                          <option value="3">3 - Good</option>
-                          <option value="4">4 - Fresh</option>
-                          <option value="5">5 - Super Fresh</option>
+                          <option value=''>Select...</option>
+                          <option value='1'>1 - Old</option>
+                          <option value='2'>2 - Fair</option>
+                          <option value='3'>3 - Good</option>
+                          <option value='4'>4 - Fresh</option>
+                          <option value='5'>5 - Super Fresh</option>
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId="comment">
@@ -274,8 +227,8 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                       </Form.Group>
                       <Button
                         disabled={loadingProductReview}
-                        type="submit"
-                        variant="success"
+                        type='submit'
+                        variant='success'
                       >
                         Submit
                       </Button>
