@@ -39,6 +39,11 @@ const Header = () => {
                   <i className='fas fa-calculator'></i> Plan
                 </Nav.Link>
               </LinkContainer>
+              <LinkContainer to='/faq'>
+                <Nav.Link>FAQ</Nav.Link>
+              </LinkContainer>
+            </Nav>
+            <Nav className='ml-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i> Cart

@@ -14,7 +14,7 @@ const nestedDocs = {
   },
 }
 
-// @desc    Fetch all products
+// @desc    Fetch all products by name
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
@@ -23,10 +23,20 @@ const getProducts = asyncHandler(async (req, res) => {
 
   const keyword = req.query.keyword
     ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
+        $or: [
+          {
+            name: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            category: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+        ],
       }
     : {}
 
