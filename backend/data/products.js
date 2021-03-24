@@ -28,7 +28,7 @@ const products = [
     price: 14.99,
     countInStock: 0,
     rating: 0,
-    numReviews: 0
+    numReviews: 0,
   },
   {
     name: 'Bundle 4',
@@ -39,8 +39,8 @@ const products = [
     price: 29.99,
     countInStock: 0,
     rating: 0,
-    numReviews: 0
-  }
-]
+    numReviews: 0,
+  },
+];
 
-export default products
+export default products;

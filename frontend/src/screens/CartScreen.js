@@ -7,8 +7,19 @@ import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
+  const splitParams = location.search
+    .substring(1, location.search.length)
+    .split('&')
+  const params = splitParams.reduce((acc, value) => {
+    const [key, val] = value.split('=')
+    return {
+      ...acc,
+      [key]: val,
+    }
+  }, {})
 
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1
+  const size = Number(params.size)
+  const qty = params.qty ? Number(params.qty) : 1
 
   const dispatch = useDispatch()
 
@@ -17,9 +28,9 @@ const CartScreen = ({ match, location, history }) => {
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty))
+      dispatch(addToCart(productId, qty, size))
     }
-  }, [dispatch, productId, qty])
+  }, [dispatch, productId, qty, size])
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
@@ -46,9 +57,18 @@ const CartScreen = ({ match, location, history }) => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/product/${item.product}`}>
+                      {item.name} ({item.size})
+                    </Link>
                   </Col>
-                  <Col md={2}>${item.price}</Col>
+                  <Col md={2}>
+                    $
+                    {cartItems
+                      .reduce((acc, item) => {
+                        return acc + item.qty * item.price * item.size
+                      }, 0)
+                      .toFixed(2)}
+                  </Col>
                   <Col md={2}>
                     <Form.Control
                       as='select'
@@ -91,7 +111,10 @@ const CartScreen = ({ match, location, history }) => {
               </h2>
               $
               {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .reduce(
+                  (acc, item) => acc + item.qty * item.price * item.size,
+                  0
+                )
                 .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>

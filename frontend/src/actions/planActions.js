@@ -24,7 +24,7 @@ export const createPlan = (plan) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/api/plan`, plan, config)
+    const { data } = await axios.post(`/plan`, plan, config)
 
     dispatch({
       type: PLAN_CREATE_SUCCESS,
