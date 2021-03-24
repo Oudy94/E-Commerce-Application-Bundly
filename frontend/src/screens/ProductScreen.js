@@ -39,19 +39,19 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
   } = productReviewCreate
   useEffect(() => {
     if (successProductReview) {
-      setRating(0);
-      setComment("");
+      setRating(0)
+      setComment('')
     }
     if (!product._id || product._id !== match.params.id) {
-      dispatch(listProductDetails(match.params.id));
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+      dispatch(listProductDetails(match.params.id))
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
   }, [dispatch, match, successProductReview])
   const addToPlanHandler = () => {
     history.push(`/plan/${match.params.id}`)
   }
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     dispatch(
       createProductReview(match.params.id, {
         rating,
@@ -123,10 +123,20 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                       <Row>
                         {product.foodItems?.map((item) => (
                           <Col md={2} className='py-3'>
-                            <img src={item.farmer.image} alt={item.farmer.name} className='product-img'/>
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className='product-img'
+                            />
                             <p>{item.name}</p>
                             <p>€{item.price}</p>
                             <p>Farmer: {item.farmer.name}</p>
+                            <img
+                              src={item.farmer.image}
+                              alt={item.farmer.name}
+                              className='product-img'
+                            />
+                            \
                             <hr />
                           </Col>
                         ))}
