@@ -84,8 +84,7 @@ const initialState = {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage
   },
-  userLogin: { userInfo: userInfoFromStorage },
-  userHistoryRoutes: { routesHistory: [] }
+  userLogin: { userInfo: userInfoFromStorage }
 }
 
 const middleware = [thunk]
