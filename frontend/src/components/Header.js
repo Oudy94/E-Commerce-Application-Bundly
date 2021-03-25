@@ -8,7 +8,7 @@ import { logout } from '../actions/userActions'
 import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const Header = () => {
-  const EventGaTracker = useEventGaTracker('Subscribe Now Button')
+  const EventGaTracker = useEventGaTracker('Plan CTA')
   const userHistoryRoutes = useSelector((state) => state.userHistoryRoutes)
   const { routesHistory } = userHistoryRoutes
   const signupOriginPath = routesHistory[routesHistory.length - 1]
