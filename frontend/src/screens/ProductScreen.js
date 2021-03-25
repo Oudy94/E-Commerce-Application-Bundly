@@ -136,6 +136,11 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                             <p>{item.name}</p>
                             <p>€{item.price}</p>
                             <p>Farmer: {item.farmer.name}</p>
+                            <img
+                              src={item.farmer.image}
+                              alt={item.farmer.name}
+                              className='product-img'
+                            />
                             <hr />
                           </Col>
                         ))}

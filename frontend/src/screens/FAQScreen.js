@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import {
   Badge,
   Button,
+  Card,
   Collapse,
   Container,
   Navbar,
-  Row,
 } from 'react-bootstrap'
 
 const FAQScreen = ({ history }) => {
@@ -15,31 +15,33 @@ const FAQScreen = ({ history }) => {
 
   return (
     <>
-      <Navbar className='bg-info' variant='dark' expand='lg'>
-        <h1>
-          <Badge>Frequently-Asked Questions</Badge>
-        </h1>
-      </Navbar>
       <Button
         className='btn btn-light my-3'
         onClick={() => {
           history.goBack()
         }}
       >
-        Go Back
+        &#x003C; &#x003C; &#x003C; Go Back
       </Button>
+      <Navbar className='faq rounded' variant='light' expand='lg'>
+        <h1>
+          <Badge className='faqb'>Frequently Asked Questions</Badge>
+        </h1>
+      </Navbar>
 
       <Container>
-        <Row className='mb-3'>
+        <Card className='shadow p-1 my-4'>
           <div
-            className='btn btn-outline-success'
+            className='btn-outline-success align-left rounded'
             onClick={() => setOpenA(!openA)}
             aria-controls='example-collapse-one'
             aria-expanded={openA}
           >
-            <strong>
-              What’s the benefit of an FAQ section on your website?
-            </strong>
+            <h2>
+              <strong>
+                What’s the benefit of an FAQ section on your website?
+              </strong>
+            </h2>
           </div>
           <Collapse in={openA}>
             <div id='example-collapse-one'>
@@ -60,20 +62,28 @@ const FAQScreen = ({ history }) => {
               well-written FAQ page shows experience. You know what customers
               are thinking and you’ve already got an answer. It’s a great way to
               increase the trust and professionalism of your website.
+              <hr />
+              <hr />
+              <h2>
+                Has this answer helped you?{' '}
+                <Button variant='light'>&#128077;</Button>
+                <Button variant='light'> &#128078;</Button>
+              </h2>
             </div>
           </Collapse>
-        </Row>
-        <Row className='mb-3'>
+        </Card>
+        <Card className='shadow p-1 mb-4'>
           <div
-            className='btn btn-outline-success'
+            className='btn-outline-success align-left rounded'
             onClick={() => setOpenB(!openB)}
             aria-controls='example-collapse-two'
             aria-expanded={openB}
           >
-            <strong>
-              {' '}
-              How do you decide what questions to put in your FAQ?
-            </strong>
+            <h2>
+              <strong>
+                How do you decide what questions to put in your FAQ?
+              </strong>
+            </h2>
           </div>
           <Collapse in={openB}>
             <div id='example-collapse-two'>
@@ -89,17 +99,26 @@ const FAQScreen = ({ history }) => {
               new business or don’t have a lot of customer queries yet, take a
               look at similar websites for ideas. Bonus points if you can answer
               the question better than they can.
+              <hr />
+              <hr />
+              <h2>
+                Has this answer helped you?{' '}
+                <Button variant='light'>&#128077;</Button>
+                <Button variant='light'> &#128078;</Button>
+              </h2>
             </div>
           </Collapse>
-        </Row>
-        <Row className='mb-3'>
+        </Card>
+        <Card className='shadow p-1 mb-4 '>
           <div
-            className='btn btn-outline-success'
+            className='btn-outline-success align-left rounded'
             onClick={() => setOpenC(!openC)}
             aria-controls='example-collapse-three'
             aria-expanded={openC}
           >
-            <strong> Why you should make an FAQ page three?</strong>
+            <h2>
+              <strong> Why you should make an FAQ page three?</strong>
+            </h2>
           </div>
           <Collapse in={openC}>
             <div id='example-collapse-three'>
@@ -110,9 +129,16 @@ const FAQScreen = ({ history }) => {
               questions to their websites. No more! Read on for tips on how to
               write an FAQ section and some of the reasons why it will help your
               business!
+              <hr />
+              <hr />
+              <h2>
+                Has this answer helped you?{' '}
+                <Button variant='light'>&#128077;</Button>
+                <Button variant='light'> &#128078;</Button>
+              </h2>
             </div>
           </Collapse>
-        </Row>
+        </Card>
       </Container>
     </>
   )
