@@ -34,7 +34,7 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, keyword, pageNumber])
+  }, [dispatch, keyword, pageNumber, products.length])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -68,7 +68,7 @@ const PlanScreen = ({ history, match }) => {
                 <Col md={6}>
                   <Button
                     variant='outline-success'
-                    className='rounded mt-3'
+                    className='rounded'
                     active={bundle === product._id ? true : false}
                     value={product._id}
                     onClick={(e) => {
@@ -94,7 +94,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
-                      active={persons == person ? true : false}
+                      active={Number(persons) === Number(person) ? true : false}
                       className='rounded me-3'
                       value={person}
                       onClick={(e) => {
@@ -117,7 +117,9 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
-                      active={bundlePerWeek == number ? true : false}
+                      active={
+                        Number(bundlePerWeek) === Number(number) ? true : false
+                      }
                       className='rounded'
                       value={number}
                       onClick={(e) => {
