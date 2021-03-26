@@ -30,6 +30,10 @@ import {
   USER_AUTH_GOOGLE_REQUEST,
   USER_AUTH_GOOGLE_SUCCESS,
   USER_AUTH_GOOGLE_FAIL,
+  USER_SUBSCRIPTION_REQUEST,
+  USER_SUBSCRIPTION_SUCCESS,
+  USER_SUBSCRIPTION_FAIL,
+  USER_SUBSCRIPTION_RESET
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
@@ -307,6 +311,44 @@ export const updateUser = (user) => async (dispatch, getState) => {
     })
   }
 }
+
+export const updateSubscriptionStatus = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_SUBSCRIPTION_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put('/api/users/confirmation', user, config)
+
+    dispatch({ type: USER_SUBSCRIPTION_SUCCESS })
+
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
+
+    dispatch({ type: USER_SUBSCRIPTION_RESET })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: USER_SUBSCRIPTION_FAIL,
+      payload: message,
+    })
+  }
+}
+
 
 export const authFacebook = (accessToken, userID) => async (dispatch) => {
   try {
