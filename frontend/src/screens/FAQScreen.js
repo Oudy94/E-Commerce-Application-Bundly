@@ -66,8 +66,16 @@ const FAQScreen = ({ history }) => {
               <hr />
               <h2>
                 Has this answer helped you?{' '}
-                <Button variant='light'>&#128077;</Button>
-                <Button variant='light'> &#128078;</Button>
+                <Button variant='light'>
+                  <span role='img' aria-label='example-collapse-one'>
+                    &#128077;
+                  </span>
+                </Button>
+                <Button variant='light'>
+                  <span role='img' aria-label='example-collapse-one'>
+                    &#128078;
+                  </span>
+                </Button>
               </h2>
             </div>
           </Collapse>
@@ -103,8 +111,16 @@ const FAQScreen = ({ history }) => {
               <hr />
               <h2>
                 Has this answer helped you?{' '}
-                <Button variant='light'>&#128077;</Button>
-                <Button variant='light'> &#128078;</Button>
+                <Button variant='light'>
+                  <span role='img' aria-label='example-collapse-two'>
+                    &#128077;
+                  </span>
+                </Button>
+                <Button variant='light'>
+                  <span role='img' aria-label='example-collapse-two'>
+                    &#128078;
+                  </span>
+                </Button>
               </h2>
             </div>
           </Collapse>
@@ -133,8 +149,16 @@ const FAQScreen = ({ history }) => {
               <hr />
               <h2>
                 Has this answer helped you?{' '}
-                <Button variant='light'>&#128077;</Button>
-                <Button variant='light'> &#128078;</Button>
+                <Button variant='light'>
+                  <span role='img' aria-label='example-collapse-three'>
+                    &#128077;
+                  </span>
+                </Button>
+                <Button variant='light'>
+                  <span role='img' aria-label='example-collapse-three'>
+                    &#128078;
+                  </span>
+                </Button>
               </h2>
             </div>
           </Collapse>
