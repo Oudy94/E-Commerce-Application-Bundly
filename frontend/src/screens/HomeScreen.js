@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
@@ -23,9 +24,30 @@ const HomeScreen = ({ match }) => {
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
 
+  const [apikey, setApiKey] = useState('')
+  const [isloading, setIsLoading] = useState(false)
+  const [haserror, setHasError] = useState(false)
+  const getApiKey = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await axios.get('/api/config/googleMap')
+      if (data) {
+        setApiKey(data)
+      } else {
+        throw new Error('failed to fetch the api key')
+      }
+    } catch (error) {
+      console.log(error)
+      setHasError(true)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber))
-  }, [dispatch, keyword, pageNumber])
+    getApiKey()
+  }, [dispatch, keyword, pageNumber, apikey])
 
   return (
     <>
@@ -61,7 +83,15 @@ const HomeScreen = ({ match }) => {
             keyword={keyword ? keyword : ''}
           />
           <Row>
-            <GoogleMap data={farmeDetails} />
+            {isloading ? (
+              <Loader />
+            ) : haserror ? (
+              'Error in loading the map'
+            ) : apikey ? (
+              <GoogleMap data={farmeDetails} apikey={apikey} />
+            ) : (
+              <Loader />
+            )}
           </Row>
         </>
       )}

@@ -3,10 +3,12 @@ import LocationMarker from './LocationMarker'
 import GoogleMapReact from 'google-map-react'
 import LocationInfoBox from './LocationInfoBox'
 
-const GoogleMap = ({ data, center, zoom }) => {
+const GoogleMap = ({ data, center, zoom, apikey }) => {
   const [info, setInfo] = useState(null)
-  const markers = data.map((farm) => (
+
+  const markers = data.map((farm, i) => (
     <LocationMarker
+      key={i}
       lat={farm.lat}
       lng={farm.lng}
       onClick={() =>
@@ -21,7 +23,7 @@ const GoogleMap = ({ data, center, zoom }) => {
   return (
     <div className="map">
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_KEY }}
+        bootstrapURLKeys={{ key: apikey }}
         defaultCenter={center}
         defaultZoom={zoom}
       >
