@@ -22,8 +22,8 @@ const Header = () => {
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
-              <img
-                src='/images/logo.png'
+            <img
+                src='/logo.png'
                 width='130'
                 className='d-inline-block align-top'
                 alt='Bundly logo'

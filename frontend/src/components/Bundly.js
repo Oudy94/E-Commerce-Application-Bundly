@@ -20,7 +20,7 @@ const Bundly = () => {
         </p>
         <Link to='/register?redirect=/'>
           <Button className='homepage-button' variant='primary' size='lg' block>
-            ORDER NOW
+            SUBSCRIBE NOW
           </Button>
         </Link>
       </Jumbotron>

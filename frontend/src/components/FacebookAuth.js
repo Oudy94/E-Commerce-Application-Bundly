@@ -26,8 +26,6 @@ const FacebookAuth = () => {
           </Button>
         )}
         autoLoad={false}
-        // fields='name,email,picture'
-        // onClick={componentClicked}
         callback={responseFacebook}
       />
     </div>

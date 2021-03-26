@@ -11,10 +11,6 @@ const GoogleAuth = () => {
     dispatch(authGoogle(response.tokenId))
   }
 
-  const responseFailGoogle = (error) => {
-    console.log(error)
-  }
-
   return (
     <div>
       <GoogleLogin
@@ -34,7 +30,6 @@ const GoogleAuth = () => {
           </Button>
         )}
         onSuccess={responseSuccessGoogle}
-        onFailure={responseFailGoogle}
         cookiePolicy={'single_host_origin'}
       />
     </div>
