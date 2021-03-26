@@ -18,6 +18,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      status: user.status,
       token: generateToken(user._id),
     })
   } else {
@@ -51,6 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      status: user.status,
       token: generateToken(user._id),
     })
   } else {
@@ -71,6 +73,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      status: user.status
     })
   } else {
     res.status(404)
@@ -98,12 +101,54 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      status: user.status,
       token: generateToken(updatedUser._id),
     })
   } else {
     res.status(404)
     throw new Error('User not found')
   }
+})
+
+// @desc Update/Confirm subscription status
+// @route PUT /api/users/confirmation
+// @access Private
+const confirmSubscription = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    user.status = 'active'
+
+    const updatedUser = await user.save()
+
+    res.json({
+      status: updatedUser.status,
+      token: generateToken(user._id),
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+
+  const sgMail = require('@sendgrid/mail')
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  const msg = {
+  to: 'yoselyncallejas19@gmail.com',
+  from: 'bundly29@gmail.com', 
+  subject: 'Sending with Twilio SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+  };
+  sgMail
+  .send(msg)
+  .then(() => {}, error => {
+    console.error(error);
+
+    if (error.response) {
+      console.error(error.response.body)
+    }
+  });
+  
 })
 
 // @desc    Get all users
@@ -295,4 +340,5 @@ export {
   updateUser,
   authUserFacebook,
   authUserGoogle,
+  confirmSubscription
 }
