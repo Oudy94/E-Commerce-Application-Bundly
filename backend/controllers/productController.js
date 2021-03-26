@@ -30,11 +30,49 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {}
 
+  const category = req.query.category ? { category: req.query.category } : {}
+
+  const ratingNumber = Number(req.query.rating)
+  const rating = ratingNumber ? {
+    rating: {
+      $gte: ratingNumber,
+      $lt: ratingNumber + 1,
+    }
+  } : {}
+
+  const price = { 
+    price: {
+      $gte: Number(req.query.minPrice) || 0,
+      $lte: Number(req.query.maxPrice) || 1000,
+    } 
+  }
+      
   const count = await Product.countDocuments({ ...keyword })
-  const products = await Product.find({ ...keyword })
-    .limit(pageSize)
+  const products = await Product.find({
+    ...keyword,
+    ...category,
+    ...rating,
+    ...price,
+  }).limit(pageSize)
     .skip(pageSize * (page - 1))
     .populate(nestedDocs)
+
+  switch (req.query.orderBy) {
+    case 'lowPrice':
+      products.sort((a, b) => a.price - b.price)
+      break
+    case 'hiPrice':
+      products.sort((a, b) => b.price - a.price)
+      break
+    case 'rating':
+      products.sort((a, b) => b.rating - a.rating)
+      break
+    case 'time':
+      products.sort((a, b) => (new Date(b.createdAt)) - (new Date(a.createdAt)))
+      break
+    default:
+      break
+  }
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })

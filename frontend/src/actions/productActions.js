@@ -24,14 +24,22 @@ import {
 } from '../constants/productConstants'
 import { logout } from './userActions'
 
-export const listProducts = (keyword = '', pageNumber = '') => async (
+export const listProducts = (
+  keyword = '',
+  pageNumber = '',
+  orderBy = '',
+  category = '',
+  minPrice = 0,
+  maxPrice = 1000,
+  rating = ''
+) => async (
   dispatch
 ) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST })
 
     const { data } = await axios.get(
-      `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      `/api/products?${keyword ? `keyword=${keyword}` : ''}&pageNumber=${pageNumber}${orderBy ? `&orderBy=${orderBy}` : ''}${category ? `&category=${category}` : ''}${minPrice ? `&minPrice=${minPrice}` : ''}${maxPrice ? `&maxPrice=${maxPrice}` : ''}${rating ? `&rating=${rating}` : ''}`
     )
 
     dispatch({
