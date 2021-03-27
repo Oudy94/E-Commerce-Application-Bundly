@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -20,12 +20,9 @@ import {
   createProductReview,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
-const ProductScreen = ({ history, match, keyword, pageNumber }) => {
-  const [qty, setQty] = useState(1)
+const ProductScreen = ({ history, match }) => {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-  const [size, setSize] = useState(0)
-  const [isShown, setIsShown] = useState(false)
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -37,6 +34,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
     loading: loadingProductReview,
     error: errorProductReview,
   } = productReviewCreate
+
   useEffect(() => {
     if (successProductReview) {
       setRating(0)
@@ -46,7 +44,8 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview])
+  }, [dispatch, match, successProductReview, product._id])
+
   const addToPlanHandler = () => {
     history.push(`/plan/${match.params.id}`)
   }
@@ -59,10 +58,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       })
     )
   }
-  const getPrice = () => {
-    if (!size || !qty || !product.price) return 0
-    return (product.price * size * qty).toFixed(2)
-  }
+
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
@@ -121,14 +117,18 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                     <h4>Products In This Bundle:</h4>
                     <Container>
                       <Row>
-                        {product.foodItems?.map((item) => (
-                          <Col md={2} className='py-3'>
+                        {product.foodItems?.map((item, key) => (
+                          <Col
+                            md={2}
+                            className='py-3'
+                            key={`foodItem_${item._id}`}
+                          >
                             <img
                               src={item.image}
                               alt={item.name}
                               className='product-img'
                             />
-                            <p>{item.name}</p>
+                            <p className='p-1'>{item.name}</p>
                             <p>€{item.price}</p>
                             <p>Farmer: {item.farmer.name}</p>
                             <img
@@ -136,7 +136,6 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
                               alt={item.farmer.name}
                               className='product-img'
                             />
-                            \
                             <hr />
                           </Col>
                         ))}

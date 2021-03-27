@@ -37,8 +37,7 @@ const OrderScreen = ({ match, history }) => {
   const { userInfo } = userLogin
 
   const userDetails = useSelector((state) => state.userDetails)
-  const { loading: loadingDetails, error: errorDetails, user } = userDetails
-
+  const { user } = userDetails
 
   if (!loading) {
     //   Calculate prices

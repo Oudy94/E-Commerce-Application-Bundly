@@ -34,7 +34,7 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, keyword, pageNumber])
+  }, [dispatch, keyword, pageNumber, products.length])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -94,7 +94,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
-                      active={persons == person ? true : false}
+                      active={persons === person}
                       className='rounded me-3'
                       value={person}
                       onClick={(e) => {
@@ -117,7 +117,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
-                      active={bundlePerWeek == number ? true : false}
+                      active={bundlePerWeek === number}
                       className='rounded'
                       value={number}
                       onClick={(e) => {
