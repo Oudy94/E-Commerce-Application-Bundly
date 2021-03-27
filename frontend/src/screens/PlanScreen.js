@@ -12,11 +12,16 @@ import {
   ButtonGroup,
   Image,
 } from 'react-bootstrap'
+import { updateSubscriptionPreferences } from '../actions/subscriptionActions'
+import { SUBSCRIPTION_UPDATE_PREFRENCES_CLEAR } from '../constants/subscriptionConstants'
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState('')
   const [persons, setPersons] = useState('')
   const [bundlePerWeek, setBundlePerWeek] = useState('')
+  const [bundleName, setBundleName] = useState()
+  const [bundleImage, setBundleImage] = useState()
+  const [bundlePrice, setBundlePrice] = useState()
 
   const keyword = match.params.keyword
 
@@ -27,21 +32,67 @@ const PlanScreen = ({ history, match }) => {
   const productList = useSelector((state) => state.productList)
   const { products } = productList
 
+  const subscriptionUpdatePrefrences = useSelector(
+    (state) => state.subscriptionUpdatePrefrences
+  )
+  const { order } = subscriptionUpdatePrefrences
+
   const family = [2, 3, 4]
   const weekly = [3, 4, 6]
 
   useEffect(() => {
+    if (order) {
+      history.push('/subscriptions')
+      dispatch({
+        type: SUBSCRIPTION_UPDATE_PREFRENCES_CLEAR,
+      })
+    }
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, keyword, pageNumber])
+  }, [dispatch, keyword, pageNumber, order])
 
   const submitHandler = (e) => {
     e.preventDefault()
     const size = Number(persons)
     const qty = Number(bundlePerWeek)
-    dispatch(createPlan(bundle, qty, size))
-    history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
+    const price = Number(bundlePrice)
+    if (match.params.id && match.params.orderItemId) {
+      //Calculate prices
+      const addDecimals = (num) => {
+        return (Math.round(num * 100) / 100).toFixed(2)
+      }
+
+      const totalBundlePrice = addDecimals(price * qty)
+      const shippingPrice = addDecimals(totalBundlePrice > 100 ? 0 : 5)
+      const taxPrice = addDecimals(Number((0.12 * totalBundlePrice).toFixed(2)))
+      const totalPrice = (
+        Number(price) +
+        Number(shippingPrice) +
+        Number(taxPrice)
+      ).toFixed(2)
+
+      dispatch(
+        updateSubscriptionPreferences(
+          {
+            taxPrice,
+            shippingPrice,
+            totalPrice,
+            newBundleId: bundle,
+            size,
+            qty,
+            price,
+            name: bundleName,
+            image: bundleImage,
+          },
+          match.params.id,
+          match.params.orderItemId
+        )
+      )
+    } else {
+      dispatch(createPlan(bundle, qty, size))
+      history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
+    }
   }
 
   return (
@@ -73,6 +124,9 @@ const PlanScreen = ({ history, match }) => {
                     value={product._id}
                     onClick={(e) => {
                       setBundle(e.target.value)
+                      setBundleName(product.name)
+                      setBundleImage(product.image)
+                      setBundlePrice(product.price)
                     }}
                   >
                     <i className='fas fa-hands'></i> {product.name}

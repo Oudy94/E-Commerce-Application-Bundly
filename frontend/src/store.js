@@ -30,6 +30,11 @@ import {
   orderListMyReducer,
   orderListReducer,
 } from './reducers/orderReducers'
+import {
+  subscriptionUpdateAddressReducer,
+  subscriptionUpdatePrefrencesReducer,
+  subscriptionCancelReducer,
+} from './reducers/subscriptionReducer'
 import { planCreateReducer } from './reducers/planReducers'
 
 const reducer = combineReducers({
@@ -57,6 +62,9 @@ const reducer = combineReducers({
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
   plan: planCreateReducer,
+  subscriptionUpdateAddress: subscriptionUpdateAddressReducer,
+  subscriptionUpdatePrefrences: subscriptionUpdatePrefrencesReducer,
+  subscriptionCancel: subscriptionCancelReducer,
 })
 
 const planItemsFromStorage = localStorage.getItem('planItems')
