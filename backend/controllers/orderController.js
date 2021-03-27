@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
+import sgMail from '@sendgrid/mail'
+import User from '../models/userModel.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -18,7 +20,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
   if (orderItems && orderItems.length === 0) {
     res.status(400)
     throw new Error('No order items')
-    return
   } else {
     const order = new Order({
       orderItems,
@@ -79,6 +80,56 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc Send subscription confirmation email
+// @route POST /api/orders/:id/pay
+// @access Private
+const subscriptionConfirmationEmail = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+  const user = await User.findById(order.user)
+
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+  if (order
+    ) {
+    const msg = {
+      from: process.env.SENDER_EMAIL,
+      personalizations: [
+        {
+          to: [
+            {
+              email: user.email
+            }
+          ],
+          dynamic_template_data: {
+            paymentMethod: order.paymentMethod,
+            name: order.orderItems.map(item => item.name),
+            qty: order.orderItems.map(item => item.qty),
+            image: order.orderItems.map(item => item.image),
+            price: order.orderItems.map(item => item.price),
+            taxPrice: order.taxPrice,
+            shippingPrice: order.shippingPrice,
+            totalPrice: order.totalPrice,
+          }
+        }
+     ],
+     templateId: process.env.SUBSCRIPTION_CONFIRMATION_TEMPLATE,
+    }
+    sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+    res.json({ message: 'Done', order })
+  } else {
+    res.status(404)
+    throw new Error('User & order not found')
+  }
+})
+
+
 // @desc    Update order to delivered
 // @route   GET /api/orders/:id/deliver
 // @access  Private/Admin
@@ -121,4 +172,5 @@ export {
   updateOrderToDelivered,
   getMyOrders,
   getOrders,
+  subscriptionConfirmationEmail,
 }
