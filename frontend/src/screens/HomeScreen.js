@@ -19,11 +19,14 @@ const HomeScreen = ({ match }) => {
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
 
+  // useEffect was moved to Filter component which now initiates
+  //  data fetching from the backend
+
   return (
     <>
       <Meta />
 
-      <h1 className='homepage-headings my-5'>Latest Products</h1>
+      <h1 className='homepage-headings'>Latest Products</h1>
       <Filter keyword={keyword} pageNumber={pageNumber} />
       {loading ? (
         <Loader />
@@ -47,9 +50,6 @@ const HomeScreen = ({ match }) => {
         </>
       )}
 
-      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-      <BundleCategory />
-
       {!keyword ? (
           <Bundly />
       ) : (
@@ -57,6 +57,9 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )}
+
+      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
+      <BundleCategory />
     </>
   )
 }

@@ -31,7 +31,7 @@ export const listProducts = (
   category = '',
   minPrice = 0,
   maxPrice = 1000,
-  rating = ''
+  rating = 0,
 ) => async (
   dispatch
 ) => {
