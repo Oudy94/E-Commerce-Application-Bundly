@@ -57,17 +57,17 @@ const HomeScreen = ({ match }) => {
           <Bundly />
         </>
       ) : (
-        <Link to="/" className="btn btn-light">
+        <Link to='/' className='btn btn-light'>
           Go Back
         </Link>
       )}
-      <h1 className="homepage-headings my-5">Bundle Categories</h1>
+      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
       <BundleCategory />
-      <h1 className="homepage-headings my-5">Latest Products</h1>
+      <h1 className='homepage-headings my-5'>Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant='danger'>{error}</Message>
       ) : (
         <>
           <Row>

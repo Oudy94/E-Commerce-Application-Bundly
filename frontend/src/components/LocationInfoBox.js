@@ -2,7 +2,7 @@ import React from 'react'
 
 const LocationInfoBox = ({ info }) => {
   return (
-    <div className="location-info">
+    <div className='location-info'>
       <h2>Farm Info</h2>
       <ul>
         <li>

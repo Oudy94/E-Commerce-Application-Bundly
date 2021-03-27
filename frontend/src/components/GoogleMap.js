@@ -15,13 +15,13 @@ const GoogleMap = ({ data, center, zoom, apikey }) => {
         setInfo({
           name: farm.name,
           address: farm.address,
-          rating: farm.rating
+          rating: farm.rating,
         })
       }
     />
   ))
   return (
-    <div className="map">
+    <div className='map'>
       <GoogleMapReact
         bootstrapURLKeys={{ key: apikey }}
         defaultCenter={center}
@@ -36,7 +36,7 @@ const GoogleMap = ({ data, center, zoom, apikey }) => {
 
 GoogleMap.defaultProps = {
   center: { lat: 52.36356732300538, lng: 4.913503522065644 },
-  zoom: 8
+  zoom: 8,
 }
 
 export default GoogleMap
