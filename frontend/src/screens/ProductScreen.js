@@ -21,10 +21,8 @@ import {
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 const ProductScreen = ({ history, match, keyword, pageNumber }) => {
-  // const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-  // const [size, setSize] = useState(0)
 
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
@@ -59,10 +57,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       })
     )
   }
-  // const getPrice = () => {
-  //   if (!size || !qty || !product.price) return 0
-  //   return (product.price * size * qty).toFixed(2)
-  // }
+
   return (
     <>
       <Button
