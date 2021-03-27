@@ -46,7 +46,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview])
+  }, [dispatch, match, successProductReview, product])
   const addToPlanHandler = () => {
     history.push(`/plan/${match.params.id}`)
   }
