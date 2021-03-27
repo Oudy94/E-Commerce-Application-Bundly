@@ -89,8 +89,7 @@ const subscriptionConfirmationEmail = asyncHandler(async (req, res) => {
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-  if (order
-    ) {
+  if (order) {
     const msg = {
       from: process.env.SENDER_EMAIL,
       personalizations: [

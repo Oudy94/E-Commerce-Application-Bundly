@@ -167,7 +167,7 @@ export const sendSubscriptionConfirmation = (order) => async (dispatch, getState
       },
     }
 
-    const { data } = await axios.post(`/api/orders/${order}/send`, userInfo, config)    
+    const { data } = await axios.post(`/api/orders/${order._id}/pay`, config)    
 
     dispatch({ type: ORDER_SUBSCRIPTION_EMAIL_SUCCESS, payload: data })
   } catch (error) {
