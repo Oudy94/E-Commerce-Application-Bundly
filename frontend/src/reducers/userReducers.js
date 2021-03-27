@@ -32,7 +32,7 @@ import {
   USER_AUTH_GOOGLE_SUCCESS,
   USER_AUTH_GOOGLE_FAIL,
   USER_HISTORY_SUCCESS,
-  USER_HISTORY_RESET
+  USER_HISTORY_RESET,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -133,7 +133,7 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
       return { loading: false, error: action.payload }
     case USER_UPDATE_RESET:
       return {
-        user: {}
+        user: {},
       }
     default:
       return state
@@ -173,7 +173,7 @@ export const userHistoryRoutesReducer = (
   switch (action.type) {
     case USER_HISTORY_SUCCESS:
       return {
-        routesHistory: action.payload
+        routesHistory: action.payload,
       }
 
     case USER_HISTORY_RESET:

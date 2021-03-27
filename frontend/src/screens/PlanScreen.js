@@ -10,7 +10,7 @@ import {
   Button,
   Container,
   ButtonGroup,
-  Image
+  Image,
 } from 'react-bootstrap'
 import useEventGaTracker from '../hooks/useEventGaTracker'
 
@@ -49,16 +49,16 @@ const PlanScreen = ({ history, match }) => {
   }
 
   return (
-    <Container className="p-3 ">
-      <Row className="justify-content-md-center">
+    <Container className='p-3 '>
+      <Row className='justify-content-md-center'>
         <h1>What is the best Bundle for you</h1>
       </Row>
       <Form onSubmit={submitHandler}>
-        <Row className=" shadow p-3 mb-5 bg-body rounded">
+        <Row className=' shadow p-3 mb-5 bg-body rounded'>
           <Col md={{ span: 4, offset: 1 }}>
             <h2>Select the healthy bundle for you</h2>
             {products.map((product) => (
-              <Row className="mb-3" key={product._id}>
+              <Row className='mb-3' key={product._id}>
                 <Col md={4}>
                   <Link to={`/product/${product._id}`}>
                     <Image
@@ -71,15 +71,15 @@ const PlanScreen = ({ history, match }) => {
                 </Col>
                 <Col md={6}>
                   <Button
-                    variant="outline-success"
-                    className="rounded mt-3"
+                    variant='outline-success'
+                    className='rounded mt-3'
                     active={bundle === product._id ? true : false}
                     value={product._id}
                     onClick={(e) => {
                       setBundle(e.target.value)
                     }}
                   >
-                    <i className="fas fa-hands"></i> {product.name}
+                    <i className='fas fa-hands'></i> {product.name}
                   </Button>
                 </Col>
               </Row>
@@ -88,7 +88,7 @@ const PlanScreen = ({ history, match }) => {
 
           <Col md={{ span: 4, offset: 2 }}>
             <h2>Select the size of your bundle</h2>
-            <Row className="mt-4">
+            <Row className='mt-4'>
               <Col>
                 <h5>Number of people</h5>
               </Col>
@@ -97,9 +97,9 @@ const PlanScreen = ({ history, match }) => {
                   {family.map((person) => (
                     <Button
                       key={person + 100}
-                      variant="outline-success"
+                      variant='outline-success'
                       active={persons == person ? true : false}
-                      className="rounded me-3"
+                      className='rounded me-3'
                       value={person}
                       onClick={(e) => {
                         setPersons(e.target.value)
@@ -111,7 +111,7 @@ const PlanScreen = ({ history, match }) => {
                 </ButtonGroup>
               </Col>
             </Row>
-            <Row className="mt-4">
+            <Row className='mt-4'>
               <Col>
                 <h5>Weekly Bundles</h5>
               </Col>
@@ -120,9 +120,9 @@ const PlanScreen = ({ history, match }) => {
                   {weekly.map((number) => (
                     <Button
                       key={number + 300}
-                      variant="outline-success"
+                      variant='outline-success'
                       active={bundlePerWeek == number ? true : false}
-                      className="rounded"
+                      className='rounded'
                       value={number}
                       onClick={(e) => {
                         setBundlePerWeek(e.target.value)
@@ -136,12 +136,12 @@ const PlanScreen = ({ history, match }) => {
             </Row>
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
+        <Row className='justify-content-md-center'>
           <Button
-            type="submit"
-            variant="success"
+            type='submit'
+            variant='success'
             disabled={!bundle || !persons || !bundlePerWeek}
-            className="shadow p-3 mb-5 bg-body rounded"
+            className='shadow p-3 mb-5 bg-body rounded'
           >
             Select This
           </Button>

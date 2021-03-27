@@ -5,7 +5,7 @@ const useEventGaTracker = (category = 'Event Category') => {
     ReactGA.event({
       category,
       action,
-      label
+      label,
     })
   }
   return trackEvents
