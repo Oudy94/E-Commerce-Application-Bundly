@@ -33,7 +33,7 @@ import {
   USER_SUBSCRIPTION_REQUEST,
   USER_SUBSCRIPTION_SUCCESS,
   USER_SUBSCRIPTION_FAIL,
-  USER_SUBSCRIPTION_RESET
+  USER_SUBSCRIPTION_RESET,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
@@ -328,6 +328,7 @@ export const updateSubscriptionStatus = (user) => async (dispatch, getState) => 
     }
 
     const { data } = await axios.put('/api/users/confirmation', user, config)
+    
 
     dispatch({ type: USER_SUBSCRIPTION_SUCCESS })
 
@@ -348,7 +349,6 @@ export const updateSubscriptionStatus = (user) => async (dispatch, getState) => 
     })
   }
 }
-
 
 export const authFacebook = (accessToken, userID) => async (dispatch) => {
   try {
