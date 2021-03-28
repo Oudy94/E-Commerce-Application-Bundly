@@ -30,7 +30,7 @@ import {
   USER_AUTH_FACEBOOK_FAIL,
   USER_AUTH_GOOGLE_REQUEST,
   USER_AUTH_GOOGLE_SUCCESS,
-  USER_AUTH_GOOGLE_FAIL,
+  USER_AUTH_GOOGLE_FAIL
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -131,7 +131,7 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
       return { loading: false, error: action.payload }
     case USER_UPDATE_RESET:
       return {
-        user: {},
+        user: {}
       }
     default:
       return state
