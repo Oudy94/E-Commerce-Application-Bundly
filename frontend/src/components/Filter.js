@@ -7,19 +7,38 @@ import { listProducts } from '../actions/productActions'
 const Filter = ({ keyword, pageNumber }) => {
   const dispatch = useDispatch()
 
-  const [orderBy, setOrderBy] = useState('')
-  const [category, setCategory] = useState('')
-  const [minPrice, setMinPrice] = useState(11)
-  const [maxPrice, setMaxPrice] = useState(14)
-  const [rating, setRating] = useState(0)
+  const initialOrder = ''
+  const initialCategory = ''
+  const initialMinPrice = 10
+  const initialMaxPrice = 20
+  const initialRating = 0
+
+  const [orderBy, setOrderBy] = useState(initialOrder)
+  const [category, setCategory] = useState(initialCategory)
+  const [minPrice, setMinPrice] = useState(initialMinPrice)
+  const [maxPrice, setMaxPrice] = useState(initialMaxPrice)
+  const [rating, setRating] = useState(initialRating)
+
+  // changing this piece of state triggers useEffect
   const [filter, setFilter] = useState(true)
 
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber, orderBy, category, minPrice, maxPrice, rating))
-  }, [dispatch, keyword, pageNumber, filter])
+  }, [dispatch, keyword, pageNumber, filter, orderBy])
 
   const smColWidth = 6
   const mdColWidth = 3
+
+  const clearFilters = () => {
+    setOrderBy(initialOrder)
+    setCategory(initialCategory)
+    setMinPrice(initialMinPrice)
+    setMaxPrice(initialMaxPrice)
+    setRating(initialRating)
+    // triggers useEffect
+    setFilter((current) => !current)
+  }
+  console.log(category)
 
   return (
     <Form onSubmit={(e) => {
@@ -31,6 +50,7 @@ const Filter = ({ keyword, pageNumber }) => {
       <Form.Control
         as="select"
         onChange={(e) => setCategory(e.target.value || '')}
+        value={category}
       >
         {['Category', 'Vegan', 'Vegetarian'].map((cat, i) => (
           <option key={cat} value={i ? cat : ''}>{cat}</option>
@@ -41,9 +61,10 @@ const Filter = ({ keyword, pageNumber }) => {
       <Form.Control
         as="select"
         onChange={(e) => setRating(Number(e.target.value))}
+        value={rating}
       >
         {['Rating', ...[...Array(5).keys()].map((i) => i + 1)].map((rat, i) => (
-            <option key={rat} value={i}>{`Rating${i ? `: ${rat}` : ''}`}</option>
+            <option key={rat} value={rat}>{`Rating${i ? `: ${rat}` : ''}`}</option>
           ))}
       </Form.Control>
     </Col>
@@ -81,6 +102,7 @@ const Filter = ({ keyword, pageNumber }) => {
     <Col>
       <Form.Check
         onChange={() => setOrderBy('hiPrice')}
+        checked={orderBy === 'hiPrice'}
         type="radio"
         label="Highest Price"
         name="sort"
@@ -89,6 +111,7 @@ const Filter = ({ keyword, pageNumber }) => {
     <Col>
       <Form.Check
         onChange={() => setOrderBy('lowPrice')}
+        checked={orderBy === 'lowPrice'}
         type="radio"
         label="Lowest Price"
         name="sort"
@@ -97,6 +120,7 @@ const Filter = ({ keyword, pageNumber }) => {
     <Col>
       <Form.Check
         onChange={() => setOrderBy('rating')}
+        checked={orderBy === 'rating'}
         type="radio"
         label="Best Rating"
         name="sort"
@@ -105,12 +129,18 @@ const Filter = ({ keyword, pageNumber }) => {
     <Col>
       <Form.Check
         onChange={() => setOrderBy('time')}
+        checked={orderBy === 'time'}
         type="radio"
         label="Newest"
         name="sort"
       />
     </Col>
     <Col xs="auto">
+      <Button
+        type="button"
+        variant="outline-primary"
+        onClick={clearFilters}
+      >Clear</Button>
       <Button type="submit">Filter products</Button>
     </Col>
   </Form.Row>

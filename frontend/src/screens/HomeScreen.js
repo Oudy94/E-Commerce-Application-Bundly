@@ -26,6 +26,14 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta />
 
+      {!keyword ? (
+          <Bundly />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
+
       <h1 className='homepage-headings'>Latest Products</h1>
       <Filter keyword={keyword} pageNumber={pageNumber} />
       {loading ? (
@@ -48,14 +56,6 @@ const HomeScreen = ({ match }) => {
             keyword={keyword ? keyword : ''}
           />
         </>
-      )}
-
-      {!keyword ? (
-          <Bundly />
-      ) : (
-        <Link to='/' className='btn btn-light'>
-          Go Back
-        </Link>
       )}
 
       <h1 className='homepage-headings my-5'>Bundle Categories</h1>
