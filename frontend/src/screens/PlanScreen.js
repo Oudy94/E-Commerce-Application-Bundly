@@ -12,11 +12,19 @@ import {
   ButtonGroup,
   Image,
 } from 'react-bootstrap'
+import { updateSubscriptionPreferences } from '../actions/subscriptionActions'
+import { SUBSCRIPTION_UPDATE_PREFERENCES_CLEAR } from '../constants/subscriptionConstants'
+import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState('')
   const [persons, setPersons] = useState('')
   const [bundlePerWeek, setBundlePerWeek] = useState('')
+  const [bundleName, setBundleName] = useState()
+  const [bundleImage, setBundleImage] = useState()
+  const [bundlePrice, setBundlePrice] = useState()
+
+  const EventGaTracker = useEventGaTracker('Subscribe Plan submit Button')
 
   const keyword = match.params.keyword
 
@@ -27,21 +35,68 @@ const PlanScreen = ({ history, match }) => {
   const productList = useSelector((state) => state.productList)
   const { products } = productList
 
+  const subscriptionUpdatePreferences = useSelector(
+    (state) => state.subscriptionUpdatePreferences
+  )
+  const { order } = subscriptionUpdatePreferences
+
   const family = [2, 3, 4]
   const weekly = [3, 4, 6]
 
   useEffect(() => {
+    if (order) {
+      history.push('/subscriptions')
+      dispatch({
+        type: SUBSCRIPTION_UPDATE_PREFERENCES_CLEAR,
+      })
+    }
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, keyword, pageNumber])
+  }, [dispatch, history, keyword, pageNumber, products, order])
 
   const submitHandler = (e) => {
     e.preventDefault()
     const size = Number(persons)
     const qty = Number(bundlePerWeek)
-    dispatch(createPlan(bundle, qty, size))
-    history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
+    const price = Number(bundlePrice)
+    if (match.params.id && match.params.orderItemId) {
+      //Calculate prices
+      const addDecimals = (num) => {
+        return (Math.round(num * 100) / 100).toFixed(2)
+      }
+
+      const totalBundlePrice = addDecimals(price * qty)
+      const shippingPrice = addDecimals(totalBundlePrice > 100 ? 0 : 5)
+      const taxPrice = addDecimals(Number((0.12 * totalBundlePrice).toFixed(2)))
+      const totalPrice = (
+        Number(price) +
+        Number(shippingPrice) +
+        Number(taxPrice)
+      ).toFixed(2)
+
+      dispatch(
+        updateSubscriptionPreferences(
+          {
+            taxPrice,
+            shippingPrice,
+            totalPrice,
+            newBundleId: bundle,
+            size,
+            qty,
+            price,
+            name: bundleName,
+            image: bundleImage,
+          },
+          match.params.id,
+          match.params.orderItemId
+        )
+      )
+    } else {
+      dispatch(createPlan(bundle, qty, size))
+      EventGaTracker('successful Plan submit clicked', '/plan')
+      history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
+    }
   }
 
   return (
@@ -68,11 +123,14 @@ const PlanScreen = ({ history, match }) => {
                 <Col md={6}>
                   <Button
                     variant='outline-success'
-                    className='rounded mt-3'
+                    className='rounded'
                     active={bundle === product._id ? true : false}
                     value={product._id}
                     onClick={(e) => {
                       setBundle(e.target.value)
+                      setBundleName(product.name)
+                      setBundleImage(product.image)
+                      setBundlePrice(product.price)
                     }}
                   >
                     <i className='fas fa-hands'></i> {product.name}
@@ -94,7 +152,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
-                      active={persons == person ? true : false}
+                      active={Number(persons) === Number(person) ? true : false}
                       className='rounded me-3'
                       value={person}
                       onClick={(e) => {
@@ -117,7 +175,9 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
-                      active={bundlePerWeek == number ? true : false}
+                      active={
+                        Number(bundlePerWeek) === Number(number) ? true : false
+                      }
                       className='rounded'
                       value={number}
                       onClick={(e) => {

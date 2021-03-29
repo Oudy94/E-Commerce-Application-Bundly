@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
@@ -10,6 +11,8 @@ import Bundly from '../components/Bundly'
 import BundleCategory from '../components/BundleCategory'
 import Meta from '../components/Meta'
 import Filter from '../components/Filter'
+import GoogleMap from '../components/GoogleMap'
+import farmeDetails from '../farmeDetails'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -19,22 +22,45 @@ const HomeScreen = ({ match }) => {
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
 
-  // useEffect was moved to Filter component which now initiates
-  //  data fetching from the backend
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+  const [apikey, setApiKey] = useState('')
+  const [isloading, setIsLoading] = useState(false)
+  const [haserror, setHasError] = useState(false)
+
+  useEffect(() => {
+    const getApiKey = async () => {
+      try {
+        setIsLoading(true)
+        const { data } = await axios.get('/api/config/googleMap')
+        if (data) {
+          setApiKey(data)
+        } else {
+          throw new Error('failed to fetch the api key')
+        }
+      } catch (error) {
+        console.log(error)
+        setHasError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    getApiKey()
+  }, [keyword, pageNumber, apikey])
 
   return (
     <>
       <Meta />
-
-      {!keyword ? (
-          <Bundly />
-      ) : (
+      {keyword && (
         <Link to='/' className='btn btn-light'>
           Go Back
         </Link>
       )}
 
-      <h1 className='homepage-headings'>Latest Products</h1>
+      {(!userInfo || userInfo.status !== 'active') && <Bundly />}
+
+      <h1 className='homepage-headings my-5'>Latest Products</h1>
       <Filter keyword={keyword} pageNumber={pageNumber} />
       {loading ? (
         <Loader />
@@ -55,6 +81,17 @@ const HomeScreen = ({ match }) => {
             page={page}
             keyword={keyword ? keyword : ''}
           />
+          <Row>
+            {isloading ? (
+              <Loader />
+            ) : haserror ? (
+              'Error in loading the map'
+            ) : apikey ? (
+              <GoogleMap data={farmeDetails} apikey={apikey} />
+            ) : (
+              <Loader />
+            )}
+          </Row>
         </>
       )}
 

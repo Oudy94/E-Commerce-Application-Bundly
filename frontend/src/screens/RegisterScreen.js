@@ -8,6 +8,7 @@ import FormContainer from '../components/FormContainer'
 import GoogleAuth from '../components/GoogleAuth'
 import FacebookAuth from '../components/FacebookAuth'
 import { register } from '../actions/userActions'
+import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -15,8 +16,12 @@ const RegisterScreen = ({ location, history }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
+  const EventGaTracker = useEventGaTracker('SignUp')
 
   const dispatch = useDispatch()
+  const userHistoryRoutes = useSelector((state) => state.userHistoryRoutes)
+  const { routesHistory } = userHistoryRoutes
+  const signupOriginPath = routesHistory[routesHistory.length - 3]
 
   const userRegister = useSelector((state) => state.userRegister)
   const { loading, error } = userRegister
@@ -38,6 +43,7 @@ const RegisterScreen = ({ location, history }) => {
       setMessage('Passwords do not match')
     } else {
       dispatch(register(name, email, password))
+      EventGaTracker('successfull signup', signupOriginPath)
     }
   }
 
@@ -93,7 +99,7 @@ const RegisterScreen = ({ location, history }) => {
         </Button>
       </Form>
 
-      <div class='or'> OR </div>
+      <div className='or'> OR </div>
       <GoogleAuth />
       <FacebookAuth />
 

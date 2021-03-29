@@ -16,11 +16,13 @@ import {
   userRegisterReducer,
   userDetailsReducer,
   userUpdateProfileReducer,
+  userSubscriptionStatusReducer,
   userListReducer,
   userDeleteReducer,
   userUpdateReducer,
   userAuthFaceBookReducer,
   userAuthGoogleReducer,
+  userHistoryRoutesReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -30,6 +32,11 @@ import {
   orderListMyReducer,
   orderListReducer,
 } from './reducers/orderReducers'
+import {
+  subscriptionUpdateAddressReducer,
+  subscriptionUpdatePreferencesReducer,
+  subscriptionCancelReducer,
+} from './reducers/subscriptionReducer'
 import { planCreateReducer } from './reducers/planReducers'
 
 const reducer = combineReducers({
@@ -45,11 +52,14 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  userSubscriptionStatus: userSubscriptionStatusReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
   userAuthFaceBook: userAuthFaceBookReducer,
   userAuthGoogle: userAuthGoogleReducer,
+  userHistoryRoutes: userHistoryRoutesReducer,
+
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
@@ -57,6 +67,9 @@ const reducer = combineReducers({
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
   plan: planCreateReducer,
+  subscriptionUpdateAddress: subscriptionUpdateAddressReducer,
+  subscriptionUpdatePreferences: subscriptionUpdatePreferencesReducer,
+  subscriptionCancel: subscriptionCancelReducer,
 })
 
 const planItemsFromStorage = localStorage.getItem('planItems')
