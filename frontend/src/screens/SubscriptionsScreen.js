@@ -6,9 +6,12 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listMyOrders } from '../actions/orderActions'
 import { cancelSbuscription } from '../actions/subscriptionActions'
+import PopupBox from '../components/PopupBox'
 
 const ProfileScreen = ({ history }) => {
   const dispatch = useDispatch()
+
+  const [modalShow, setModalShow] = useState(false)
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -26,12 +29,6 @@ const ProfileScreen = ({ history }) => {
       dispatch(listMyOrders())
     }
   }, [dispatch, history, userInfo, successDelete])
-
-  const cancelSubscriptionHandler = (id, orderItemId) => {
-    if (window.confirm('Are you sure')) {
-      dispatch(cancelSbuscription(id, orderItemId))
-    }
-  }
 
   return (
     <Row>
@@ -95,15 +92,23 @@ const ProfileScreen = ({ history }) => {
                       <Button
                         className='btn-sm'
                         variant='danger'
-                        onClick={() => {
-                          cancelSubscriptionHandler(
-                            order._id,
-                            subscriptions._id
-                          )
-                        }}
+                        onClick={() => setModalShow(true)}
                       >
                         Cancel
                       </Button>
+                      <PopupBox
+                        show={modalShow}
+                        onConfirm={() => {
+                          setModalShow(false)
+                          dispatch(
+                            cancelSbuscription(order._id, subscriptions._id)
+                          )
+                        }}
+                        onHide={() => setModalShow(false)}
+                        title='Subscription Cancelation'
+                        header={`Are you sure that you want to cancel your ${subscriptions.name} subscription?`}
+                        content='If you cancel your subscription, it will be stopped delivered starting from next week.'
+                      />
                     </td>
                   </tr>
                 ))}
