@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -20,12 +20,10 @@ import {
   createProductReview,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
-const ProductScreen = ({ history, match, keyword, pageNumber }) => {
-  const [qty, setQty] = useState(1)
+
+const ProductScreen = ({ history, match }) => {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-  const [size, setSize] = useState(0)
-  const [isShown, setIsShown] = useState(false)
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -46,7 +44,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview])
+  }, [dispatch, match, successProductReview, product])
   const addToPlanHandler = () => {
     history.push(`/plan/${match.params.id}`)
   }
@@ -59,10 +57,7 @@ const ProductScreen = ({ history, match, keyword, pageNumber }) => {
       })
     )
   }
-  const getPrice = () => {
-    if (!size || !qty || !product.price) return 0
-    return (product.price * size * qty).toFixed(2)
-  }
+
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
