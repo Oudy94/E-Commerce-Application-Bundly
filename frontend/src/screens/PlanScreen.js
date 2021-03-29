@@ -14,6 +14,7 @@ import {
 } from 'react-bootstrap'
 import { updateSubscriptionPreferences } from '../actions/subscriptionActions'
 import { SUBSCRIPTION_UPDATE_PREFRENCES_CLEAR } from '../constants/subscriptionConstants'
+import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState('')
@@ -22,6 +23,8 @@ const PlanScreen = ({ history, match }) => {
   const [bundleName, setBundleName] = useState()
   const [bundleImage, setBundleImage] = useState()
   const [bundlePrice, setBundlePrice] = useState()
+
+  const EventGaTracker = useEventGaTracker('Subscribe Plan submit Button')
 
   const keyword = match.params.keyword
 
@@ -50,8 +53,7 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-
-  }, [dispatch, keyword, pageNumber, products, order])
+  }, [dispatch, keyword, pageNumber, products.length, order])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -92,6 +94,7 @@ const PlanScreen = ({ history, match }) => {
       )
     } else {
       dispatch(createPlan(bundle, qty, size))
+      EventGaTracker('successfull Plan submit clicked', '/plan')
       history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
     }
   }
@@ -149,7 +152,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
-                      active={Number(persons) === Number(person) ? true : false}
+                      active={Number(persons) === Number(person)}
                       className='rounded me-3'
                       value={person}
                       onClick={(e) => {
@@ -172,9 +175,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
-                      active={
-                        Number(bundlePerWeek) === Number(number) ? true : false
-                      }
+                      active={Number(bundlePerWeek) === Number(number)}
                       className='rounded'
                       value={number}
                       onClick={(e) => {

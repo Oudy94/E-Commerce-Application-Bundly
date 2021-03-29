@@ -35,6 +35,7 @@ const ProductScreen = ({ history, match }) => {
     loading: loadingProductReview,
     error: errorProductReview,
   } = productReviewCreate
+
   useEffect(() => {
     if (successProductReview) {
       setRating(0)
@@ -44,7 +45,8 @@ const ProductScreen = ({ history, match }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview, product])
+  }, [dispatch, match, successProductReview, product._id])
+
   const addToPlanHandler = () => {
     history.push(`/plan/${match.params.id}`)
   }
@@ -116,14 +118,18 @@ const ProductScreen = ({ history, match }) => {
                     <h4>Products In This Bundle:</h4>
                     <Container>
                       <Row>
-                        {product.foodItems?.map((item) => (
-                          <Col md={2} className='py-3'>
+                        {product.foodItems?.map((item, key) => (
+                          <Col
+                            md={2}
+                            className='py-3'
+                            key={`foodItem_${item._id}`}
+                          >
                             <img
                               src={item.image}
                               alt={item.name}
                               className='product-img'
                             />
-                            <p>{item.name}</p>
+                            <p className='p-1'>{item.name}</p>
                             <p>€{item.price}</p>
                             <p>Farmer: {item.farmer.name}</p>
                             <img
@@ -131,7 +137,6 @@ const ProductScreen = ({ history, match }) => {
                               alt={item.farmer.name}
                               className='product-img'
                             />
-                            \
                             <hr />
                           </Col>
                         ))}

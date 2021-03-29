@@ -20,6 +20,11 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: true,
       default: false
+    },
+    status: {
+      type: String, 
+      enum: ['active', 'inactive'],
+      default: 'inactive'
     }
   },
   {
