@@ -31,20 +31,24 @@ import {
   USER_AUTH_GOOGLE_SUCCESS,
   USER_AUTH_GOOGLE_FAIL,
   USER_HISTORY_SUCCESS,
-  USER_HISTORY_RESET
+  USER_HISTORY_RESET,
+  USER_SUBSCRIPTION_REQUEST,
+  USER_SUBSCRIPTION_SUCCESS,
+  USER_SUBSCRIPTION_FAIL,
+  USER_SUBSCRIPTION_RESET,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
-      type: USER_LOGIN_REQUEST
+      type: USER_LOGIN_REQUEST,
     })
 
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }
 
     const { data } = await axios.post(
@@ -55,7 +59,7 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data
+      payload: data,
     })
 
     localStorage.setItem('userInfo', JSON.stringify(data))
@@ -65,7 +69,7 @@ export const login = (email, password) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
+          : error.message,
     })
   }
 }
@@ -87,13 +91,13 @@ export const logout = () => (dispatch) => {
 export const register = (name, email, password) => async (dispatch) => {
   try {
     dispatch({
-      type: USER_REGISTER_REQUEST
+      type: USER_REGISTER_REQUEST,
     })
 
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }
 
     const { data } = await axios.post(
@@ -103,12 +107,12 @@ export const register = (name, email, password) => async (dispatch) => {
     )
 
     dispatch({
-      type: USER_REGISTER_SUCCESS
+      type: USER_REGISTER_SUCCESS,
     })
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data
+      payload: data,
     })
 
     localStorage.setItem('userInfo', JSON.stringify(data))
@@ -118,7 +122,7 @@ export const register = (name, email, password) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
+          : error.message,
     })
   }
 }
@@ -126,24 +130,24 @@ export const register = (name, email, password) => async (dispatch) => {
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: USER_DETAILS_REQUEST
+      type: USER_DETAILS_REQUEST,
     })
 
     const {
-      userLogin: { userInfo }
+      userLogin: { userInfo },
     } = getState()
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`
-      }
+        Authorization: `Bearer ${userInfo.token}`,
+      },
     }
 
     const { data } = await axios.get(`/api/users/${id}`, config)
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
-      payload: data
+      payload: data,
     })
   } catch (error) {
     const message =
@@ -155,7 +159,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_DETAILS_FAIL,
-      payload: message
+      payload: message,
     })
   }
 }
@@ -163,28 +167,28 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: USER_UPDATE_PROFILE_REQUEST
+      type: USER_UPDATE_PROFILE_REQUEST,
     })
 
     const {
-      userLogin: { userInfo }
+      userLogin: { userInfo },
     } = getState()
 
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`
-      }
+        Authorization: `Bearer ${userInfo.token}`,
+      },
     }
 
     const { data } = await axios.put(`/api/users/profile`, user, config)
 
     dispatch({
-      type: USER_UPDATE_PROFILE_SUCCESS
+      type: USER_UPDATE_PROFILE_SUCCESS,
     })
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data
+      payload: data,
     })
     localStorage.setItem('userInfo', JSON.stringify(data))
   } catch (error) {
@@ -197,7 +201,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
-      payload: message
+      payload: message,
     })
   }
 }
@@ -205,24 +209,24 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 export const listUsers = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: USER_LIST_REQUEST
+      type: USER_LIST_REQUEST,
     })
 
     const {
-      userLogin: { userInfo }
+      userLogin: { userInfo },
     } = getState()
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`
-      }
+        Authorization: `Bearer ${userInfo.token}`,
+      },
     }
 
     const { data } = await axios.get(`/api/users`, config)
 
     dispatch({
       type: USER_LIST_SUCCESS,
-      payload: data
+      payload: data,
     })
   } catch (error) {
     const message =
@@ -234,7 +238,7 @@ export const listUsers = () => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_LIST_FAIL,
-      payload: message
+      payload: message,
     })
   }
 }
@@ -242,17 +246,17 @@ export const listUsers = () => async (dispatch, getState) => {
 export const deleteUser = (id) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: USER_DELETE_REQUEST
+      type: USER_DELETE_REQUEST,
     })
 
     const {
-      userLogin: { userInfo }
+      userLogin: { userInfo },
     } = getState()
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`
-      }
+        Authorization: `Bearer ${userInfo.token}`,
+      },
     }
 
     await axios.delete(`/api/users/${id}`, config)
@@ -268,7 +272,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_DELETE_FAIL,
-      payload: message
+      payload: message,
     })
   }
 }
@@ -276,18 +280,18 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 export const updateUser = (user) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: USER_UPDATE_REQUEST
+      type: USER_UPDATE_REQUEST,
     })
 
     const {
-      userLogin: { userInfo }
+      userLogin: { userInfo },
     } = getState()
 
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`
-      }
+        Authorization: `Bearer ${userInfo.token}`,
+      },
     }
 
     const { data } = await axios.put(`/api/users/${user._id}`, user, config)
@@ -307,7 +311,47 @@ export const updateUser = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_FAIL,
-      payload: message
+      payload: message,
+    })
+  }
+}
+
+export const updateSubscriptionStatus = (user) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: USER_SUBSCRIPTION_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put('/api/users/confirmation', user, config)
+
+    dispatch({ type: USER_SUBSCRIPTION_SUCCESS })
+
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
+
+    dispatch({ type: USER_SUBSCRIPTION_RESET })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: USER_SUBSCRIPTION_FAIL,
+      payload: message,
     })
   }
 }
@@ -318,8 +362,8 @@ export const authFacebook = (accessToken, userID) => async (dispatch) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }
 
     const { data } = await axios.post(
@@ -339,7 +383,7 @@ export const authFacebook = (accessToken, userID) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
+          : error.message,
     })
   }
 }
@@ -350,8 +394,8 @@ export const authGoogle = (tokenId) => async (dispatch) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }
 
     const { data } = await axios.post(
@@ -371,14 +415,14 @@ export const authGoogle = (tokenId) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
+          : error.message,
     })
   }
 }
 
 export const createRoutesHistory = (path) => (dispatch, getState) => {
   const {
-    userHistoryRoutes: { routesHistory }
+    userHistoryRoutes: { routesHistory },
   } = getState()
 
   const routesHistoryArr = Object.values(routesHistory)
