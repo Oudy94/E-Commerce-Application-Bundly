@@ -3,9 +3,9 @@ import {
   SUBSCRIPTION_UPDATE_ADDRESS_REQUEST,
   SUBSCRIPTION_UPDATE_ADDRESS_SUCCESS,
   SUBSCRIPTION_UPDATE_ADDRESS_FAIL,
-  SUBSCRIPTION_UPDATE_PREFRENCES_REQUEST,
-  SUBSCRIPTION_UPDATE_PREFRENCES_SUCCESS,
-  SUBSCRIPTION_UPDATE_PREFRENCES_FAIL,
+  SUBSCRIPTION_UPDATE_PREFERENCES_REQUEST,
+  SUBSCRIPTION_UPDATE_PREFERENCES_SUCCESS,
+  SUBSCRIPTION_UPDATE_PREFERENCES_FAIL,
   SUBSCRIPTION_CANCEL_REQUEST,
   SUBSCRIPTION_CANCEL_SUCCESS,
   SUBSCRIPTION_CANCEL_FAIL,
@@ -60,7 +60,7 @@ export const updateSubscriptionPreferences = (
 ) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: SUBSCRIPTION_UPDATE_PREFRENCES_REQUEST,
+      type: SUBSCRIPTION_UPDATE_PREFERENCES_REQUEST,
     })
 
     const {
@@ -81,7 +81,7 @@ export const updateSubscriptionPreferences = (
     )
 
     dispatch({
-      type: SUBSCRIPTION_UPDATE_PREFRENCES_SUCCESS,
+      type: SUBSCRIPTION_UPDATE_PREFERENCES_SUCCESS,
       payload: data,
     })
   } catch (error) {
@@ -90,13 +90,13 @@ export const updateSubscriptionPreferences = (
         ? error.response.data.message
         : error.message
     dispatch({
-      type: SUBSCRIPTION_UPDATE_PREFRENCES_FAIL,
+      type: SUBSCRIPTION_UPDATE_PREFERENCES_FAIL,
       payload: message,
     })
   }
 }
 
-export const cancelSbuscription = (id, orderItemId) => async (
+export const cancelSubscription = (id, orderItemId) => async (
   dispatch,
   getState
 ) => {

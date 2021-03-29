@@ -113,7 +113,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @desc Update/Confirm subscription status
 // @route PUT /api/users/confirmation
 // @access Private
-const confirmSubscription = asyncHandler(async (req, res) => {
+const updateSubscriptionStatus = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (user) {
@@ -129,8 +129,7 @@ const confirmSubscription = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('User not found')
   }
-
-  })
+})
 
 // @desc    Get all users
 // @route   GET /api/users
@@ -321,5 +320,5 @@ export {
   updateUser,
   authUserFacebook,
   authUserGoogle,
-  confirmSubscription
+  updateSubscriptionStatus,
 }

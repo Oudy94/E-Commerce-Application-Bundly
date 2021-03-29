@@ -1,5 +1,5 @@
 import ReactGA from 'react-ga'
-import React from 'react'
+
 const useEventGaTracker = (category = 'Event Category') => {
   const trackEvents = (action = 'action', label = 'label') => {
     ReactGA.event({

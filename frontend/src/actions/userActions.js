@@ -335,6 +335,7 @@ export const updateSubscriptionStatus = (user) => async (
     }
 
     const { data } = await axios.put('/api/users/confirmation', user, config)
+    
 
     dispatch({ type: USER_SUBSCRIPTION_SUCCESS })
 

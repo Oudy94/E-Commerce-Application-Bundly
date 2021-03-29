@@ -34,7 +34,7 @@ import {
 } from './reducers/orderReducers'
 import {
   subscriptionUpdateAddressReducer,
-  subscriptionUpdatePrefrencesReducer,
+  subscriptionUpdatePreferencesReducer,
   subscriptionCancelReducer,
 } from './reducers/subscriptionReducer'
 import { planCreateReducer } from './reducers/planReducers'
@@ -68,7 +68,7 @@ const reducer = combineReducers({
   orderList: orderListReducer,
   plan: planCreateReducer,
   subscriptionUpdateAddress: subscriptionUpdateAddressReducer,
-  subscriptionUpdatePrefrences: subscriptionUpdatePrefrencesReducer,
+  subscriptionUpdatePreferences: subscriptionUpdatePreferencesReducer,
   subscriptionCancel: subscriptionCancelReducer,
 })
 

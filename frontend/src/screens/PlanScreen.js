@@ -13,7 +13,7 @@ import {
   Image,
 } from 'react-bootstrap'
 import { updateSubscriptionPreferences } from '../actions/subscriptionActions'
-import { SUBSCRIPTION_UPDATE_PREFRENCES_CLEAR } from '../constants/subscriptionConstants'
+import { SUBSCRIPTION_UPDATE_PREFERENCES_CLEAR } from '../constants/subscriptionConstants'
 import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const PlanScreen = ({ history, match }) => {
@@ -35,10 +35,10 @@ const PlanScreen = ({ history, match }) => {
   const productList = useSelector((state) => state.productList)
   const { products } = productList
 
-  const subscriptionUpdatePrefrences = useSelector(
-    (state) => state.subscriptionUpdatePrefrences
+  const subscriptionUpdatePreferences = useSelector(
+    (state) => state.subscriptionUpdatePreferences
   )
-  const { order } = subscriptionUpdatePrefrences
+  const { order } = subscriptionUpdatePreferences
 
   const family = [2, 3, 4]
   const weekly = [3, 4, 6]
@@ -47,13 +47,13 @@ const PlanScreen = ({ history, match }) => {
     if (order) {
       history.push('/subscriptions')
       dispatch({
-        type: SUBSCRIPTION_UPDATE_PREFRENCES_CLEAR,
+        type: SUBSCRIPTION_UPDATE_PREFERENCES_CLEAR,
       })
     }
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, keyword, pageNumber, products.length, order])
+  }, [dispatch, history, keyword, pageNumber, products, order])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -94,7 +94,7 @@ const PlanScreen = ({ history, match }) => {
       )
     } else {
       dispatch(createPlan(bundle, qty, size))
-      EventGaTracker('successfull Plan submit clicked', '/plan')
+      EventGaTracker('successful Plan submit clicked', '/plan')
       history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
     }
   }
