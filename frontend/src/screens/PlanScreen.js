@@ -94,7 +94,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
-                      active={persons === person}
+                      active={Number(persons) === Number(person)}
                       className='rounded me-3'
                       value={person}
                       onClick={(e) => {
@@ -117,7 +117,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
-                      active={bundlePerWeek === number}
+                      active={Number(bundlePerWeek) === Number(number)}
                       className='rounded'
                       value={number}
                       onClick={(e) => {
