@@ -1,6 +1,6 @@
 const products = [
   {
-    name: 'Bundle 1',
+    name: 'Let us Dance',
     image: '/images/squash.jpg',
     description: 'Provident similique accusantium nemo autem',
     category: 'Vegetarian',
@@ -10,7 +10,7 @@ const products = [
     numReviews: 0,
   },
   {
-    name: 'Bundle 2',
+    name: 'Just Now',
     image: '/images/food.jpg',
     description: 'Impedit sit sunt quaerat, odit tenetur error',
     category: 'Vegan',
@@ -20,7 +20,7 @@ const products = [
     numReviews: 0,
   },
   {
-    name: 'Bundle 3',
+    name: 'Go Green',
     image: '/images/box.jpg',
     description:
       'Quo neque error repudiandae fuga ipsa laudantium molestias eos',
@@ -31,7 +31,7 @@ const products = [
     numReviews: 0,
   },
   {
-    name: 'Bundle 4',
+    name: 'The Kiss',
     image: '/images/bundle4.jpg',
     description:
       'Ipsa laudantium molestias eos officiis modi at sunt excepturi expedita sint',

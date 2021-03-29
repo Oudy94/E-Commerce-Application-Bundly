@@ -39,6 +39,11 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
+            <Nav className='ml-auto'>
+              <LinkContainer to='/faq'>
+                <Nav.Link>FAQ</Nav.Link>
+              </LinkContainer>
+            </Nav>
             <Nav
               className='ml-auto'
               onClick={() => {

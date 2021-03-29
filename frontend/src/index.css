@@ -2,6 +2,14 @@ main {
   min-height: 80vh;
 }
 
+.faq {
+  background-color: black !important;
+}
+
+.faqb {
+  font-size: xx-large !important;
+}
+
 h3 {
   padding: 1rem 0;
 }
