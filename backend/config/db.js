@@ -1,4 +1,7 @@
 import mongoose from 'mongoose'
+import colors from 'colors'
+
+colors.enable()
 
 const connectDB = async () => {
   try {
