@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../actions/cartActions'
+import { updateSubscriptionAddress } from '../actions/subscriptionActions'
 
-const ShippingScreen = ({ history }) => {
+const ShippingScreen = ({ history, location, match }) => {
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 
@@ -19,12 +20,22 @@ const ShippingScreen = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(saveShippingAddress({ address, city, postalCode, country }))
-    history.push('/payment')
+    if (match.params.id) {
+      dispatch(
+        updateSubscriptionAddress(
+          { address, city, postalCode, country },
+          match.params.id
+        )
+      )
+      history.push('/subscriptions')
+    } else {
+      history.push('/payment')
+    }
   }
 
   return (
     <FormContainer>
-      <CheckoutSteps step1 step2 />
+      {!match.params.id && <CheckoutSteps step1 step2 />}
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='address'>
