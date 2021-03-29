@@ -14,7 +14,7 @@ const nestedDocs = {
   },
 }
 
-// @desc    Fetch all products by name
+// @desc    Fetch all products
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
