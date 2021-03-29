@@ -11,6 +11,7 @@ import {
   getOrderDetails,
   payOrder,
   deliverOrder,
+  sendSubscriptionConfirmation,
 } from '../actions/orderActions'
 import {
   ORDER_PAY_RESET,
@@ -84,6 +85,7 @@ const OrderScreen = ({ match, history }) => {
     console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
     dispatch(updateSubscriptionStatus(user))
+    dispatch(sendSubscriptionConfirmation(order))
   }
 
   const deliverHandler = () => {

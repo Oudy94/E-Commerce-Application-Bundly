@@ -11,13 +11,13 @@ import {
   updateUser,
   authUserFacebook,
   authUserGoogle,
-  confirmSubscription
+  updateSubscriptionStatus
 } from '../controllers/userController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 router.route('/').post(registerUser).get(protect, admin, getUsers)
 router.post('/login', authUser)
-router.route('/confirmation').put(protect, confirmSubscription)
+router.route('/confirmation').put(protect, updateSubscriptionStatus)
 router
   .route('/profile')
   .get(protect, getUserProfile)

@@ -19,6 +19,7 @@ import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import PlanScreen from './screens/PlanScreen'
+import SubscriptionsScreen from './screens/SubscriptionsScreen'
 import ReactGA from 'react-ga'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -41,7 +42,7 @@ function usePageViews() {
       ReactGA.pageview(location.pathname)
     }
     getAnalytic()
-  }, [location, dispatch])
+  }, [dispatch, location])
 }
 
 const App = () => {
@@ -52,14 +53,15 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <Route path='/plan' component={PlanScreen} />
+          <Route path='/plan/:id?/:orderItemId?' component={PlanScreen} />
           <Route path='/order/:id' component={OrderScreen} />
-          <Route path='/shipping' component={ShippingScreen} />
+          <Route path='/shipping/:id?' component={ShippingScreen} />
           <Route path='/payment' component={PaymentScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
+          <Route path='/subscriptions' component={SubscriptionsScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
           <Route path='/admin/userlist' component={UserListScreen} />

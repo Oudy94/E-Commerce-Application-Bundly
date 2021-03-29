@@ -45,11 +45,6 @@ const Header = () => {
                 EventGaTracker('Plan CTA clicked', signupOriginPath)
               }}
             >
-              <LinkContainer to='/plan'>
-                <Nav.Link>
-                  <i className='fas fa-calculator'></i> Plan
-                </Nav.Link>
-              </LinkContainer>
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i> Cart
@@ -63,9 +58,13 @@ const Header = () => {
                 </LinkContainer>
               )}
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
+                <NavDropdown title='Account' id='username'>
+                  <NavDropdown.Item disabled>{userInfo.name}</NavDropdown.Item>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/subscriptions'>
+                    <NavDropdown.Item>Subscriptions</NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
