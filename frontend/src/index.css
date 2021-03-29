@@ -115,3 +115,32 @@ h2 {
 .dropdown-item:hover {
   background-color: #78c2ad !important;
 }
+.map{width:81vw;height: 50vh;position: relative;margin: 0 auto;}
+.location-icon{
+  font-size: 1.5rem;
+}
+.location-info{
+  position:absolute;
+  left: 1vw;
+  bottom: 12vh;
+  width:35%;
+  padding: 1rem;
+  min-height: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #fff;
+  z-index: 10000;
+}
+.location-info ul{
+  list-style-type: none;
+  padding:  0;
+}
+.location-info h2{
+  color: #fff;
+
+}
+.location-info li{
+  list-style-type: none;
+  padding: 5px 0;
+}

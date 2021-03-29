@@ -2,7 +2,7 @@ import {
   PLAN_CREATE_REQUEST,
   PLAN_CREATE_SUCCESS,
   PLAN_CREATE_FAIL,
-  PLAN_CREATE_RESET,
+  PLAN_CREATE_RESET
 } from '../constants/planConstants'
 
 export const planCreateReducer = (state = { planItems: {} }, action) => {
@@ -17,24 +17,24 @@ export const planCreateReducer = (state = { planItems: {} }, action) => {
           ...state,
           planItems: state.planItems.map((x) =>
             x.product === existItem.product ? item : x
-          ),
+          )
         }
       } else {
         return {
           ...state,
-          planItems: [...state.planItems, item],
+          planItems: [...state.planItems, item]
         }
       }
     case PLAN_CREATE_SUCCESS:
       return {
         loading: false,
         success: true,
-        plan: action.payload,
+        plan: action.payload
       }
     case PLAN_CREATE_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       }
     case PLAN_CREATE_RESET:
       return {}
