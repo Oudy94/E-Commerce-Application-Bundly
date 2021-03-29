@@ -4,7 +4,6 @@
   "description": "MERN shopping cart app",
   "main": "server.js",
   "type": "module",
-  
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -17,6 +16,7 @@
   "author": "Brad Traversy",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",

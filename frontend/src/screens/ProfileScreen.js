@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Form, Button, Row, Col } from 'react-bootstrap'
+import { Table, Form, Button, Row, Col, Badge } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -19,16 +19,16 @@ const ProfileScreen = ({ location, history }) => {
 
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
-
+  
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
+  
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
-
+  
   const orderListMy = useSelector((state) => state.orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
-
+  
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
@@ -56,15 +56,15 @@ const ProfileScreen = ({ location, history }) => {
   return (
     <Row>
       <Col md={3}>
-        <h2>User Profile</h2>
+        <h2>User Profile </h2>
+        {user.status === 'active' ? <Badge variant='primary' className='mb-3'>Subscribed</Badge> : <Badge variant='dark' className='mb-3'>No subscription</Badge>}
         {message && <Message variant='danger'>{message}</Message>}
-        {}
         {success && <Message variant='success'>Profile Updated</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
           <Message variant='danger'>{error}</Message>
-        ) : (
+        ) : (          
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
               <Form.Label>Name</Form.Label>

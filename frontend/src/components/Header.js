@@ -22,7 +22,7 @@ const Header = () => {
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
-            <img
+              <img
                 src='/logo.png'
                 width='130'
                 className='d-inline-block align-top'
@@ -34,16 +34,18 @@ const Header = () => {
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className='ml-auto'>
-              <LinkContainer to='/plan'>
-                <Nav.Link>
-                  <i className='fas fa-calculator'></i> Plan
-                </Nav.Link>
-              </LinkContainer>
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
+              {userInfo && (
+                <LinkContainer to='/plan'>
+                  <Nav.Link>
+                    <i className='fas fa-calculator'></i> Plan
+                  </Nav.Link>
+                </LinkContainer>
+              )}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>

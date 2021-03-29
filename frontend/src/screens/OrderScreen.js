@@ -6,6 +6,7 @@ import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { updateSubscriptionStatus } from '../actions/userActions'
 import {
   getOrderDetails,
   payOrder,
@@ -34,6 +35,9 @@ const OrderScreen = ({ match, history }) => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  const userDetails = useSelector((state) => state.userDetails)
+  const { user } = userDetails
 
   if (!loading) {
     //   Calculate prices
@@ -79,6 +83,7 @@ const OrderScreen = ({ match, history }) => {
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
+    dispatch(updateSubscriptionStatus(user))
   }
 
   const deliverHandler = () => {
