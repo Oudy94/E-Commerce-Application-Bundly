@@ -45,11 +45,6 @@ const Header = () => {
                 EventGaTracker('Plan CTA clicked', signupOriginPath)
               }}
             >
-              <LinkContainer to='/plan'>
-                <Nav.Link>
-                  <i className='fas fa-calculator'></i> Plan
-                </Nav.Link>
-              </LinkContainer>
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i> Cart
