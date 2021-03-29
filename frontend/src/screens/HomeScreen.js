@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
@@ -10,6 +11,8 @@ import Bundly from '../components/Bundly'
 import BundleCategory from '../components/BundleCategory'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions'
+import GoogleMap from '../components/GoogleMap'
+import farmeDetails from '../farmeDetails'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -23,10 +26,31 @@ const HomeScreen = ({ match }) => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+  const [apikey, setApiKey] = useState('')
+  const [isloading, setIsLoading] = useState(false)
+  const [haserror, setHasError] = useState(false)
 
   useEffect(() => {
+    const getApiKey = async () => {
+      try {
+        setIsLoading(true)
+        const { data } = await axios.get('/api/config/googleMap')
+        if (data) {
+          setApiKey(data)
+        } else {
+          throw new Error('failed to fetch the api key')
+        }
+      } catch (error) {
+        console.log(error)
+        setHasError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
     dispatch(listProducts(keyword, pageNumber))
-  }, [dispatch, keyword, pageNumber])
+    getApiKey()
+  }, [dispatch, keyword, pageNumber, apikey])
 
   return (
     <>
@@ -59,6 +83,17 @@ const HomeScreen = ({ match }) => {
             page={page}
             keyword={keyword ? keyword : ''}
           />
+          <Row>
+            {isloading ? (
+              <Loader />
+            ) : haserror ? (
+              'Error in loading the map'
+            ) : apikey ? (
+              <GoogleMap data={farmeDetails} apikey={apikey} />
+            ) : (
+              <Loader />
+            )}
+          </Row>
         </>
       )}
     </>
