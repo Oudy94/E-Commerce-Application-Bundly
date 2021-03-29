@@ -41,7 +41,7 @@ function usePageViews() {
       ReactGA.pageview(location.pathname)
     }
     getAnalytic()
-  }, [location])
+  }, [location, dispatch])
 }
 
 const App = () => {
