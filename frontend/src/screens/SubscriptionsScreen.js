@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listMyOrders } from '../actions/orderActions'
-import { cancelSbuscription } from '../actions/subscriptionActions'
+import { cancelSubscription } from '../actions/subscriptionActions'
 import PopupBox from '../components/PopupBox'
 
 const ProfileScreen = ({ history }) => {
@@ -49,7 +49,7 @@ const ProfileScreen = ({ history }) => {
                 <th>SIZE</th>
                 <th>QTY</th>
                 <th>PRICE</th>
-                <th>PREFRENCES</th>
+                <th>PREFERENCES</th>
                 <th>ADDRESS</th>
                 <th>CANCEL</th>
               </tr>
@@ -77,7 +77,7 @@ const ProfileScreen = ({ history }) => {
                         to={`/plan/${order._id}/${subscriptions._id}`}
                       >
                         <Button className='btn-sm' variant='light'>
-                          Prefrences
+                          Preferences
                         </Button>
                       </LinkContainer>
                     </td>
@@ -101,11 +101,11 @@ const ProfileScreen = ({ history }) => {
                         onConfirm={() => {
                           setModalShow(false)
                           dispatch(
-                            cancelSbuscription(order._id, subscriptions._id)
+                            cancelSubscription(order._id, subscriptions._id)
                           )
                         }}
                         onHide={() => setModalShow(false)}
-                        title='Subscription Cancelation'
+                        title='Subscription Cancellation'
                         header={`Are you sure that you want to cancel your ${subscriptions.name} subscription?`}
                         content='If you cancel your subscription, it will be stopped delivered starting from next week.'
                       />
