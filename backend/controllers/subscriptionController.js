@@ -35,33 +35,24 @@ const updateSubscriptionAddress = asyncHandler(async (req, res) => {
 // @route   PUT /api/orders/:id/:orderitemid/bundle
 // @access  Private
 const updateMySubscriptionPreferences = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.user._id })
-
-  if (orders) {
-    orders.map((order) => {
-      if (String(order._id) === String(req.params.id)) {
-        order.taxPrice = req.body.taxPrice || order.taxPrice
-        order.shippingPrice = req.body.shippingPrice || order.shippingPrice
-        order.totalPrice = req.body.totalPrice || order.totalPrice
-        order.orderItems.map((bundle) => {
-          if (String(bundle._id) === String(req.params.orderitemid)) {
-            bundle.product = req.body.newBundleId || bundle.product
-            bundle.size = req.body.size || bundle.size
-            bundle.name = req.body.name || bundle.name
-            bundle.image = req.body.image || bundle.image
-            bundle.price = req.body.price || bundle.price
-            bundle.qty = req.body.qty || bundle.qty
-          }
-        })
+  const order = await Order.findById(req.params.id).populate('user')
+  if (order) {
+    order.taxPrice = req.body.taxPrice || order.taxPrice
+    order.shippingPrice = req.body.shippingPrice || order.shippingPrice
+    order.totalPrice = req.body.totalPrice || order.totalPrice
+    order.orderItems.map((bundle) => {
+      if (String(bundle._id) === String(req.params.orderitemid)) {
+        bundle.product = req.body.newBundleId || bundle.product
+        bundle.size = req.body.size || bundle.size
+        bundle.name = req.body.name || bundle.name
+        bundle.image = req.body.image || bundle.image
+        bundle.price = req.body.price || bundle.price
+        bundle.qty = req.body.qty || bundle.qty
       }
     })
 
-    for (var order in orders) {
-      new Order(orders[order]).save().catch((err) => {
-        console.log(err.message)
-      })
-      res.json(orders)
-    }
+    const updatedOrder = await order.save()
+    res.json(updatedOrder)
   } else {
     res.status(404)
     throw new Error('Order not found')
