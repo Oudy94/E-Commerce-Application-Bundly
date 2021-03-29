@@ -19,6 +19,9 @@ import {
   ORDER_DELIVER_FAIL,
   ORDER_DELIVER_SUCCESS,
   ORDER_DELIVER_REQUEST,
+  ORDER_SUBSCRIPTION_EMAIL_REQUEST,
+  ORDER_SUBSCRIPTION_EMAIL_SUCCESS,
+  ORDER_SUBSCRIPTION_EMAIL_FAIL,
 } from '../constants/orderConstants'
 import { logout } from './userActions'
 
@@ -128,6 +131,8 @@ export const payOrder = (orderId, paymentResult) => async (
       config
     )
 
+    axios.post(`/api/orders/${orderId}/pay`, userInfo, config)
+
     dispatch({
       type: ORDER_PAY_SUCCESS,
       payload: data,
@@ -146,6 +151,40 @@ export const payOrder = (orderId, paymentResult) => async (
     })
   }
 }
+
+export const sendSubscriptionConfirmation = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_SUBSCRIPTION_EMAIL_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.post(`/api/orders/${order._id}/pay`, config)    
+
+    dispatch({ type: ORDER_SUBSCRIPTION_EMAIL_SUCCESS, payload: data })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ORDER_SUBSCRIPTION_EMAIL_FAIL,
+      payload: message,
+    })
+  }
+}
+
 
 export const deliverOrder = (order) => async (dispatch, getState) => {
   try {
