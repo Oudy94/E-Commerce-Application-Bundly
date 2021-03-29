@@ -12,11 +12,14 @@ import {
   ButtonGroup,
   Image,
 } from 'react-bootstrap'
+import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const PlanScreen = ({ history, match }) => {
   const [bundle, setBundle] = useState('')
   const [persons, setPersons] = useState('')
   const [bundlePerWeek, setBundlePerWeek] = useState('')
+
+  const EventGaTracker = useEventGaTracker('Subscribe Plan submit Button')
 
   const keyword = match.params.keyword
 
@@ -34,13 +37,14 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, keyword, pageNumber, products])
+  }, [dispatch, keyword, pageNumber, products.length])
 
   const submitHandler = (e) => {
     e.preventDefault()
     const size = Number(persons)
     const qty = Number(bundlePerWeek)
     dispatch(createPlan(bundle, qty, size))
+    EventGaTracker('successfull Plan submit clicked', '/plan')
     history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
   }
 
@@ -94,7 +98,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={person + 100}
                       variant='outline-success'
-                      active={Number(persons) === Number(person) ? true : false}
+                      active={Number(persons) === Number(person)}
                       className='rounded me-3'
                       value={person}
                       onClick={(e) => {
@@ -117,9 +121,7 @@ const PlanScreen = ({ history, match }) => {
                     <Button
                       key={number + 300}
                       variant='outline-success'
-                      active={
-                        Number(bundlePerWeek) === Number(number) ? true : false
-                      }
+                      active={Number(bundlePerWeek) === Number(number)}
                       className='rounded'
                       value={number}
                       onClick={(e) => {

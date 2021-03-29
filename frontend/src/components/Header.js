@@ -5,8 +5,14 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import SearchBox from './SearchBox'
 import { logout } from '../actions/userActions'
+import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const Header = () => {
+  const EventGaTracker = useEventGaTracker('Plan CTA')
+  const userHistoryRoutes = useSelector((state) => state.userHistoryRoutes)
+  const { routesHistory } = userHistoryRoutes
+  const signupOriginPath = routesHistory[routesHistory.length - 1]
+
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -22,7 +28,7 @@ const Header = () => {
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
-            <img
+              <img
                 src='/logo.png'
                 width='130'
                 className='d-inline-block align-top'
@@ -33,7 +39,12 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
-            <Nav className='ml-auto'>
+            <Nav
+              className='ml-auto'
+              onClick={() => {
+                EventGaTracker('Plan CTA clicked', signupOriginPath)
+              }}
+            >
               <LinkContainer to='/plan'>
                 <Nav.Link>
                   <i className='fas fa-calculator'></i> Plan
@@ -44,6 +55,13 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
+              {userInfo && (
+                <LinkContainer to='/plan'>
+                  <Nav.Link>
+                    <i className='fas fa-calculator'></i> Plan
+                  </Nav.Link>
+                </LinkContainer>
+              )}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>

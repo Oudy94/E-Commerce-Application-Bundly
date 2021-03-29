@@ -30,6 +30,8 @@ import {
   USER_AUTH_GOOGLE_REQUEST,
   USER_AUTH_GOOGLE_SUCCESS,
   USER_AUTH_GOOGLE_FAIL,
+  USER_HISTORY_SUCCESS,
+  USER_HISTORY_RESET,
   USER_SUBSCRIPTION_REQUEST,
   USER_SUBSCRIPTION_SUCCESS,
   USER_SUBSCRIPTION_FAIL,
@@ -81,6 +83,8 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET })
   dispatch({ type: ORDER_LIST_MY_RESET })
   dispatch({ type: USER_LIST_RESET })
+  dispatch({ type: USER_HISTORY_RESET })
+
   document.location.href = '/login'
 }
 
@@ -312,7 +316,10 @@ export const updateUser = (user) => async (dispatch, getState) => {
   }
 }
 
-export const updateSubscriptionStatus = (user) => async (dispatch, getState) => {
+export const updateSubscriptionStatus = (user) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({ type: USER_SUBSCRIPTION_REQUEST })
 
@@ -412,4 +419,19 @@ export const authGoogle = (tokenId) => async (dispatch) => {
           : error.message,
     })
   }
+}
+
+export const createRoutesHistory = (path) => (dispatch, getState) => {
+  const {
+    userHistoryRoutes: { routesHistory },
+  } = getState()
+
+  const routesHistoryArr = Object.values(routesHistory)
+  if (routesHistoryArr) {
+    routesHistoryArr.push(path)
+  }
+  if (routesHistoryArr.length > 4) {
+    routesHistoryArr.shift()
+  }
+  dispatch({ type: USER_HISTORY_SUCCESS, payload: routesHistoryArr })
 }

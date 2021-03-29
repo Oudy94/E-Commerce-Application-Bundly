@@ -19,9 +19,8 @@ connectDB()
 
 const importData = async () => {
   try {
-    // await Order.deleteMany();
+    await Order.deleteMany()
     await User.deleteMany()
-    // const user = await User.findOne()
     const createdUsers = await User.insertMany(users)
     const adminUser = createdUsers[0]._id
 
