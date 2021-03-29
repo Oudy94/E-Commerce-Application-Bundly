@@ -18,6 +18,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      status: user.status,
       token: generateToken(user._id),
     })
   } else {
@@ -51,6 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      status: user.status,
       token: generateToken(user._id),
     })
   } else {
@@ -71,6 +73,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      status: user.status
     })
   } else {
     res.status(404)
@@ -98,7 +101,29 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      status: user.status,
       token: generateToken(updatedUser._id),
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
+// @desc Update/Confirm subscription status
+// @route PUT /api/users/confirmation
+// @access Private
+const updateSubscriptionStatus = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    user.status = 'active'
+
+    const updatedUser = await user.save()
+
+    res.json({
+      status: updatedUser.status,
+      token: generateToken(user._id),
     })
   } else {
     res.status(404)
@@ -295,4 +320,5 @@ export {
   updateUser,
   authUserFacebook,
   authUserGoogle,
+  updateSubscriptionStatus,
 }

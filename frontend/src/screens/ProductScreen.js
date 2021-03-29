@@ -20,10 +20,10 @@ import {
   createProductReview,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+
 const ProductScreen = ({ history, match }) => {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
-
   const dispatch = useDispatch()
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -35,6 +35,7 @@ const ProductScreen = ({ history, match }) => {
     loading: loadingProductReview,
     error: errorProductReview,
   } = productReviewCreate
+
   useEffect(() => {
     if (successProductReview) {
       setRating(0)
@@ -44,7 +45,8 @@ const ProductScreen = ({ history, match }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview, product])
+  }, [dispatch, match, successProductReview, product._id])
+
   const addToPlanHandler = () => {
     history.push(`/plan/${match.params.id}`)
   }
@@ -121,14 +123,18 @@ const ProductScreen = ({ history, match }) => {
                     <h4>Products In This Bundle:</h4>
                     <Container>
                       <Row>
-                        {product.foodItems?.map((item) => (
-                          <Col md={2} className='py-3'>
+                        {product.foodItems?.map((item, key) => (
+                          <Col
+                            md={2}
+                            className='py-3'
+                            key={`foodItem_${item._id}`}
+                          >
                             <img
                               src={item.image}
                               alt={item.name}
                               className='product-img'
                             />
-                            <p>{item.name}</p>
+                            <p className='p-1'>{item.name}</p>
                             <p>€{item.price}</p>
                             <p>Farmer: {item.farmer.name}</p>
                             <img

@@ -5,25 +5,30 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     isAdmin: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
+    status: {
+      type: String,
+      enum: ['active', 'inactive'],
+      default: 'inactive',
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 )
 
