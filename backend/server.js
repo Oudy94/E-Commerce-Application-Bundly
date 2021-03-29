@@ -38,6 +38,9 @@ app.get('/api/config/googleAnalytic', (req, res) =>
   res.send(process.env.TRACK_ID)
 )
 
+app.get('/api/config/googleMap', (req, res) =>
+  res.send(process.env.GOOGLE_MAP_KEY)
+)
 const __dirname = path.resolve()
 
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
