@@ -21,6 +21,9 @@ const HomeScreen = ({ match }) => {
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
@@ -28,15 +31,13 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-      {!keyword ? (
-        <>
-          <Bundly />
-        </>
-      ) : (
+      {keyword && (
         <Link to='/' className='btn btn-light'>
           Go Back
         </Link>
       )}
+      {(!userInfo || userInfo.status !== 'active') && <Bundly />}
+
       <h1 className='homepage-headings my-5'>Bundle Categories</h1>
       <BundleCategory />
       <h1 className='homepage-headings my-5'>Latest Products</h1>
