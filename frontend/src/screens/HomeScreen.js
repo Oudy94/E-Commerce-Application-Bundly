@@ -27,24 +27,25 @@ const HomeScreen = ({ match }) => {
   const [apikey, setApiKey] = useState('')
   const [isloading, setIsLoading] = useState(false)
   const [haserror, setHasError] = useState(false)
-  const getApiKey = async () => {
-    try {
-      setIsLoading(true)
-      const { data } = await axios.get('/api/config/googleMap')
-      if (data) {
-        setApiKey(data)
-      } else {
-        throw new Error('failed to fetch the api key')
-      }
-    } catch (error) {
-      console.log(error)
-      setHasError(true)
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   useEffect(() => {
+    const getApiKey = async () => {
+      try {
+        setIsLoading(true)
+        const { data } = await axios.get('/api/config/googleMap')
+        if (data) {
+          setApiKey(data)
+        } else {
+          throw new Error('failed to fetch the api key')
+        }
+      } catch (error) {
+        console.log(error)
+        setHasError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
     dispatch(listProducts(keyword, pageNumber))
     getApiKey()
   }, [dispatch, keyword, pageNumber, apikey])

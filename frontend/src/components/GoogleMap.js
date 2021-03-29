@@ -6,9 +6,9 @@ import LocationInfoBox from './LocationInfoBox'
 const GoogleMap = ({ data, center, zoom, apikey }) => {
   const [info, setInfo] = useState(null)
 
-  const markers = data.map((farm, i) => (
+  const markers = data.map((farm) => (
     <LocationMarker
-      key={i}
+      key={farm.name}
       lat={farm.lat}
       lng={farm.lng}
       onClick={() =>

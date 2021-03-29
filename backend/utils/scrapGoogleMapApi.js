@@ -1,15 +1,13 @@
 import fetch from 'node-fetch'
 import fs from 'fs'
 
-const API_KEY_GOOGLE_MAP = `AIzaSyCrKfxnTqkik3g4Ops_DNuNrsgzUgHWOCM`
-
+const API_KEY_GOOGLE_MAP = process.env.GOOGLE_MAP_KEY
 const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=local+farm+detail+netherlands&key=${API_KEY_GOOGLE_MAP}`
 
 async function getScraping() {
   try {
     const reponse = await fetch(url)
     const data = await reponse.json()
-    // console.log(data.results)
     const FarmsDetails = data.results.map((farm) => {
       let name = farm.name
       let rating = farm.rating
@@ -25,11 +23,10 @@ async function getScraping() {
 }
 async function scraping() {
   const results = await getScraping()
+  fs.appendFile('farmeDetails.js', JSON.stringify(results), function (err) {
+    if (err) throw err
+    console.log('Data Saved!')
+  })
   return results
 }
-const data = await scraping(url)
-
-fs.appendFile('farmeDetails.js', JSON.stringify(data), function (err) {
-  if (err) throw err
-  console.log('Data Saved!')
-})
+scraping()
