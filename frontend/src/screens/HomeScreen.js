@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
@@ -10,7 +10,7 @@ import Paginate from '../components/Paginate'
 import Bundly from '../components/Bundly'
 import BundleCategory from '../components/BundleCategory'
 import Meta from '../components/Meta'
-import { listProducts } from '../actions/productActions'
+import Filter from '../components/Filter'
 import GoogleMap from '../components/GoogleMap'
 import farmeDetails from '../farmeDetails'
 
@@ -18,8 +18,6 @@ const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
 
   const pageNumber = match.params.pageNumber || 1
-
-  const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
@@ -48,9 +46,8 @@ const HomeScreen = ({ match }) => {
       }
     }
 
-    dispatch(listProducts(keyword, pageNumber))
     getApiKey()
-  }, [dispatch, keyword, pageNumber, apikey])
+  }, [keyword, pageNumber, apikey])
 
   return (
     <>
@@ -60,17 +57,18 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )}
+
       {(!userInfo || userInfo.status !== 'active') && <Bundly />}
 
-      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-      <BundleCategory />
       <h1 className='homepage-headings my-5'>Latest Products</h1>
+      <Filter keyword={keyword} pageNumber={pageNumber} />
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          
           <Row>
             {products.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
@@ -96,6 +94,9 @@ const HomeScreen = ({ match }) => {
           </Row>
         </>
       )}
+
+      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
+      <BundleCategory />
     </>
   )
 }
