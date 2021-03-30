@@ -6,11 +6,11 @@ const BundleCategory = () => {
   return (
     <CardGroup>
       <Card className='card-bundle-category'>
-        <Link to='/'>
+        <Link to='/search/vegan'>
           <Card.Img variant='top' src='images/vegan.jpg' />
         </Link>
         <Card.Body>
-          <Link to='/'>
+          <Link to='/search/vegan'>
             <Card.Title as='h4' className='bundle-category'>
               Vegan
             </Card.Title>
@@ -23,11 +23,11 @@ const BundleCategory = () => {
         </Card.Body>
       </Card>
       <Card>
-        <Link to='/'>
+        <Link to='/search/vegetarian'>
           <Card.Img variant='top' src='images/roasted-veggies.jpg' />
         </Link>
         <Card.Body>
-          <Link to='/'>
+          <Link to='/search/vegetarian'>
             <Card.Title as='h4' className='bundle-category'>
               Vegetarian
             </Card.Title>
@@ -41,11 +41,11 @@ const BundleCategory = () => {
         </Card.Body>
       </Card>
       <Card>
-        <Link to='/'>
+        <Link to='/search/meat'>
           <Card.Img variant='top' src='images/veggie-plate.jpg' />
         </Link>
         <Card.Body>
-          <Link to='/'>
+          <Link to='/search/meat'>
             <Card.Title as='h4' className='bundle-category'>
               Meat & Veggies
             </Card.Title>

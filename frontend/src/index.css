@@ -42,7 +42,8 @@ h2 {
 }
 
 .product-img {
-  width: 80px;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
 }
 

@@ -114,7 +114,7 @@ const Filter = ({ keyword, pageNumber }) => {
           </InputGroup>
         </Col>
       </Form.Row>
-      <Form.Row className='align-items-center'>
+      <Form.Row className='align-items-center my-3'>
         <Col>
           <Form.Check
             onChange={() => setOrderBy('hiPrice')}
@@ -156,6 +156,7 @@ const Filter = ({ keyword, pageNumber }) => {
             type='button'
             variant='outline-primary'
             onClick={clearFilters}
+            className='mx-2'
           >
             Clear
           </Button>

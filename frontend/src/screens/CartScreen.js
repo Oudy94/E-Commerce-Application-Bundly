@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import useEventGaTracker from '../hooks/useEventGaTracker'
@@ -34,7 +34,7 @@ const CartScreen = ({ match, location, history }) => {
       dispatch(addToCart(productId, qty, size))
       EventGaTracker('successfull addToCart', productId)
     }
-  }, [dispatch, EventGaTracker, productId, qty, size])
+  }, [dispatch, productId, qty, size])
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
@@ -65,7 +65,7 @@ const CartScreen = ({ match, location, history }) => {
                       {item.name} ({item.size})
                     </Link>
                   </Col>
-                  <Col md={2}>
+                  <Col md={3}>
                     $
                     {cartItems
                       .reduce((acc, item) => {
@@ -73,23 +73,7 @@ const CartScreen = ({ match, location, history }) => {
                       }, 0)
                       .toFixed(2)}
                   </Col>
-                  <Col md={2}>
-                    <Form.Control
-                      as='select'
-                      value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
-                    >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Col>
+
                   <Col md={2}>
                     <Button
                       type='button'
