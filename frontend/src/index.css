@@ -48,6 +48,11 @@ h2 {
   margin: auto;
 }
 
+.carousel {
+  border-radius: 20px;
+  padding: 10px;
+}
+
 /* carousel */
 .carousel-item-next,
 .carousel-item-prev,
