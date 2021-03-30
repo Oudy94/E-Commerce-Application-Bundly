@@ -24,7 +24,10 @@ const PlaceOrderScreen = ({ history }) => {
   }
 
   cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    cart.cartItems.reduce(
+      (acc, item) => acc + item.price * item.qty * item.size,
+      0
+    )
   )
   cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 5)
   cart.taxPrice = addDecimals(Number((0.12 * cart.itemsPrice).toFixed(2)))
@@ -105,7 +108,8 @@ const PlaceOrderScreen = ({ history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.size} x {item.qty} x ${item.price} = $
+                          {(item.size * item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -145,9 +149,11 @@ const PlaceOrderScreen = ({ history }) => {
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
-              </ListGroup.Item>
+              {error && (
+                <ListGroup.Item>
+                  <Message variant='danger'>{error}</Message>
+                </ListGroup.Item>
+              )}
               <ListGroup.Item>
                 <Button
                   type='button'
