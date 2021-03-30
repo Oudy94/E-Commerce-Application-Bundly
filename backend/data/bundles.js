@@ -1354,7 +1354,7 @@ export const foodItemsDataSet = [
 
 export const bundlesDataSet = [
   {
-    name: 'Bundle - 1',
+    name: 'Let us Dance',
     image: '/images/squash.jpg',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas blanditiis atque illum deserunt minus iure rem consequuntur, doloremque tenetur necessitatibus neque deleniti eligendi soluta molestias voluptatum',
@@ -1365,7 +1365,7 @@ export const bundlesDataSet = [
     countInStock: 145,
   },
   {
-    name: 'Bundle - 2',
+    name: 'Just Now',
     image: '/images/food.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
@@ -1376,7 +1376,7 @@ export const bundlesDataSet = [
     countInStock: 111,
   },
   {
-    name: 'Bundle - 3',
+    name: 'Go Green',
     image: '/images/box.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
@@ -1387,7 +1387,7 @@ export const bundlesDataSet = [
     countInStock: 111,
   },
   {
-    name: 'Bundle - 4',
+    name: 'The Kiss',
     image: '/images/bundle4.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',

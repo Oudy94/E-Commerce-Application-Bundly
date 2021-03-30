@@ -45,6 +45,11 @@ const getProducts = asyncHandler(async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * (page - 1))
     .populate(nestedDocs)
+  products.forEach((item) => {
+    item.foodItems.forEach((food) => {
+      // console.log(food.name)
+    })
+  })
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
