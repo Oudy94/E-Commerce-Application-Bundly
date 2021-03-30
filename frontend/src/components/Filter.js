@@ -23,7 +23,17 @@ const Filter = ({ keyword, pageNumber }) => {
   const [filter, setFilter] = useState(true)
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber, orderBy, category, minPrice, maxPrice, rating))
+    dispatch(
+      listProducts(
+        keyword,
+        pageNumber,
+        orderBy,
+        category,
+        minPrice,
+        maxPrice,
+        rating
+      )
+    )
   }, [dispatch, keyword, pageNumber, filter, orderBy])
 
   const smColWidth = 6
@@ -38,7 +48,6 @@ const Filter = ({ keyword, pageNumber }) => {
     // triggers useEffect
     setFilter((current) => !current)
   }
-  console.log(category)
 
   return (
     <Form onSubmit={(e) => {

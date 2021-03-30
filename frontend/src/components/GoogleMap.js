@@ -11,13 +11,16 @@ const GoogleMap = ({ data, center, zoom, apikey }) => {
       key={farm.name}
       lat={farm.lat}
       lng={farm.lng}
-      onClick={() =>
+      onClick={() => {
         setInfo({
           name: farm.name,
           address: farm.address,
           rating: farm.rating,
         })
-      }
+        setTimeout(() => {
+          setInfo(null)
+        }, 3000)
+      }}
     />
   ))
   return (
