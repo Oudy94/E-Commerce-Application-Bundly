@@ -36,6 +36,7 @@ import {
   subscriptionUpdateAddressReducer,
   subscriptionUpdatePreferencesReducer,
   subscriptionCancelReducer,
+  subscriptionListMyReducer,
 } from './reducers/subscriptionReducer'
 import { planCreateReducer } from './reducers/planReducers'
 
@@ -59,7 +60,6 @@ const reducer = combineReducers({
   userAuthFaceBook: userAuthFaceBookReducer,
   userAuthGoogle: userAuthGoogleReducer,
   userHistoryRoutes: userHistoryRoutesReducer,
-
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
@@ -70,6 +70,7 @@ const reducer = combineReducers({
   subscriptionUpdateAddress: subscriptionUpdateAddressReducer,
   subscriptionUpdatePreferences: subscriptionUpdatePreferencesReducer,
   subscriptionCancel: subscriptionCancelReducer,
+  subscriptionListMy: subscriptionListMyReducer,
 })
 
 const planItemsFromStorage = localStorage.getItem('planItems')

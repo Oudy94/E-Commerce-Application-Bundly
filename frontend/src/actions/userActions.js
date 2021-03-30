@@ -38,6 +38,7 @@ import {
   USER_SUBSCRIPTION_RESET,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
+import { SUBSCRIPTION_LIST_MY_RESET } from '../constants/subscriptionConstants'
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -84,6 +85,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: ORDER_LIST_MY_RESET })
   dispatch({ type: USER_LIST_RESET })
   dispatch({ type: USER_HISTORY_RESET })
+  dispatch({ type: SUBSCRIPTION_LIST_MY_RESET })
 
   document.location.href = '/login'
 }

@@ -53,7 +53,7 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, history, keyword, pageNumber, products, order])
+  }, [dispatch, history, keyword, pageNumber, products.length, order])
 
   const submitHandler = (e) => {
     e.preventDefault()
