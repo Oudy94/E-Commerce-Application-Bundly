@@ -1,10 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Jumbotron, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const Bundly = () => {
   const EventGaTracker = useEventGaTracker('Subscribe Now Button')
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   return (
     <>
@@ -21,7 +24,7 @@ const Bundly = () => {
           Possimus quis earum veniam quasi aliquam eligendi, placeat qui
           corporis!
         </p>
-        <Link to="/register?redirect=/">
+        <Link to={userInfo ? "/plan" : "/register?redirect=/"}>
           <Button
             className="homepage-button"
             variant="primary"

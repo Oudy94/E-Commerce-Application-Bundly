@@ -94,9 +94,13 @@ const HomeScreen = ({ match }) => {
           </Row>
         </>
       )}
-
-      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-      <BundleCategory />
+      {!keyword &&
+      <>
+        <h1 className='homepage-headings my-5'>Bundle Categories</h1>
+        <BundleCategory />
+      </>
+      }
+      
     </>
   )
 }
