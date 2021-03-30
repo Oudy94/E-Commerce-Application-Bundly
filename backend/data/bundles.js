@@ -1354,29 +1354,29 @@ export const foodItemsDataSet = [
 
 export const bundlesDataSet = [
   {
-    name: 'Bundle - 1',
+    name: 'Go Green',
     image: '/images/squash.jpg',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas blanditiis atque illum deserunt minus iure rem consequuntur, doloremque tenetur necessitatibus neque deleniti eligendi soluta molestias voluptatum',
     category: 'Vegetarian',
     rating: 4.6,
     numReviews: 99,
-    price: 13.1,
+    price: 19.99,
     countInStock: 145,
   },
   {
-    name: 'Bundle - 2',
+    name: 'Just Now',
     image: '/images/food.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
     category: 'Vegan',
     rating: 4.3,
     numReviews: 123,
-    price: 11.9,
+    price: 24.99,
     countInStock: 111,
   },
   {
-    name: 'Bundle - 3',
+    name: 'Let us Dance',
     image: '/images/box.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
@@ -1387,14 +1387,14 @@ export const bundlesDataSet = [
     countInStock: 111,
   },
   {
-    name: 'Bundle - 4',
+    name: 'The Kiss',
     image: '/images/bundle4.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
     category: 'Vegan',
     rating: 4.3,
     numReviews: 123,
-    price: 11.9,
+    price: 29.99,
     countInStock: 111,
   },
 ]

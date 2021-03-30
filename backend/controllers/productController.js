@@ -36,6 +36,12 @@ const getProducts = asyncHandler(async (req, res) => {
               $options: 'i',
             },
           },
+          {
+            foodItems: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
         ],
       }
     : {}
@@ -43,27 +49,30 @@ const getProducts = asyncHandler(async (req, res) => {
   const category = req.query.category ? { category: req.query.category } : {}
 
   const ratingNumber = Number(req.query.rating)
-  const rating = ratingNumber ? {
-    rating: {
-      $gte: ratingNumber,
-      $lt: ratingNumber + 1,
-    }
-  } : {}
+  const rating = ratingNumber
+    ? {
+        rating: {
+          $gte: ratingNumber,
+          $lt: ratingNumber + 1,
+        },
+      }
+    : {}
 
-  const price = { 
+  const price = {
     price: {
       $gte: Number(req.query.minPrice) || 0,
       $lte: Number(req.query.maxPrice) || 1000,
-    } 
+    },
   }
-      
+
   const count = await Product.countDocuments({ ...keyword })
   const products = await Product.find({
     ...keyword,
     ...category,
     ...rating,
     ...price,
-  }).limit(pageSize)
+  })
+    .limit(pageSize)
     .skip(pageSize * (page - 1))
     .populate(nestedDocs)
 
@@ -78,7 +87,7 @@ const getProducts = asyncHandler(async (req, res) => {
       products.sort((a, b) => b.rating - a.rating)
       break
     case 'time':
-      products.sort((a, b) => (new Date(b.createdAt)) - (new Date(a.createdAt)))
+      products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       break
     default:
       break

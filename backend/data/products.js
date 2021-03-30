@@ -1,6 +1,6 @@
 const products = [
   {
-    name: 'Let us Dance',
+    name: 'Go Green',
     image: '/images/squash.jpg',
     description: 'Provident similique accusantium nemo autem',
     category: 'Vegetarian',
@@ -20,7 +20,7 @@ const products = [
     numReviews: 0,
   },
   {
-    name: 'Go Green',
+    name: 'Let us Dance',
     image: '/images/box.jpg',
     description:
       'Quo neque error repudiandae fuga ipsa laudantium molestias eos',

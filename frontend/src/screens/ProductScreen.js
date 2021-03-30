@@ -79,6 +79,17 @@ const ProductScreen = ({ history, match }) => {
           <>
             <Meta title={product.name} />
             <Row>
+              <Card className='my-5'>
+                <Button
+                  onClick={addToPlanHandler}
+                  className='btn-success'
+                  type='button'
+                >
+                  Proceed To Plan Your Bundle
+                </Button>
+              </Card>
+            </Row>
+            <Row>
               <Col md={8}>
                 <Image src={product.image} alt={product.name} fluid />
               </Col>
@@ -99,17 +110,6 @@ const ProductScreen = ({ history, match }) => {
                       </p>
                     </ListGroup.Item>
                   )}
-                </Row>
-                <Row>
-                  <Card className='my-5'>
-                    <Button
-                      onClick={addToPlanHandler}
-                      className='btn-success'
-                      type='button'
-                    >
-                      Proceed To Plan Your Bundle
-                    </Button>
-                  </Card>
                 </Row>
               </Col>
             </Row>
