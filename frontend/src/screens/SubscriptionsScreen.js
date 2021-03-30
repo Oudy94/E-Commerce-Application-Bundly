@@ -9,6 +9,7 @@ import {
   cancelSubscription,
   listMySubscriptions,
 } from '../actions/subscriptionActions'
+import { updateSubscriptionStatus } from '../actions/userActions'
 
 const ProfileScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -36,6 +37,17 @@ const ProfileScreen = ({ history }) => {
     }
   }, [dispatch, history, userInfo, successDelete])
 
+  const handleCancelSubscription = (orderId, mySubscriptionsId) => {
+    setModalShow(false)
+    dispatch(cancelSubscription(orderId, mySubscriptionsId))
+    let subscriptionsCount = 0
+    subscriptions.map((order) =>
+      order.orderItems.map(() => (subscriptionsCount += 1))
+    )
+    if (subscriptionsCount === 1) {
+      dispatch(updateSubscriptionStatus(userInfo, 'inactive'))
+    }
+  }
   return (
     <Row>
       <Col md={12}>
@@ -105,9 +117,9 @@ const ProfileScreen = ({ history }) => {
                       <PopupBox
                         show={modalShow}
                         onConfirm={() => {
-                          setModalShow(false)
-                          dispatch(
-                            cancelSubscription(order._id, subscriptions._id)
+                          handleCancelSubscription(
+                            order._id,
+                            mySubscriptions._id
                           )
                         }}
                         onHide={() => setModalShow(false)}
