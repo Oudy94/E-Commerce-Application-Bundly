@@ -125,7 +125,7 @@ const ProductScreen = ({ history, match }) => {
                       <Row>
                         {product.foodItems?.map((item, key) => (
                           <Col
-                            md={2}
+                            md={3}
                             className='py-3'
                             key={`foodItem_${item._id}`}
                           >
@@ -134,7 +134,7 @@ const ProductScreen = ({ history, match }) => {
                               alt={item.name}
                               className='product-img'
                             />
-                            <p className='p-1'>{item.name}</p>
+                            <p className='py-1'>{item.name}</p>
                             <p>€{item.price}</p>
                             <p>Farmer: {item.farmer.name}</p>
                             <img
