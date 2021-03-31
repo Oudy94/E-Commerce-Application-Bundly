@@ -24,7 +24,7 @@ export const updateCart = asyncHandler(async (req, res) => {
   })
 })
 
-async function sendMail(userId, cartItems) {
+async function sendMail(userId) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   const user = await User.findById(userId)
   // second check - if after some time user's cart is still not empty - finally send an email
@@ -39,26 +39,20 @@ async function sendMail(userId, cartItems) {
           },
         ],
         dynamic_template_data: {
-          bundleName: cartItems[0].name,
-          price: cartItems[0].price,
-          weeklyBundles: cartItems[0].qty,
-          size: cartItems[0].size,
+          bundleName: user.cartItems[0].name,
+          price: user.cartItems[0].price,
+          weeklyBundles: user.cartItems[0].qty,
+          size: user.cartItems[0].size,
         },
       },
     ],
     templateId: 'd-ce85bb6861454c569db4dfbd1a75baf6',
   }
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .catch((error) => {
-      console.error(error.body)
-    })
+
   if (user.cartItems.length > 0) {
+    await sgMail.send(msg)
     console.log(`Abandoned cart for ${user.email}`)
-    console.log(user.cartItems.map((item) => item.name))
+    // console.log(user.cartItems.map((item) => item.name))
   } else {
     console.log(`${user.name}'s cart is empty now!`)
   }
