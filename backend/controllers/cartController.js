@@ -12,8 +12,7 @@ export const updateCart = asyncHandler(async (req, res) => {
   // first check - if user's cart is not empty then send email in some time
   if (savedUser.cartItems.length > 0) {
     setTimeout(() => {
-      sendMail(req.user._id, savedUser.cartItems), 3000
-      // console.log(savedUser.cartItems)
+      sendMail(req.user._id), 180000
     })
   } else {
     console.log(`${savedUser.name}'s cart is empty now!`)
