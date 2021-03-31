@@ -73,7 +73,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      status: user.status
+      status: user.status,
     })
   } else {
     res.status(404)
@@ -117,7 +117,7 @@ const updateSubscriptionStatus = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (user) {
-    user.status = 'active'
+    user.status = req.body.status
 
     const updatedUser = await user.save()
 

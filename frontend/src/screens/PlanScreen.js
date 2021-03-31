@@ -53,7 +53,7 @@ const PlanScreen = ({ history, match }) => {
     if (products.length === 0) {
       dispatch(listProducts(keyword, pageNumber))
     }
-  }, [dispatch, history, keyword, pageNumber, products, order])
+  }, [dispatch, history, keyword, pageNumber, products.length, order])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -66,11 +66,11 @@ const PlanScreen = ({ history, match }) => {
         return (Math.round(num * 100) / 100).toFixed(2)
       }
 
-      const totalBundlePrice = addDecimals(price * qty)
+      const totalBundlePrice = addDecimals(price * qty * size)
       const shippingPrice = addDecimals(totalBundlePrice > 100 ? 0 : 5)
       const taxPrice = addDecimals(Number((0.12 * totalBundlePrice).toFixed(2)))
       const totalPrice = (
-        Number(price) +
+        Number(totalBundlePrice) +
         Number(shippingPrice) +
         Number(taxPrice)
       ).toFixed(2)

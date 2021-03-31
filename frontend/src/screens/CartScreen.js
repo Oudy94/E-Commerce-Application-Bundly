@@ -61,11 +61,11 @@ const CartScreen = ({ match, location, history }) => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>
-                      {item.name} ({item.size})
-                    </Link>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={3}>
+                  <Col md={2}>{item.size} People</Col>
+                  <Col md={2}>{item.qty} / Week</Col>
+                  <Col md={2}>
                     $
                     {cartItems
                       .reduce((acc, item) => {
@@ -74,7 +74,7 @@ const CartScreen = ({ match, location, history }) => {
                       .toFixed(2)}
                   </Col>
 
-                  <Col md={2}>
+                  <Col md={1}>
                     <Button
                       type='button'
                       variant='light'

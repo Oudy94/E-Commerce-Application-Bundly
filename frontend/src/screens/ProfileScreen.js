@@ -19,16 +19,16 @@ const ProfileScreen = ({ location, history }) => {
 
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
-  
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  
+
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
-  
+
   const orderListMy = useSelector((state) => state.orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
-  
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
@@ -57,14 +57,22 @@ const ProfileScreen = ({ location, history }) => {
     <Row>
       <Col md={3}>
         <h2>User Profile </h2>
-        {user.status === 'active' ? <Badge variant='primary' className='mb-3'>Subscribed</Badge> : <Badge variant='dark' className='mb-3'>No subscription</Badge>}
+        {user.status === 'active' ? (
+          <Badge variant='primary' className='mb-3'>
+            Subscribed
+          </Badge>
+        ) : (
+          <Badge variant='dark' className='mb-3'>
+            No subscription
+          </Badge>
+        )}
         {message && <Message variant='danger'>{message}</Message>}
         {success && <Message variant='success'>Profile Updated</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
           <Message variant='danger'>{error}</Message>
-        ) : (          
+        ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
               <Form.Label>Name</Form.Label>
@@ -135,7 +143,7 @@ const ProfileScreen = ({ location, history }) => {
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
+                  <td>${order.totalPrice}</td>
                   <td>
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)
