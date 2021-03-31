@@ -84,8 +84,17 @@ const deleteBundleSubscription = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Get logged in user subscriptions
+// @route   GET /api/subscriptions/mysubscriptions
+// @access  Private
+const getMySubscriptions = asyncHandler(async (req, res) => {
+  const subscriptions = await Order.find({ user: req.user._id, isPaid: true })
+  res.json(subscriptions)
+})
+
 export {
   updateSubscriptionAddress,
   updateMySubscriptionPreferences,
   deleteBundleSubscription,
+  getMySubscriptions,
 }
