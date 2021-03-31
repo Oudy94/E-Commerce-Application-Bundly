@@ -133,7 +133,7 @@ const ProductScreen = ({ history, match }) => {
                         {product.foodItems?.map((item, key) => (
                           <Col
                             md={3}
-                            className='py-3'
+                            className='py-3 d-flex flex-column'
                             key={`foodItem_${item._id}`}
                           >
                             <img
@@ -141,7 +141,7 @@ const ProductScreen = ({ history, match }) => {
                               alt={item.name}
                               className='product-img'
                             />
-                            <p className='py-1'>{item.name}</p>
+                            <p className='py-1 flex-grow-1'>{item.name}</p>
                             <p>€{item.price}</p>
                             <p>by: {item.farmer.name}</p>
                             <img
@@ -149,7 +149,7 @@ const ProductScreen = ({ history, match }) => {
                               alt={item.farmer.name}
                               className='product-img'
                             />
-                            <hr />
+                            <hr className='w-100' />
                             <Container>
                               <img
                                 src={item.image}
