@@ -9,10 +9,6 @@ import { listTopProducts } from '../actions/productActions'
 const ProductCarousel = () => {
   const dispatch = useDispatch()
 
-  // const productTopRated = useSelector((state) => state.productTopRated)
-  // const { loading, error, products } = productTopRated
-  // console.log(products)
-
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
 
@@ -29,9 +25,11 @@ const ProductCarousel = () => {
       {product.foodItems?.map((item) => (
         <Carousel.Item key={item._id}>
           <Row className='p-3'>
-            <Image src={item.farmer.image} alt={item.farmer.name} />
-            <h2>{item.farmer.name}</h2>
-            <p>{item.farmer.description}</p>
+            <img src={item.farmer.image} alt={item.farmer.name} />
+            <div className='pt-2'>
+              <h2>{item.farmer.name}</h2>
+              <p>{item.farmer.description}</p>
+            </div>
           </Row>
         </Carousel.Item>
       ))}
