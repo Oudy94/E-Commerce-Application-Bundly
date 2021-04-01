@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Carousel, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
@@ -23,11 +24,13 @@ const ProductCarousel = () => {
     <Carousel pause='hover' className='bg-light mb-5 carousel'>
       {product.foodItems?.map((item) => (
         <Carousel.Item key={item._id}>
-          <Row className='p-3'>
+          <Row className='m-3 text-center'>
             <img src={item.farmer.image} alt={item.farmer.name} />
-            <div className='pt-2'>
-              <h2>{item.farmer.name}</h2>
-              <p>{item.farmer.description}</p>
+            <div >
+              <Link to={'/meetyourfarmer'}>
+                <h2 className='mt-2'>{item.farmer.name}</h2>
+              </Link>
+              <p><em>"{item.farmer.quote}"</em></p>
             </div>
           </Row>
         </Carousel.Item>
