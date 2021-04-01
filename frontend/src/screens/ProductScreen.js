@@ -104,8 +104,8 @@ const ProductScreen = ({ history, match }) => {
                 <Row className='justify-content-end'>
                   {product.reviews.length > 0 && (
                     <ListGroup.Item>
-                      <p className='ms-2'>Average Rating</p>
-                      <Container>
+                      <p>Average Rating</p>
+                      <div>
                         {
                           <Rating
                             value={product.rating}
@@ -114,7 +114,7 @@ const ProductScreen = ({ history, match }) => {
                             }`}
                           />
                         }
-                      </Container>
+                      </div>
                     </ListGroup.Item>
                   )}
                 </Row>
@@ -142,7 +142,7 @@ const ProductScreen = ({ history, match }) => {
                               className='product-img'
                             />
                             <p className='py-1 flex-grow-1'>{item.name}</p>
-                            <p>€{item.price}</p>
+                            <p>€ {item.price}</p>
                             <p>by: {item.farmer.name}</p>
                             <img
                               src={item.farmer.image}
@@ -150,25 +150,6 @@ const ProductScreen = ({ history, match }) => {
                               className='product-img'
                             />
                             <hr className='w-100' />
-                            <Container>
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                                className='product-img'
-                              />
-                              <p className='py-1'>{item.name}</p>
-                              <p>€{item.price}</p>
-                            </Container>
-                            <Container>
-                              <p>
-                                <strong>Farmer:</strong> {item.farmer.name}
-                              </p>
-                              <img
-                                src={item.farmer.image}
-                                alt={item.farmer.name}
-                                className='product-img'
-                              />
-                            </Container>
                           </Col>
                         ))}
                       </Row>
