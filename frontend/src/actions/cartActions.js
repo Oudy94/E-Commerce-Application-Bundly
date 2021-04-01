@@ -8,6 +8,10 @@ import {
 } from '../constants/cartConstants'
 
 export const addToCart = (id, qty, size) => async (dispatch, getState) => {
+  dispatch({
+    type: CART_CLEAR_ITEMS,
+  })
+
   const { data } = await axios.get(`/api/products/${id}`)
 
   dispatch({
@@ -70,7 +74,11 @@ export const clearCart = () => (dispatch, getState) => {
 // synchronizes the cart in redux state with the cart in the backend
 async function updateRemoteCart(getState) {
   // while adding new item to the backend cart check if user is logged in
-  const { userLogin: { userInfo: { token } } } = getState()
+  const {
+    userLogin: {
+      userInfo: { token },
+    },
+  } = getState()
   if (token) {
     const config = {
       headers: {
@@ -78,7 +86,9 @@ async function updateRemoteCart(getState) {
         Authorization: `Bearer ${token}`,
       },
     }
-    const { cart: { cartItems } } = getState()
+    const {
+      cart: { cartItems },
+    } = getState()
     axios.post('/api/cart', { cartItems }, config)
   }
 }
