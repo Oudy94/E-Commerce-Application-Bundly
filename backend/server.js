@@ -44,12 +44,11 @@ app.get('/api/config/googleMap', (req, res) =>
   res.send(process.env.GOOGLE_MAP_KEY)
 )
 
-app.get('/api/config/googleauth', (req, res) =>
-  res.send(process.env.GOOGLE_CLIENT_ID)
-)
-
-app.get('/api/config/facebookauth', (req, res) =>
-  res.send(process.env.FACEBOOK_CLIENT_ID)
+app.get('/api/config/authid', (req, res) =>
+  res.json({
+    googleid: process.env.GOOGLE_CLIENT_ID,
+    facebookid: process.env.FACEBOOK_CLIENT_ID,
+  })
 )
 
 const __dirname = path.resolve()
