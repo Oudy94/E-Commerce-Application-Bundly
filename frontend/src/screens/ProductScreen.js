@@ -125,13 +125,12 @@ const ProductScreen = ({ history, match }) => {
                       <Row>
                         {product.foodItems?.map((item, key) => (
                           <Col
-                            style={{ height: '45vh' }}
                             md={3}
                             className='py-3'
                             key={`foodItem_${item._id}`}
                           >
                             <hr />
-                            <Container style={{ height: '22vh' }}>
+                            <Container>
                               <img
                                 src={item.image}
                                 alt={item.name}
