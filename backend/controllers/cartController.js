@@ -1,9 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import sgMail from '@sendgrid/mail'
 import User from '../models/userModel.js'
-import colors from 'colors'
-
-colors.enable()
 
 // @desc    Create a cart
 // @route   POST /api/cart
