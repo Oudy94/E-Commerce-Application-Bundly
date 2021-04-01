@@ -42,7 +42,7 @@ export const farmersDataSet = [
     city: 'Ashby, MA',
     description:
       'Ashby Pasture is a small, family farm in Ashby, MA that specializes in no-spray vegetables and herbs as well as pastured eggs, poultry and meat through our custom CSA program.  more...',
-    quote: 'This isn’t just a job, it’s our lives.',
+    quote: 'I grew up on the farm. As a kid I followed my uncle and my grandfather around trying to learn the business. When I was on school holidays, I’d be working in the produce pack houses. I absolutely loved everything about it.',
   },
   {
     image:
@@ -78,7 +78,7 @@ export const farmersDataSet = [
     city: 'Temecula, CA',
     description:
       "We're a small family farm located in the heart of the Temecula wine country. We provide nutrient dense produce to our members through our Community Supported Agriculture (CSA) program. We also offer pasture raised eggs, free range beef, and pastured pork.  more...",
-    quote: 'I grew up on the farm. As a kid I followed my uncle and my grandfather around trying to learn the business. When I was on school holidays, I’d be working in the produce pack houses. I absolutely loved everything about it.',
+    quote: 'This isn’t just a job, it’s our lives. It\'s simply what we do and we love every bit of it.',
   },
   {
     image:

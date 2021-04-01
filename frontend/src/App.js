@@ -20,6 +20,8 @@ import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import PlanScreen from './screens/PlanScreen'
 import FAQScreen from './screens/FAQScreen'
+import MeetYourFarmerScreen from './screens/MeetYourFarmer';
+import FarmerScreen from './screens/FarmerScreen';
 import SubscriptionsScreen from './screens/SubscriptionsScreen'
 import ReactGA from 'react-ga'
 import axios from 'axios'
@@ -77,6 +79,8 @@ const App = () => {
         <Header />
         <main className='py-3'>
           <Container>
+            <Route path='/meetyourfarmer' exact component={MeetYourFarmerScreen} />
+            <Route path='/meetyourfarmer/:id' exact component={FarmerScreen} />
             <Route path='/faq' component={FAQScreen} />
             <Route
               path='/plan/:id?/:orderItemId?'

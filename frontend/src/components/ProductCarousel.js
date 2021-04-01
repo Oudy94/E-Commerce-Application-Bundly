@@ -24,13 +24,13 @@ const ProductCarousel = () => {
     <Carousel pause='hover' className='bg-light mb-5 carousel'>
       {product.foodItems?.map((item) => (
         <Carousel.Item key={item._id}>
-          <Row className='p-3'>
+          <Row className='m-3 text-center'>
             <img src={item.farmer.image} alt={item.farmer.name} />
-            <div className='pt-2'>
-              <Link to={`/meetyourfarmer/${item.farmer._id}`}>
-                <h2>{item.farmer.name}</h2>
+            <div >
+              <Link to={'/meetyourfarmer'}>
+                <h2 className='mt-2'>{item.farmer.name}</h2>
               </Link>
-              <p>{item.farmer.description}</p>
+              <p><em>"{item.farmer.quote}"</em></p>
             </div>
           </Row>
         </Carousel.Item>

@@ -15,7 +15,7 @@ const FarmerScreen = ({history, match}) => {
     if (!farmer._id || farmer._id !== match.params.id) {
       dispatch(getFarmerDetails(match.params.id))
     }
-  }, [dispatch, match])
+  }, [dispatch, match, farmer._id])
 
   return (
     <>
