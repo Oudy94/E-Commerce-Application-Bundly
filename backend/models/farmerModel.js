@@ -24,6 +24,10 @@ export const farmerSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    quote: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,
