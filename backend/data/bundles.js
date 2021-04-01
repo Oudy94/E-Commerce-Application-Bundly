@@ -6,6 +6,7 @@ export const farmersDataSet = [
     city: 'Fallbrook, CA',
     description:
       'Herbfresh grows many varieties of fruit,herbs and scented geraniums. We grow in Southern California and because of our climate we are able to grow year round. Herbfresh sells locally to nurseries, attends farmers markets in our area and sells online mail order throughout the country.',
+    quote: 'We wake up every morning knowing that there’s a lot of hard work and determination that we’re going to have to put in to continue being successful. But it’s just what we do.',
   },
   {
     image:
@@ -14,6 +15,7 @@ export const farmersDataSet = [
     city: 'Hood River, OR',
     description:
       'Choose what goes in your box! Hood River Organic is proud to be a cooperative CSA in the NW to offer boxes of local and organic produce year-round. Weekly, bi-weekly or monthly. We happily deliver to your doorstep or convenient pickup locations in both the Seattle and Portland metro area. Pick up locations also in Bend and the Columbia Gorge.  more...',
+    quote: 'My mother was one of the first women to work on the farm. She has always encouraged me to get involved in the family business. Most of what I know I learnt from my mother.',
   },
   {
     image:
@@ -22,6 +24,7 @@ export const farmersDataSet = [
     city: 'Bluemont, VA',
     description:
       'A Farm Less Ordinary (AFLO) is a 501c3 non-profit whose mission is to provide employment and a welcoming community to adults with developmental and intellectual disabilities, while sustainably growing organic vegetables for the Washington, DC area.  more...',
+    quote: 'Our family has always taken extreme pride in the product we produce.'
   },
   {
     image:
@@ -30,6 +33,7 @@ export const farmersDataSet = [
     city: 'Caledonia, IL',
     description:
       'Enjoy a weekly or bi-weekly 3/4 bushel box of fresh vegetables and herbs delivered to over 40 Chicagoland area sites from June through October.  more...',
+    quote: 'We try to encourage family members and staff alike to help us make a place for the future and continue to grow the farm.',
   },
   {
     image:
@@ -38,6 +42,7 @@ export const farmersDataSet = [
     city: 'Ashby, MA',
     description:
       'Ashby Pasture is a small, family farm in Ashby, MA that specializes in no-spray vegetables and herbs as well as pastured eggs, poultry and meat through our custom CSA program.  more...',
+    quote: 'This isn’t just a job, it’s our lives.',
   },
   {
     image:
@@ -46,6 +51,7 @@ export const farmersDataSet = [
     city: 'Scales Mound, IL',
     description:
       'We are a local plant and produce destination that grows all of our own produce starting from seed here on the farm. Our retail greenhouse is open in the Spring, and we continue to grow vegetables and cut-flowers Spring through Fall utilizing our fields, high tunnels and greenhouses.  more...',
+    quote: 'Agriculture is a wonderful place to work together as a family',
   },
   {
     image:
@@ -54,6 +60,7 @@ export const farmersDataSet = [
     city: 'Butler, MO',
     description:
       'L. V. Byrd started everything in 1964 with high ideals and an even higher work ethic. He stood behind Missouri pecans being higher in quality and richer in taste than other pecans. The tradition he started 50 years ago and his spirit lives on in every pecan we harvest from our 500 acre grove of more than 14,000 trees and bring to you.  more...',
+    quote: 'It\'s just a good life and you get to do something different every day.',
   },
   {
     image:
@@ -62,6 +69,7 @@ export const farmersDataSet = [
     city: 'Dixon, CA',
     description:
       'Please visit eatwell.com for more information about how to sign up with us! Eatwell Farm is a 105-acre organic farm in the Sacramento Valley in Northern California. In 1998 we were lucky enough to be able to buy land that is now all organic.  more...',
+    quote: 'We\'re fortunate enough to be feeding people in The Netherlands fresh, healthy and nutritious food that we are just so proud of. That makes us extremely happy.',
   },
   {
     image:
@@ -70,6 +78,7 @@ export const farmersDataSet = [
     city: 'Temecula, CA',
     description:
       "We're a small family farm located in the heart of the Temecula wine country. We provide nutrient dense produce to our members through our Community Supported Agriculture (CSA) program. We also offer pasture raised eggs, free range beef, and pastured pork.  more...",
+    quote: 'I grew up on the farm. As a kid I followed my uncle and my grandfather around trying to learn the business. When I was on school holidays, I’d be working in the produce pack houses. I absolutely loved everything about it.',
   },
   {
     image:
@@ -78,6 +87,7 @@ export const farmersDataSet = [
     city: 'Ojai, CA',
     description:
       'Fairview Orchards is a family owned & operated farm that cultivates a diverse variety of certified organic fruit such as Hass Avocados, Meyer Lemons, Blood Oranges, Figs, Specialty Tangerines, Jujubes & Pomegranates.  more...',
+    quote: 'Everyone from our family pretty much ends up on the farm in one way or another. I’m actually sixth generation and we have the seventh generation on the way. They’re running around in their training gumboots, which is great to see.',
   },
   {
     image:
@@ -86,6 +96,7 @@ export const farmersDataSet = [
     city: 'MEADOW VISTA, CA',
     description:
       'We believe that growing good food feels great! We believe in growing and producing the freshest, most nutrient dense, flavorful food for our community so that they can be the healthiest and most productive members of society. We are certified organic and work hard to be good stewards of this land.  more...',
+    quote: 'It’s hard to describe each of our roles as we all do a little bit of everything. From managing plantations to answering the phone in reception, we all pitch in to get the job done.',
   },
   {
     image:
@@ -94,6 +105,7 @@ export const farmersDataSet = [
     city: 'Homestead, FL',
     description:
       'We are a family owned farm operating in the historic Redland growing area in Dade county Florida. We have over 1000 tropical trees on our farm. Specializing in Golden Passion fruit, Longans, Lychees, Guava, Carambola, and Dragon Fruit.We offer farm tours for 12.00 per per person or 40.00 per family. Call for appt.  more...',
+    quote: 'Going on and off the farm throughout my career, I’ve developed an appreciation for the the farming world. It’s a diverse and interesting industry and more people should be onboard.',
   },
   {
     image:
@@ -102,6 +114,7 @@ export const farmersDataSet = [
     city: 'Brentwood, CA',
     description:
       "Frog Hollow Farm is a thriving 242-acre organic farm located in Brentwood, California. We are located a hop, skip and a jump east of San Francisco in the fertile Sacramento River Delta (about an hour's drive).  more...",
+    quote: 'Soil nutrition is very important. We don’t have to use many chemicals. We just let nature take its course.',
   },
   {
     image:
@@ -110,6 +123,7 @@ export const farmersDataSet = [
     city: 'Marshall, NC',
     description:
       'We are a small scale, grass-based sheep dairy located in Marshall, North Carolina. We care for our land and animals with diligence and respect and we believe that the farm is accountable to our larger community and should be run in a sustainable and transparent way.  more...',
+    quote: 'We take a lot of pride and care in our plants. We nurse them from a young seedling, to a trans-plant, through to a mature product.',
   },
   {
     image:
@@ -118,6 +132,7 @@ export const farmersDataSet = [
     city: 'Camrose, AB',
     description:
       'We are a certified organic, family farm growing produce for our community! We grow approximately 55 types of vegetables and herbs over 2.5 acres of cultivated land on our beautiful oasis here in the Alberta prairies.  more...',
+    quote: 'As organic farmers, we believe in protecting the natural integrity of the food we grow and the land on which we grow it.',
   },
   {
     image:
@@ -126,6 +141,7 @@ export const farmersDataSet = [
     city: 'Norwalk, IA',
     description:
       'Halfacre Farms is an operation that produces locally grown chicken, eggs and produce in an ethical manner using organic methods.  more...',
+    quote: 'Hope more farmers learn to produce food to satisfy the consumer, not the industry.',
   },
   {
     image:
@@ -134,6 +150,7 @@ export const farmersDataSet = [
     city: 'Saxapahaw, NC',
     description:
       "Haw River Mushrooms, LLC is dedicated to bringing the flavors, textures, and stories of culinary mushrooms to a larger audience. We believe that thinking mycologically leads to acting ecologically and that an appreciation for mushrooms opens doors to understanding fungi's many rolls in preserving and restoring our environment.  more...",
+    quote: 'To be interested in food, but not in food production is clearly absurd',
   },
   {
     image:
@@ -142,6 +159,7 @@ export const farmersDataSet = [
     city: 'Annapolis, MD',
     description:
       '\n      Choose what goes in your box!  Hood River Organic is proud to be a cooperative CSA in the NW to offer boxes of local and organic produce year-round. Weekly, bi-weekly or monthly. We happily deliver to your doorstep or convenient pickup locations in both the Seattle and Portland metro area. Pick up locations also in Bend and the Columbia Gorge. \n     ',
+    quote: 'A good farmer is a craftsman of the highest order, a kind of artist',
   },
 ]
 

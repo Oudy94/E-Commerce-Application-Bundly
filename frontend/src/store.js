@@ -39,6 +39,7 @@ import {
   subscriptionListMyReducer,
 } from './reducers/subscriptionReducer'
 import { planCreateReducer } from './reducers/planReducers'
+import { farmerListReducer, farmerDetailsReducer } from './reducers/farmerReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -71,6 +72,8 @@ const reducer = combineReducers({
   subscriptionUpdatePreferences: subscriptionUpdatePreferencesReducer,
   subscriptionCancel: subscriptionCancelReducer,
   subscriptionListMy: subscriptionListMyReducer,
+  farmerList: farmerListReducer,
+  farmerDetails: farmerDetailsReducer,
 })
 
 const planItemsFromStorage = localStorage.getItem('planItems')

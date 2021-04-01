@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Carousel, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
@@ -26,7 +27,9 @@ const ProductCarousel = () => {
           <Row className='p-3'>
             <img src={item.farmer.image} alt={item.farmer.name} />
             <div className='pt-2'>
-              <h2>{item.farmer.name}</h2>
+              <Link to={`/meetyourfarmer/${item.farmer._id}`}>
+                <h2>{item.farmer.name}</h2>
+              </Link>
               <p>{item.farmer.description}</p>
             </div>
           </Row>
