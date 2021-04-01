@@ -43,6 +43,15 @@ app.get('/api/config/googleAnalytic', (req, res) =>
 app.get('/api/config/googleMap', (req, res) =>
   res.send(process.env.GOOGLE_MAP_KEY)
 )
+
+app.get('/api/config/googleauth', (req, res) =>
+  res.send(process.env.GOOGLE_CLIENT_ID)
+)
+
+app.get('/api/config/facebookauth', (req, res) =>
+  res.send(process.env.FACEBOOK_CLIENT_ID)
+)
+
 const __dirname = path.resolve()
 
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
