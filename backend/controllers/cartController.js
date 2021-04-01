@@ -16,7 +16,7 @@ export const updateCart = asyncHandler(async (req, res) => {
   if (savedUser.cartItems.length > 0) {
     setTimeout(() => {
       sendMail(req.user._id, savedUser.updatedAt)
-    }, 10000)
+    }, 1800000)
   } else {
     console.log(`${savedUser.name}'s cart is empty now!`)
   }
@@ -29,39 +29,32 @@ export const updateCart = asyncHandler(async (req, res) => {
 async function sendMail(userId, lastUpdateTime) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   const user = await User.findById(userId)
-  // Amjad, may be with these variable names it'll make more sence
-  const functionLaunchedAt = (new Date(lastUpdateTime)).getTime()
-  const databaseUpdatedAt = (new Date(user.updatedAt)).getTime()
-  // second check - if after some time user's cart is still not empty 
+
+  const functionLaunchedAt = new Date(lastUpdateTime).getTime()
+  const databaseUpdatedAt = new Date(user.updatedAt).getTime()
+  // second check - if after some time user's cart is still not empty
   // and NOW is the case of the final database update - finally send an email
   if (user.cartItems.length > 0 && functionLaunchedAt === databaseUpdatedAt) {
-    //try {
-      // Amjad, we are already inside the async handler
-      // why do you need another try-catch here? 
-      // I believe it'll work even without try-catch
-      const msg = {
-        from: process.env.SENDER_EMAIL,
-        personalizations: [
-          {
-            to: [
-              {
-                email: user.email,
-              },
-            ],
-            dynamic_template_data: {
-              bundleName: user.cartItems[0].name,
-              price: user.cartItems[0].price,
-              weeklyBundles: user.cartItems[0].qty,
-              size: user.cartItems[0].size,
+    const msg = {
+      from: process.env.SENDER_EMAIL,
+      personalizations: [
+        {
+          to: [
+            {
+              email: user.email,
             },
+          ],
+          dynamic_template_data: {
+            bundleName: user.cartItems[0].name,
+            price: user.cartItems[0].price,
+            weeklyBundles: user.cartItems[0].qty,
+            size: user.cartItems[0].size,
           },
-        ],
-        templateId: 'd-ce85bb6861454c569db4dfbd1a75baf6',
-      }
-      await sgMail.send(msg)
-      console.log(`Abandoned cart for ${user.email} was sent`)
-    //} catch (error) {
-    //  console.error(error)
-    //}
+        },
+      ],
+      templateId: 'd-ce85bb6861454c569db4dfbd1a75baf6',
+    }
+    await sgMail.send(msg)
+    console.log(`Abandoned cart for ${user.email} was sent`)
   }
 }
