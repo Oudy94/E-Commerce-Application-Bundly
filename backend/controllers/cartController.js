@@ -1,6 +1,9 @@
 import asyncHandler from 'express-async-handler'
 import sgMail from '@sendgrid/mail'
 import User from '../models/userModel.js'
+import colors from 'colors'
+
+colors.enable()
 
 // @desc    Create a cart
 // @route   POST /api/cart
@@ -12,8 +15,8 @@ export const updateCart = asyncHandler(async (req, res) => {
   // first check - if user's cart is not empty then send email in some time
   if (savedUser.cartItems.length > 0) {
     setTimeout(() => {
-      sendMail(req.user._id)
-    }, 1800000)
+      sendMail(req.user._id, savedUser.updatedAt)
+    }, 10000)
   } else {
     console.log(`${savedUser.name}'s cart is empty now!`)
   }
@@ -23,13 +26,19 @@ export const updateCart = asyncHandler(async (req, res) => {
   })
 })
 
-async function sendMail(userId) {
+async function sendMail(userId, lastUpdateTime) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   const user = await User.findById(userId)
-  // second check - if after some time user's cart is still not empty - finally send an email
-
-  if (user.cartItems.length > 0) {
-    try {
+  // Amjad, may be with these variable names it'll make more sence
+  const functionLaunchedAt = (new Date(lastUpdateTime)).getTime()
+  const databaseUpdatedAt = (new Date(user.updatedAt)).getTime()
+  // second check - if after some time user's cart is still not empty 
+  // and NOW is the case of the final database update - finally send an email
+  if (user.cartItems.length > 0 && functionLaunchedAt === databaseUpdatedAt) {
+    //try {
+      // Amjad, we are already inside the async handler
+      // why do you need another try-catch here? 
+      // I believe it'll work even without try-catch
       const msg = {
         from: process.env.SENDER_EMAIL,
         personalizations: [
@@ -50,11 +59,9 @@ async function sendMail(userId) {
         templateId: 'd-ce85bb6861454c569db4dfbd1a75baf6',
       }
       await sgMail.send(msg)
-      console.log(`Abandoned cart for ${user.email}`)
-    } catch (error) {
-      console.error(error)
-    }
-  } else {
-    console.log(`${user.name}'s cart is empty now!`)
+      console.log(`Abandoned cart for ${user.email} was sent`)
+    //} catch (error) {
+    //  console.error(error)
+    //}
   }
 }
