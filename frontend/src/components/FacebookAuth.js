@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { authFacebook } from '../actions/userActions'
 
-const FacebookAuth = () => {
+const FacebookAuth = ({ apiKey }) => {
   const dispatch = useDispatch()
 
   const responseFacebook = (response) => {
@@ -14,7 +14,7 @@ const FacebookAuth = () => {
   return (
     <div>
       <FacebookLogin
-        appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
+        appId={apiKey}
         render={(renderProps) => (
           <Button
             onClick={renderProps.onClick}

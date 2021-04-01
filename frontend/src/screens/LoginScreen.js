@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +13,7 @@ import { login } from '../actions/userActions'
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [apiKey, setApiKey] = useState('')
 
   const dispatch = useDispatch()
 
@@ -23,6 +25,21 @@ const LoginScreen = ({ location, history }) => {
   useEffect(() => {
     if (userInfo) {
       history.push(redirect)
+    } else {
+      const getApiKey = async () => {
+        try {
+          const { data } = await axios.get('/api/config/authid')
+          if (data) {
+            setApiKey(data)
+          } else {
+            throw new Error('failed to fetch the api key')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      getApiKey()
     }
   }, [history, userInfo, redirect])
 
@@ -63,8 +80,12 @@ const LoginScreen = ({ location, history }) => {
       </Form>
 
       <div className='or'> OR </div>
-      <GoogleAuth />
-      <FacebookAuth />
+      {apiKey && (
+        <>
+          <GoogleAuth apiKey={apiKey.googleid} />
+          <FacebookAuth apiKey={apiKey.facebookid} />
+        </>
+      )}
 
       <Row className='py-3'>
         <Col>

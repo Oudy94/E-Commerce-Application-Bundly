@@ -16,7 +16,7 @@ import { updateSubscriptionPreferences } from '../actions/subscriptionActions'
 import { SUBSCRIPTION_UPDATE_PREFERENCES_CLEAR } from '../constants/subscriptionConstants'
 import useEventGaTracker from '../hooks/useEventGaTracker'
 
-const PlanScreen = ({ history, match }) => {
+const PlanScreen = ({ history, match, optimizely }) => {
   const [bundle, setBundle] = useState('')
   const [persons, setPersons] = useState('')
   const [bundlePerWeek, setBundlePerWeek] = useState('')
@@ -95,6 +95,7 @@ const PlanScreen = ({ history, match }) => {
     } else {
       dispatch(createPlan(bundle, qty, size))
       EventGaTracker('successful Plan submit clicked', '/plan')
+      optimizely.track('purchase')
       history.push(`/cart/${bundle}?qty=${qty}&size=${size}`)
     }
   }

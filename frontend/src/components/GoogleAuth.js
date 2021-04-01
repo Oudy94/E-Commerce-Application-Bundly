@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { authGoogle } from '../actions/userActions'
 
-const GoogleAuth = () => {
+const GoogleAuth = ({ apiKey }) => {
   const dispatch = useDispatch()
 
   const responseSuccessGoogle = (response) => {
@@ -14,7 +14,7 @@ const GoogleAuth = () => {
   return (
     <div>
       <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        clientId={apiKey}
         render={(renderProps) => (
           <Button
             onClick={renderProps.onClick}

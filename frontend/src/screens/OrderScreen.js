@@ -82,7 +82,6 @@ const OrderScreen = ({ match, history }) => {
   }, [dispatch, orderId, successPay, successDeliver, order, history, userInfo])
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
     dispatch(updateSubscriptionStatus(user, 'active'))
     dispatch(sendSubscriptionConfirmation(order))
