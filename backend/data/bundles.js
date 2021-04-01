@@ -1365,7 +1365,7 @@ export const bundlesDataSet = [
     countInStock: 145,
   },
   {
-    name: 'Just Now',
+    name: 'Freshest',
     image: '/images/food.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
@@ -1376,7 +1376,7 @@ export const bundlesDataSet = [
     countInStock: 111,
   },
   {
-    name: 'Let us Dance',
+    name: `Let's Dance`,
     image: '/images/box.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
@@ -1387,7 +1387,7 @@ export const bundlesDataSet = [
     countInStock: 111,
   },
   {
-    name: 'The Kiss',
+    name: 'Fruit Friends',
     image: '/images/bundle4.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
