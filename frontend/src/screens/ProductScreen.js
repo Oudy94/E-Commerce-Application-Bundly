@@ -20,15 +20,19 @@ import {
   createProductReview,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import ProductCarousel from '../components/ProductCarousel'
 
 const ProductScreen = ({ history, match }) => {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const dispatch = useDispatch()
+
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
   const productReviewCreate = useSelector((state) => state.productReviewCreate)
   const {
     success: successProductReview,
@@ -90,15 +94,18 @@ const ProductScreen = ({ history, match }) => {
               </Card>
             </Row>
             <Row>
-              <Col md={8}>
+              <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid />
+              </Col>
+              <Col md={6}>
+                <ProductCarousel />
               </Col>
               <Col md={4} className='pt-5'>
                 <Row className='justify-content-end'>
                   {product.reviews.length > 0 && (
                     <ListGroup.Item>
-                      <p className='ms-2'>Average Rating</p>
-                      <Container>
+                      <p>Average Rating</p>
+                      <div>
                         {
                           <Rating
                             value={product.rating}
@@ -107,7 +114,7 @@ const ProductScreen = ({ history, match }) => {
                             }`}
                           />
                         }
-                      </Container>
+                      </div>
                     </ListGroup.Item>
                   )}
                 </Row>
@@ -126,29 +133,23 @@ const ProductScreen = ({ history, match }) => {
                         {product.foodItems?.map((item, key) => (
                           <Col
                             md={3}
-                            className='py-3'
+                            className='py-3 d-flex flex-column'
                             key={`foodItem_${item._id}`}
                           >
-                            <hr />
-                            <Container>
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                                className='product-img'
-                              />
-                              <p className='py-1'>{item.name}</p>
-                              <p>€{item.price}</p>
-                            </Container>
-                            <Container>
-                              <p>
-                                <strong>Farmer:</strong> {item.farmer.name}
-                              </p>
-                              <img
-                                src={item.farmer.image}
-                                alt={item.farmer.name}
-                                className='product-img'
-                              />
-                            </Container>
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className='product-img'
+                            />
+                            <p className='py-1 flex-grow-1'>{item.name}</p>
+                            <p>€ {item.price}</p>
+                            <p>by: {item.farmer.name}</p>
+                            <img
+                              src={item.farmer.image}
+                              alt={item.farmer.name}
+                              className='product-img'
+                            />
+                            <hr className='w-100' />
                           </Col>
                         ))}
                       </Row>
