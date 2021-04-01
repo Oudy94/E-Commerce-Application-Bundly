@@ -31,6 +31,7 @@ import {
   setLogger,
   withOptimizely,
 } from '@optimizely/react-sdk'
+import generateBrowserId from './utils/generateBrowserId'
 
 const optimizely = createInstance({
   sdkKey: '3oA2LswbwFCVpE6NJXU1G',
@@ -67,7 +68,9 @@ const App = () => {
     <OptimizelyProvider
       optimizely={optimizely}
       user={{
-        id: 'user25',
+        id: localStorage.getItem('browserid')
+          ? JSON.parse(localStorage.getItem('browserid'))
+          : generateBrowserId(),
       }}
     >
       <main>
