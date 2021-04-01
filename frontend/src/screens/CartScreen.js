@@ -34,7 +34,7 @@ const CartScreen = ({ match, location, history }) => {
       dispatch(addToCart(productId, qty, size))
       EventGaTracker('successfull addToCart', productId)
     }
-  }, [dispatch, productId, qty, size, EventGaTracker])
+  }, [dispatch, productId, qty, size])
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))

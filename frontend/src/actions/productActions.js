@@ -31,17 +31,20 @@ export const listProducts = (
   category = '',
   minPrice = 0,
   maxPrice = 1000,
-  rating = 0,
-) => async (
-  dispatch
-) => {
+  rating = 0
+) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST })
 
     const { data } = await axios.get(
-      `/api/products?${keyword ? `keyword=${keyword}` : ''}&pageNumber=${pageNumber}${orderBy ? `&orderBy=${orderBy}` : ''}${category ? `&category=${category}` : ''}${minPrice ? `&minPrice=${minPrice}` : ''}${maxPrice ? `&maxPrice=${maxPrice}` : ''}${rating ? `&rating=${rating}` : ''}`
+      `/api/products?${
+        keyword ? `keyword=${keyword}` : ''
+      }&pageNumber=${pageNumber}${orderBy ? `&orderBy=${orderBy}` : ''}${
+        category ? `&category=${category}` : ''
+      }${minPrice ? `&minPrice=${minPrice}` : ''}${
+        maxPrice ? `&maxPrice=${maxPrice}` : ''
+      }${rating ? `&rating=${rating}` : ''}`
     )
-
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
