@@ -49,8 +49,8 @@ const MeetYourFarmerScreen = ({history}) => {
         <Row>
             {farmers.map((farmer) => {
             return (
-              <Col md={3} lg={2}>
-                <Card className='rounded m-2' key={`${farmer._id}`} >
+              <Col md={3} lg={2} key={`${farmer._id}`}>
+                <Card className='rounded m-2' >
                   <Link to={`/meetyourfarmer/${farmer._id}`}>
                     <Card.Img
                     src={farmer.image}
