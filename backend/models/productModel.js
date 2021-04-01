@@ -37,6 +37,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    farmImage: {
+      type: String,
+      required: true,
+    },
     category: {
       type: String,
       required: true,

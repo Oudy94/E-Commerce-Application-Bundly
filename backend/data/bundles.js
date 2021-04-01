@@ -254,6 +254,7 @@ export const bundlesDataSet = [
   {
     name: 'Go Green',
     image: '/images/squash.jpg',
+    farmImage: '/images/dutch-farmer.jpg',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas blanditiis atque illum deserunt minus iure rem consequuntur, doloremque tenetur necessitatibus neque deleniti eligendi soluta molestias voluptatum',
     category: 'Vegetarian',
@@ -265,6 +266,7 @@ export const bundlesDataSet = [
   {
     name: 'Freshest',
     image: '/images/food.jpg',
+    farmImage: '/images/cows.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
     category: 'Vegan',
@@ -276,6 +278,7 @@ export const bundlesDataSet = [
   {
     name: `Let's Dance`,
     image: '/images/box.jpg',
+    farmImage: '/images/Ray.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
     category: 'Vegetarian',
@@ -287,6 +290,7 @@ export const bundlesDataSet = [
   {
     name: 'Fruit Friends',
     image: '/images/bundle4.jpg',
+    farmImage: '/images/farmers.jpg',
     description:
       'Molestiae consequatur, voluptate dolores sit maiores saepe placeat tempore? Iure, saepe consectetur necessitatibus ipsa doloremque odit id expedita praesentium tenetur incidunt deserunt quia quod dolore et excepturi eos totam explicabo',
     category: 'Vegan',
