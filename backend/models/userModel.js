@@ -26,6 +26,17 @@ const userSchema = mongoose.Schema(
       enum: ['active', 'inactive'],
       default: 'inactive',
     },
+    cartItems: [
+        {
+          product: String,
+          size: Number,
+          name: String,
+          image: String,
+          price: Number,
+          countInStock: Number,
+          qty: Number,
+        }
+    ],
   },
   {
     timestamps: true,
