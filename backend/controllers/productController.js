@@ -36,12 +36,6 @@ const getProducts = asyncHandler(async (req, res) => {
               $options: 'i',
             },
           },
-          {
-            foodItems: {
-              $regex: req.query.keyword,
-              $options: 'i',
-            },
-          },
         ],
       }
     : {}

@@ -123,6 +123,7 @@ const PlanScreen = ({ history, match }) => {
                 <Col md={6}>
                   <Button
                     variant='outline-success'
+                    style={{ height: '6vh', width: '8em' }}
                     className='rounded'
                     active={bundle === product._id ? true : false}
                     value={product._id}
@@ -133,7 +134,7 @@ const PlanScreen = ({ history, match }) => {
                       setBundlePrice(product.price)
                     }}
                   >
-                    <i className='fas fa-hands'></i> {product.name}
+                    {product.name}
                   </Button>
                 </Col>
               </Row>
@@ -151,6 +152,7 @@ const PlanScreen = ({ history, match }) => {
                   {family.map((person) => (
                     <Button
                       key={person + 100}
+                      size='lg'
                       variant='outline-success'
                       active={Number(persons) === Number(person) ? true : false}
                       className='rounded me-3'
@@ -174,6 +176,7 @@ const PlanScreen = ({ history, match }) => {
                   {weekly.map((number) => (
                     <Button
                       key={number + 300}
+                      size='lg'
                       variant='outline-success'
                       active={
                         Number(bundlePerWeek) === Number(number) ? true : false

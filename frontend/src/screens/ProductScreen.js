@@ -62,14 +62,6 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <>
-      <Button
-        className='btn btn-light my-3'
-        onClick={() => {
-          history.goBack()
-        }}
-      >
-        Go Back
-      </Button>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -78,7 +70,15 @@ const ProductScreen = ({ history, match }) => {
         product && (
           <>
             <Meta title={product.name} />
-            <Row>
+            <Row className='justify-content-between'>
+              <Button
+                className='btn-light my-5'
+                onClick={() => {
+                  history.goBack()
+                }}
+              >
+                &#x003C; &#x003C; &#x003C; Go Back
+              </Button>
               <Card className='my-5'>
                 <Button
                   onClick={addToPlanHandler}
@@ -94,11 +94,11 @@ const ProductScreen = ({ history, match }) => {
                 <Image src={product.image} alt={product.name} fluid />
               </Col>
               <Col md={4} className='pt-5'>
-                <Row>
+                <Row className='justify-content-end'>
                   {product.reviews.length > 0 && (
                     <ListGroup.Item>
-                      <p>Average Rating</p>
-                      <p>
+                      <p className='ms-2'>Average Rating</p>
+                      <Container>
                         {
                           <Rating
                             value={product.rating}
@@ -107,7 +107,7 @@ const ProductScreen = ({ history, match }) => {
                             }`}
                           />
                         }
-                      </p>
+                      </Container>
                     </ListGroup.Item>
                   )}
                 </Row>
@@ -125,24 +125,31 @@ const ProductScreen = ({ history, match }) => {
                       <Row>
                         {product.foodItems?.map((item, key) => (
                           <Col
+                            style={{ height: '45vh' }}
                             md={3}
                             className='py-3'
                             key={`foodItem_${item._id}`}
                           >
-                            <img
-                              src={item.image}
-                              alt={item.name}
-                              className='product-img'
-                            />
-                            <p className='py-1'>{item.name}</p>
-                            <p>€{item.price}</p>
-                            <p>Farmer: {item.farmer.name}</p>
-                            <img
-                              src={item.farmer.image}
-                              alt={item.farmer.name}
-                              className='product-img'
-                            />
                             <hr />
+                            <Container style={{ height: '22vh' }}>
+                              <img
+                                src={item.image}
+                                alt={item.name}
+                                className='product-img'
+                              />
+                              <p className='py-1'>{item.name}</p>
+                              <p>€{item.price}</p>
+                            </Container>
+                            <Container>
+                              <p>
+                                <strong>Farmer:</strong> {item.farmer.name}
+                              </p>
+                              <img
+                                src={item.farmer.image}
+                                alt={item.farmer.name}
+                                className='product-img'
+                              />
+                            </Container>
                           </Col>
                         ))}
                       </Row>
