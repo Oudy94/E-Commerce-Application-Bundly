@@ -12,7 +12,7 @@ export const updateCart = asyncHandler(async (req, res) => {
   // first check - if user's cart is not empty then send email in some time
   if (savedUser.cartItems.length > 0) {
     setTimeout(() => {
-      sendMail(req.user._id)
+      sendMail(req.user._id, savedUser.updatedAt)
     }, 1800000)
   } else {
     console.log(`${savedUser.name}'s cart is empty now!`)
@@ -23,38 +23,35 @@ export const updateCart = asyncHandler(async (req, res) => {
   })
 })
 
-async function sendMail(userId) {
+async function sendMail(userId, lastUpdateTime) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   const user = await User.findById(userId)
-  // second check - if after some time user's cart is still not empty - finally send an email
 
-  if (user.cartItems.length > 0) {
-    try {
-      const msg = {
-        from: process.env.SENDER_EMAIL,
-        personalizations: [
-          {
-            to: [
-              {
-                email: user.email,
-              },
-            ],
-            dynamic_template_data: {
-              bundleName: user.cartItems[0].name,
-              price: user.cartItems[0].price,
-              weeklyBundles: user.cartItems[0].qty,
-              size: user.cartItems[0].size,
+  const functionLaunchedAt = new Date(lastUpdateTime).getTime()
+  const databaseUpdatedAt = new Date(user.updatedAt).getTime()
+  // second check - if after some time user's cart is still not empty
+  // and NOW is the case of the final database update - finally send an email
+  if (user.cartItems.length > 0 && functionLaunchedAt === databaseUpdatedAt) {
+    const msg = {
+      from: process.env.SENDER_EMAIL,
+      personalizations: [
+        {
+          to: [
+            {
+              email: user.email,
             },
+          ],
+          dynamic_template_data: {
+            bundleName: user.cartItems[0].name,
+            price: user.cartItems[0].price,
+            weeklyBundles: user.cartItems[0].qty,
+            size: user.cartItems[0].size,
           },
-        ],
-        templateId: 'd-ce85bb6861454c569db4dfbd1a75baf6',
-      }
-      await sgMail.send(msg)
-      console.log(`Abandoned cart for ${user.email}`)
-    } catch (error) {
-      console.error(error)
+        },
+      ],
+      templateId: 'd-ce85bb6861454c569db4dfbd1a75baf6',
     }
-  } else {
-    console.log(`${user.name}'s cart is empty now!`)
+    await sgMail.send(msg)
+    console.log(`Abandoned cart for ${user.email} was sent`)
   }
 }
