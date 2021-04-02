@@ -9,13 +9,19 @@ import FormContainer from '../components/FormContainer'
 import GoogleAuth from '../components/GoogleAuth'
 import FacebookAuth from '../components/FacebookAuth'
 import { login } from '../actions/userActions'
+import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [apiKey, setApiKey] = useState('')
 
+  const EventGaTracker = useEventGaTracker('SignIn')
+
   const dispatch = useDispatch()
+  const userHistoryRoutes = useSelector((state) => state.userHistoryRoutes)
+  const { routesHistory } = userHistoryRoutes
+  const signupOriginPath = routesHistory[routesHistory.length - 2]
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
@@ -46,6 +52,7 @@ const LoginScreen = ({ location, history }) => {
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(login(email, password))
+    EventGaTracker('successfull signIn', signupOriginPath)
   }
 
   return (
@@ -82,8 +89,24 @@ const LoginScreen = ({ location, history }) => {
       <div className='or'> OR </div>
       {apiKey && (
         <>
-          <GoogleAuth apiKey={apiKey.googleid} />
-          <FacebookAuth apiKey={apiKey.facebookid} />
+          <GoogleAuth
+            apiKey={apiKey.googleid}
+            registerEvent={() => {
+              EventGaTracker(
+                'successfull signIn with google ',
+                signupOriginPath
+              )
+            }}
+          />
+          <FacebookAuth
+            apiKey={apiKey.facebookid}
+            registerEvent={() => {
+              EventGaTracker(
+                'successfull signIn with facebook ',
+                signupOriginPath
+              )
+            }}
+          />
         </>
       )}
 
