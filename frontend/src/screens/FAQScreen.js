@@ -32,7 +32,7 @@ const FAQScreen = ({ history }) => {
       </Navbar>
 
       <Container>
-        <Card className='shadow p-1 my-4'>
+        <Card className='shadow px-3 my-4'>
           <Row
             className='btn-outline-success rounded justify-content-between'
             onClick={() => setOpenA(!openA)}
@@ -40,19 +40,17 @@ const FAQScreen = ({ history }) => {
             aria-expanded={openA}
           >
             <Col md={10}>
-              <h2>
-                <strong>
-                  What’s the benefit of an FAQ section on your website?
-                </strong>
+              <h2 className='faqRow'>
+                What’s the benefit of an FAQ section on your website?
               </h2>
             </Col>
             {!openA ? (
               <Col md={1}>
-                <i className='fas fa-arrow-down'></i>
+                <i className='fas  fa-arrow-down   mobileArrow'></i>
               </Col>
             ) : (
               <Col md={1}>
-                <i className='fas fa-arrow-up'></i>
+                <i className='fas fa-arrow-up mobileArrow'></i>
               </Col>
             )}
           </Row>
@@ -93,7 +91,7 @@ const FAQScreen = ({ history }) => {
             </div>
           </Collapse>
         </Card>
-        <Card className='shadow p-1 mb-4'>
+        <Card className='shadow px-3 mb-4'>
           <Row
             className='btn-outline-success rounded justify-content-between'
             onClick={() => setOpenB(!openB)}
@@ -101,19 +99,17 @@ const FAQScreen = ({ history }) => {
             aria-expanded={openB}
           >
             <Col md={10}>
-              <h2>
-                <strong>
-                  How do you decide what questions to put in your FAQ?
-                </strong>
+              <h2 className='faqRow'>
+                How do you decide what questions to put in your FAQ?
               </h2>
             </Col>
             {!openB ? (
               <Col md={1}>
-                <i className='fas fa-arrow-down'></i>
+                <i className='fas fa-arrow-down   mobileArrow'></i>
               </Col>
             ) : (
               <Col md={1}>
-                <i className='fas fa-arrow-up'></i>
+                <i className='fas fa-arrow-up   mobileArrow'></i>
               </Col>
             )}
           </Row>
@@ -149,7 +145,7 @@ const FAQScreen = ({ history }) => {
             </div>
           </Collapse>
         </Card>
-        <Card className='shadow p-1 mb-4 '>
+        <Card className='shadow px-3 mb-4 '>
           <Row
             className='btn-outline-success rounded justify-content-between'
             onClick={() => setOpenC(!openC)}
@@ -157,17 +153,15 @@ const FAQScreen = ({ history }) => {
             aria-expanded={openC}
           >
             <Col md={10}>
-              <h2>
-                <strong> Why you should make an FAQ page three?</strong>
-              </h2>
+              <h2 className='faqRow'>Why you should make an FAQ page three?</h2>
             </Col>
             {!openC ? (
               <Col md={1}>
-                <i className='fas fa-arrow-down'></i>
+                <i className='fas fa-arrow-down  mobileArrow'></i>
               </Col>
             ) : (
               <Col md={1}>
-                <i className='fas fa-arrow-up'></i>
+                <i className='fas fa-arrow-up   mobileArrow'></i>
               </Col>
             )}
           </Row>

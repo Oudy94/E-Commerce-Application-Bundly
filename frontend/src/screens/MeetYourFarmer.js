@@ -90,7 +90,9 @@ const MeetYourFarmerScreen = ({ history }) => {
                         src={farmer.image}
                         variant='top'
                         alt={farmer.name}
-                        style={{ height: '10vh' }}
+                        style={{
+                          height: '15vh',
+                        }}
                       />
                     </Link>
                     <Card.Body>

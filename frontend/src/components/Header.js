@@ -43,7 +43,7 @@ const Header = () => {
               {userInfo && (
                 <LinkContainer to='/plan'>
                   <Nav.Link>
-                    <i className='fas fa-calculator'></i> Plan
+                    <i className='fas fa-calculator'></i> Select Plan
                   </Nav.Link>
                 </LinkContainer>
               )}
