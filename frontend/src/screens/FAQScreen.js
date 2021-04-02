@@ -3,9 +3,11 @@ import {
   Badge,
   Button,
   Card,
+  Col,
   Collapse,
   Container,
   Navbar,
+  Row,
 } from 'react-bootstrap'
 
 const FAQScreen = ({ history }) => {
@@ -21,7 +23,7 @@ const FAQScreen = ({ history }) => {
           history.goBack()
         }}
       >
-        &#x003C; &#x003C; &#x003C; Go Back
+        Go Back
       </Button>
       <Navbar className='faq rounded' variant='light' expand='lg'>
         <h1>
@@ -31,18 +33,29 @@ const FAQScreen = ({ history }) => {
 
       <Container>
         <Card className='shadow p-1 my-4'>
-          <div
-            className='btn-outline-success align-left rounded'
+          <Row
+            className='btn-outline-success rounded justify-content-between'
             onClick={() => setOpenA(!openA)}
             aria-controls='example-collapse-one'
             aria-expanded={openA}
           >
-            <h2>
-              <strong>
-                What’s the benefit of an FAQ section on your website?
-              </strong>
-            </h2>
-          </div>
+            <Col md={10}>
+              <h2>
+                <strong>
+                  What’s the benefit of an FAQ section on your website?
+                </strong>
+              </h2>
+            </Col>
+            {!openA ? (
+              <Col md={1}>
+                <i className='fas fa-arrow-down'></i>
+              </Col>
+            ) : (
+              <Col md={1}>
+                <i className='fas fa-arrow-up'></i>
+              </Col>
+            )}
+          </Row>
           <Collapse in={openA}>
             <div id='example-collapse-one'>
               <strong>It saves you time.</strong> If you spend a lot of your
@@ -81,18 +94,29 @@ const FAQScreen = ({ history }) => {
           </Collapse>
         </Card>
         <Card className='shadow p-1 mb-4'>
-          <div
-            className='btn-outline-success align-left rounded'
+          <Row
+            className='btn-outline-success rounded justify-content-between'
             onClick={() => setOpenB(!openB)}
             aria-controls='example-collapse-two'
             aria-expanded={openB}
           >
-            <h2>
-              <strong>
-                How do you decide what questions to put in your FAQ?
-              </strong>
-            </h2>
-          </div>
+            <Col md={10}>
+              <h2>
+                <strong>
+                  How do you decide what questions to put in your FAQ?
+                </strong>
+              </h2>
+            </Col>
+            {!openB ? (
+              <Col md={1}>
+                <i className='fas fa-arrow-down'></i>
+              </Col>
+            ) : (
+              <Col md={1}>
+                <i className='fas fa-arrow-up'></i>
+              </Col>
+            )}
+          </Row>
           <Collapse in={openB}>
             <div id='example-collapse-two'>
               <strong>Look at your customers’ questions</strong> The first is
@@ -126,16 +150,27 @@ const FAQScreen = ({ history }) => {
           </Collapse>
         </Card>
         <Card className='shadow p-1 mb-4 '>
-          <div
-            className='btn-outline-success align-left rounded'
+          <Row
+            className='btn-outline-success rounded justify-content-between'
             onClick={() => setOpenC(!openC)}
             aria-controls='example-collapse-three'
             aria-expanded={openC}
           >
-            <h2>
-              <strong> Why you should make an FAQ page three?</strong>
-            </h2>
-          </div>
+            <Col md={10}>
+              <h2>
+                <strong> Why you should make an FAQ page three?</strong>
+              </h2>
+            </Col>
+            {!openC ? (
+              <Col md={1}>
+                <i className='fas fa-arrow-down'></i>
+              </Col>
+            ) : (
+              <Col md={1}>
+                <i className='fas fa-arrow-up'></i>
+              </Col>
+            )}
+          </Row>
           <Collapse in={openC}>
             <div id='example-collapse-three'>
               The best FAQ pages do a lot of the heavy lifting on your website.

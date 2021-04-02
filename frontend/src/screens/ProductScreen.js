@@ -81,13 +81,14 @@ const ProductScreen = ({ history, match }) => {
                   history.goBack()
                 }}
               >
-                &#x003C; &#x003C; &#x003C; Go Back
+                Go Back
               </Button>
               <Card className='my-5'>
                 <Button
                   onClick={addToPlanHandler}
                   className='btn-success'
                   type='button'
+                  disabled={!userInfo}
                 >
                   Proceed To Plan Your Bundle
                 </Button>
