@@ -25,7 +25,7 @@ const FarmerScreen = ({ history, match }) => {
           history.goBack()
         }}
       >
-        &#x003C; &#x003C; &#x003C; Go Back
+        Go Back
       </Button>
       {loading ? (
         <Loader />

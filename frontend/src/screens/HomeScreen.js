@@ -54,7 +54,7 @@ const HomeScreen = ({ match }) => {
       <Meta />
       {keyword && (
         <Link to='/' className='btn btn-light'>
-          &#x003C; &#x003C; &#x003C; Go Back
+          Go Back
         </Link>
       )}
 

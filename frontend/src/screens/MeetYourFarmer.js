@@ -25,9 +25,10 @@ const MeetYourFarmerScreen = ({ history }) => {
           history.goBack()
         }}
       >
-        &#x003C; &#x003C; &#x003C; Go Back
+        Go Back
       </Button>
       <Container>
+        <h1 className='text-center'>MEET YOUR FARMERS</h1>
         <Row>
           <Col md={12}>
             <Image
@@ -40,7 +41,6 @@ const MeetYourFarmerScreen = ({ history }) => {
         </Row>
         <Row>
           <Col md={12} className='my-5'>
-            <h1 className='text-center'>MEET YOUR FARMERS</h1>
             <div className='text-justify'>
               <p>
                 We consider them family, and we’re both out to change the world,
@@ -83,14 +83,14 @@ const MeetYourFarmerScreen = ({ history }) => {
           <Row>
             {farmers.map((farmer) => {
               return (
-                <Col md={3} lg={2} key={`${farmer._id}`}>
-                  <Card className='rounded m-2' style={{ height: '16vh' }}>
+                <Col md={3} lg={2} key={`${farmer._id}`} className='d-flex'>
+                  <Card className='rounded m-2 flex-column'>
                     <Link to={`/meetyourfarmer/${farmer._id}`}>
                       <Card.Img
                         src={farmer.image}
                         variant='top'
                         alt={farmer.name}
-                        style={{ height: '8vh' }}
+                        style={{ height: '10vh' }}
                       />
                     </Link>
                     <Card.Body>

@@ -23,7 +23,7 @@ const FAQScreen = ({ history }) => {
           history.goBack()
         }}
       >
-        &#x003C; &#x003C; &#x003C; Go Back
+        Go Back
       </Button>
       <Navbar className='faq rounded' variant='light' expand='lg'>
         <h1>

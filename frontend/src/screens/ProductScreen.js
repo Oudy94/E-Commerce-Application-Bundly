@@ -81,7 +81,7 @@ const ProductScreen = ({ history, match }) => {
                   history.goBack()
                 }}
               >
-                &#x003C; &#x003C; &#x003C; Go Back
+                Go Back
               </Button>
               <Card className='my-5'>
                 <Button

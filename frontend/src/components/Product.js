@@ -14,14 +14,14 @@ const Product = ({ product }) => {
               <Card.Img
                 src={product.image}
                 variant='top'
-                style={{ height: '18%' }}
+                style={{ height: '18vh' }}
                 className='farmy'
               />
             ) : (
               <Card.Img
                 src={product.farmImage}
                 variant='top'
-                style={{ height: '18%' }}
+                style={{ height: '18vh' }}
                 className='farmy'
               />
             )}
