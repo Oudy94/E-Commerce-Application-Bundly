@@ -1,28 +1,46 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
+import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
+  const splitParams = location.search
+    .substring(1, location.search.length)
+    .split('&')
+  const params = splitParams.reduce((acc, value) => {
+    const [key, val] = value.split('=')
+    return {
+      ...acc,
+      [key]: val,
+    }
+  }, {})
 
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1
+  const size = Number(params.size)
+  const qty = params.qty ? Number(params.qty) : 1
 
   const dispatch = useDispatch()
 
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
+  const EventGaTracker = useEventGaTracker('addToCart')
+
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty))
+      dispatch(addToCart(productId, qty, size))
+      EventGaTracker('successfull addToCart', productId)
     }
-  }, [dispatch, productId, qty])
+  }, [dispatch, productId, qty, size])
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
+    if (productId) {
+      history.push('/cart')
+    }
   }
 
   const checkoutHandler = () => {
@@ -48,25 +66,18 @@ const CartScreen = ({ match, location, history }) => {
                   <Col md={3}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>${item.price}</Col>
+                  <Col md={2}>{item.size} People</Col>
+                  <Col md={2}>{item.qty} / Week</Col>
                   <Col md={2}>
-                    <Form.Control
-                      as='select'
-                      value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
-                    >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
+                    $
+                    {cartItems
+                      .reduce((acc, item) => {
+                        return acc + item.qty * item.price * item.size
+                      }, 0)
+                      .toFixed(2)}
                   </Col>
-                  <Col md={2}>
+
+                  <Col md={1}>
                     <Button
                       type='button'
                       variant='light'
@@ -91,7 +102,10 @@ const CartScreen = ({ match, location, history }) => {
               </h2>
               $
               {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .reduce(
+                  (acc, item) => acc + item.qty * item.price * item.size,
+                  0
+                )
                 .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Form, Button, Row, Col } from 'react-bootstrap'
+import { Table, Form, Button, Row, Col, Badge } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -56,9 +56,17 @@ const ProfileScreen = ({ location, history }) => {
   return (
     <Row>
       <Col md={3}>
-        <h2>User Profile</h2>
+        <h2>User Profile </h2>
+        {user.status === 'active' ? (
+          <Badge variant='primary' className='mb-3'>
+            Subscribed
+          </Badge>
+        ) : (
+          <Badge variant='dark' className='mb-3'>
+            No subscription
+          </Badge>
+        )}
         {message && <Message variant='danger'>{message}</Message>}
-        {}
         {success && <Message variant='success'>Profile Updated</Message>}
         {loading ? (
           <Loader />
@@ -135,7 +143,7 @@ const ProfileScreen = ({ location, history }) => {
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
+                  <td>${order.totalPrice}</td>
                   <td>
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)

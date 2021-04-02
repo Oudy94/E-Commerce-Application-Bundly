@@ -16,9 +16,13 @@ import {
   userRegisterReducer,
   userDetailsReducer,
   userUpdateProfileReducer,
+  userSubscriptionStatusReducer,
   userListReducer,
   userDeleteReducer,
   userUpdateReducer,
+  userAuthFaceBookReducer,
+  userAuthGoogleReducer,
+  userHistoryRoutesReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -28,6 +32,14 @@ import {
   orderListMyReducer,
   orderListReducer,
 } from './reducers/orderReducers'
+import {
+  subscriptionUpdateAddressReducer,
+  subscriptionUpdatePreferencesReducer,
+  subscriptionCancelReducer,
+  subscriptionListMyReducer,
+} from './reducers/subscriptionReducer'
+import { planCreateReducer } from './reducers/planReducers'
+import { farmerListReducer, farmerDetailsReducer } from './reducers/farmerReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -42,16 +54,31 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  userSubscriptionStatus: userSubscriptionStatusReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+  userAuthFaceBook: userAuthFaceBookReducer,
+  userAuthGoogle: userAuthGoogleReducer,
+  userHistoryRoutes: userHistoryRoutesReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderDeliver: orderDeliverReducer,
   orderListMy: orderListMyReducer,
   orderList: orderListReducer,
+  plan: planCreateReducer,
+  subscriptionUpdateAddress: subscriptionUpdateAddressReducer,
+  subscriptionUpdatePreferences: subscriptionUpdatePreferencesReducer,
+  subscriptionCancel: subscriptionCancelReducer,
+  subscriptionListMy: subscriptionListMyReducer,
+  farmerList: farmerListReducer,
+  farmerDetails: farmerDetailsReducer,
 })
+
+const planItemsFromStorage = localStorage.getItem('planItems')
+  ? JSON.parse(localStorage.getItem('planItems'))
+  : {}
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
@@ -66,6 +93,7 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   : {}
 
 const initialState = {
+  plan: { planItems: planItemsFromStorage },
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
+import { Carousel, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { Carousel, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from './Loader'
 import Message from './Message'
@@ -9,8 +9,8 @@ import { listTopProducts } from '../actions/productActions'
 const ProductCarousel = () => {
   const dispatch = useDispatch()
 
-  const productTopRated = useSelector((state) => state.productTopRated)
-  const { loading, error, products } = productTopRated
+  const productDetails = useSelector((state) => state.productDetails)
+  const { loading, error, product } = productDetails
 
   useEffect(() => {
     dispatch(listTopProducts())
@@ -21,17 +21,20 @@ const ProductCarousel = () => {
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
-    <Carousel pause='hover' className='bg-dark'>
-      {products.map((product) => (
-        <Carousel.Item key={product._id}>
-          <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
-            <Carousel.Caption className='carousel-caption'>
-              <h2>
-                {product.name} (${product.price})
-              </h2>
-            </Carousel.Caption>
-          </Link>
+    <Carousel pause='hover' className='btn-light mb-5 carousel'>
+      {product.foodItems?.map((item) => (
+        <Carousel.Item key={item._id}>
+          <Row className='m-3 text-center'>
+            <img src={item.farmer.image} alt={item.farmer.name} />
+            <div>
+              <Link to={'/meetyourfarmer'}>
+                <h2 className='mt-2'>{item.farmer.name}</h2>
+              </Link>
+              <p>
+                <em>"{item.farmer.quote}"</em>
+              </p>
+            </div>
+          </Row>
         </Carousel.Item>
       ))}
     </Carousel>

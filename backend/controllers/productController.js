@@ -1,5 +1,18 @@
 import asyncHandler from 'express-async-handler'
+import Farmer from '../models/farmerModel.js'
+import FoodItem from '../models/foodItemModel.js'
 import Product from '../models/productModel.js'
+
+// to include nested tables to the api response
+// (see .populate in controllers)
+// otherwise there will be IDs in response instead of data
+// https://mongoosejs.com/docs/populate.html#population
+const nestedDocs = {
+  path: 'foodItems',
+  populate: {
+    path: 'farmer',
+  },
+}
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -10,17 +23,69 @@ const getProducts = asyncHandler(async (req, res) => {
 
   const keyword = req.query.keyword
     ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
+        $or: [
+          {
+            name: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            category: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          },
+        ],
+      }
+    : {}
+
+  const category = req.query.category ? { category: req.query.category } : {}
+
+  const ratingNumber = Number(req.query.rating)
+  const rating = ratingNumber
+    ? {
+        rating: {
+          $gte: ratingNumber,
+          $lt: ratingNumber + 1,
         },
       }
     : {}
 
+  const price = {
+    price: {
+      $gte: Number(req.query.minPrice) || 0,
+      $lte: Number(req.query.maxPrice) || 1000,
+    },
+  }
+
   const count = await Product.countDocuments({ ...keyword })
-  const products = await Product.find({ ...keyword })
+  const products = await Product.find({
+    ...keyword,
+    ...category,
+    ...rating,
+    ...price,
+  })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
+    .populate(nestedDocs)
+
+  switch (req.query.orderBy) {
+    case 'lowPrice':
+      products.sort((a, b) => a.price - b.price)
+      break
+    case 'hiPrice':
+      products.sort((a, b) => b.price - a.price)
+      break
+    case 'rating':
+      products.sort((a, b) => b.rating - a.rating)
+      break
+    case 'time':
+      products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      break
+    default:
+      break
+  }
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
@@ -29,7 +94,7 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products/:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
+  const product = await Product.findById(req.params.id).populate(nestedDocs)
 
   if (product) {
     res.json(product)
@@ -63,7 +128,6 @@ const createProduct = asyncHandler(async (req, res) => {
     price: 0,
     user: req.user._id,
     image: '/images/sample.jpg',
-    brand: 'Sample brand',
     category: 'Sample category',
     countInStock: 0,
     numReviews: 0,
@@ -78,15 +142,7 @@ const createProduct = asyncHandler(async (req, res) => {
 // @route   PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
-  const {
-    name,
-    price,
-    description,
-    image,
-    brand,
-    category,
-    countInStock,
-  } = req.body
+  const { name, price, description, image, category, countInStock } = req.body
 
   const product = await Product.findById(req.params.id)
 
@@ -95,7 +151,6 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.price = price
     product.description = description
     product.image = image
-    product.brand = brand
     product.category = category
     product.countInStock = countInStock
 

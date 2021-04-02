@@ -6,10 +6,12 @@ import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { updateSubscriptionStatus } from '../actions/userActions'
 import {
   getOrderDetails,
   payOrder,
   deliverOrder,
+  sendSubscriptionConfirmation,
 } from '../actions/orderActions'
 import {
   ORDER_PAY_RESET,
@@ -34,6 +36,9 @@ const OrderScreen = ({ match, history }) => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  const userDetails = useSelector((state) => state.userDetails)
+  const { user } = userDetails
 
   if (!loading) {
     //   Calculate prices
@@ -74,11 +79,12 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, orderId, successPay, successDeliver, order])
+  }, [dispatch, orderId, successPay, successDeliver, order, history, userInfo])
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
+    dispatch(updateSubscriptionStatus(user, 'active'))
+    dispatch(sendSubscriptionConfirmation(order))
   }
 
   const deliverHandler = () => {
@@ -112,7 +118,7 @@ const OrderScreen = ({ match, history }) => {
               </p>
               {order.isDelivered ? (
                 <Message variant='success'>
-                  Delivered on {order.deliveredAt}
+                  Delivered on {order.deliveredAt.substring(0, 10)}
                 </Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
@@ -126,7 +132,9 @@ const OrderScreen = ({ match, history }) => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant='success'>Paid on {order.paidAt}</Message>
+                <Message variant='success'>
+                  Paid on {order.paidAt.substring(0, 10)}
+                </Message>
               ) : (
                 <Message variant='danger'>Not Paid</Message>
               )}
