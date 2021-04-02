@@ -54,7 +54,7 @@ const HomeScreen = ({ match }) => {
       <Meta />
       {keyword && (
         <Link to='/' className='btn btn-light'>
-          Go Back
+          &#x003C; &#x003C; &#x003C; Go Back
         </Link>
       )}
 
@@ -68,7 +68,6 @@ const HomeScreen = ({ match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          
           <Row>
             {products.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
@@ -94,13 +93,12 @@ const HomeScreen = ({ match }) => {
           </Row>
         </>
       )}
-      {!keyword &&
-      <>
-        <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-        <BundleCategory />
-      </>
-      }
-      
+      {!keyword && (
+        <>
+          <h1 className='homepage-headings my-5'>Bundle Categories</h1>
+          <BundleCategory />
+        </>
+      )}
     </>
   )
 }
