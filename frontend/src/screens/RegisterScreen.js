@@ -119,8 +119,24 @@ const RegisterScreen = ({ location, history }) => {
       <div className='or'> OR </div>
       {apiKey && (
         <>
-          <GoogleAuth apiKey={apiKey.googleid} />
-          <FacebookAuth apiKey={apiKey.facebookid} />
+          <GoogleAuth
+            apiKey={apiKey.googleid}
+            registerEvent={() => {
+              EventGaTracker(
+                'successfull signup with google ',
+                signupOriginPath
+              )
+            }}
+          />
+          <FacebookAuth
+            apiKey={apiKey.facebookid}
+            registerEvent={() => {
+              EventGaTracker(
+                'successfull signup with facebook ',
+                signupOriginPath
+              )
+            }}
+          />
         </>
       )}
 
