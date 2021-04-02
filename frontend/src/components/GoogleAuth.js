@@ -4,11 +4,12 @@ import { useDispatch } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { authGoogle } from '../actions/userActions'
 
-const GoogleAuth = ({ apiKey }) => {
+const GoogleAuth = ({ apiKey, registerEvent }) => {
   const dispatch = useDispatch()
 
   const responseSuccessGoogle = (response) => {
     dispatch(authGoogle(response.tokenId))
+    registerEvent()
   }
 
   return (

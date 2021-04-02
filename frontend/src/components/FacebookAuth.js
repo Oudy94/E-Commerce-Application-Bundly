@@ -4,11 +4,12 @@ import { useDispatch } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { authFacebook } from '../actions/userActions'
 
-const FacebookAuth = ({ apiKey }) => {
+const FacebookAuth = ({ apiKey, registerEvent }) => {
   const dispatch = useDispatch()
 
   const responseFacebook = (response) => {
     dispatch(authFacebook(response.accessToken, response.userID))
+    registerEvent()
   }
 
   return (
