@@ -7,8 +7,7 @@ const BundleCategory = ({ filterCategory }) => {
   }
   const selectCategory = (category) => {
     filterCategory(category)
-    window.scrollTo({
-      top: 0,
+    document.getElementById('bundle-search-form').scrollIntoView({
       behavior: 'smooth',
     })
   }
