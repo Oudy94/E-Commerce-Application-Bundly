@@ -28,6 +28,14 @@ const HomeScreen = ({ match }) => {
   const [isloading, setIsLoading] = useState(false)
   const [haserror, setHasError] = useState(false)
 
+  // filtering categories
+  const [categoryFilter, setCategoryFilter] = useState('')
+  const [filter, setFilter] = useState(true)
+  const filterCategory = (category) => {
+    setCategoryFilter(category)
+    setFilter((current) => !current)
+  }
+
   useEffect(() => {
     const getApiKey = async () => {
       try {
@@ -61,7 +69,14 @@ const HomeScreen = ({ match }) => {
       {(!userInfo || userInfo.status !== 'active') && <Bundly />}
 
       <h1 className='homepage-headings my-5'>Latest Products</h1>
-      <Filter keyword={keyword} pageNumber={pageNumber} />
+      <Filter
+        keyword={keyword}
+        pageNumber={pageNumber}
+        category={categoryFilter}
+        setCategory={setCategoryFilter}
+        filter={filter}
+        setFilter={setFilter}
+      />
       {loading ? (
         <Loader />
       ) : error ? (
@@ -93,12 +108,14 @@ const HomeScreen = ({ match }) => {
           </Row>
         </>
       )}
-      {!keyword && (
+      
         <>
           <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-          <BundleCategory />
+          <BundleCategory
+            filterCategory={filterCategory}
+          />
         </>
-      )}
+      
     </>
   )
 }
