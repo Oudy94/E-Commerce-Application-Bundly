@@ -88,7 +88,6 @@ const ProductScreen = ({ history, match }) => {
                   onClick={addToPlanHandler}
                   className='btn-success'
                   type='button'
-                  disabled={!userInfo}
                 >
                   Proceed To Plan Your Bundle
                 </Button>
