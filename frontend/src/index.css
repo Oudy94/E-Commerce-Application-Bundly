@@ -116,8 +116,10 @@ h2 {
   }
   .location-info{
     width: 40%;
-    bottom: 2vh;
-    font-size: .8rem;
+    bottom: 30vh;
+    font-size: .6rem;
+    padding: .1rem;
+
 
   }
 }
@@ -133,12 +135,24 @@ h2 {
     margin-bottom: 1rem;
     margin-top: 0;
   }
+  h2{font-size: .8rem;}
   .location-info{
     width: 40%;
-    bottom: 22vh;
-    font-size: .6rem;
-  min-height: .2rem;
-  padding: .2rem;
+    bottom: 33vh;
+    font-size: .5rem;
+    padding: .1rem;
+
+
+  }
+  
+}
+@media (max-width: 500px) {
+  .location-info{
+    width: 40%;
+    bottom: 33vh;
+    font-size: .4rem;
+  min-height: .1rem;
+  padding: .1rem;
 
 
   }
