@@ -11,24 +11,23 @@ const Bundly = () => {
 
   return (
     <>
-      <Jumbotron className="my-5">
-        <h1 className="display-3">Save time, money and local farmers!</h1>
-        <p className="lead">
-          Officiis iure rerum voluptates a cumque velit quibusdam sed amet
-          tempora. Sit laborum ab, eius fugit doloribus tenetur fugiat,
-          temporibus enim commodi iusto libero magni deleniti quod quam
-          consequuntur! Commodi minima excepturi repudiandae velit hic maxime
-          doloremque. Nulla, placeat. Voluptatem quaerat non architecto ab
-          laudantium modi minima sunt esse temporibus sint culpa, recusandae
-          aliquam numquam totam ratione voluptas quod exercitationem fuga.
-          Possimus quis earum veniam quasi aliquam eligendi, placeat qui
-          corporis!
+      <Jumbotron className='my-5'>
+        <h1 className='display-3'>Save time, money and local farmers!</h1>
+        <p className='lead'>
+          Do you know how much time is spent thinking about what to buy, what to
+          cook and going to the supermarket? We are here to help you solve all
+          those problems: It is amazing to have your natural and healthy foods,
+          fast and easy. It is direct from the farms to your kitchen. It’s
+          simple, it’s seasonal You choose which bundle fits your needs
+          Subscribe once. You’ll never forget to order again! Most importantly:
+          We’re helping our farmers stay in business. That way you eat fresh
+          produce grown locally!
         </p>
-        <Link to={userInfo ? "/plan" : "/register?redirect=/"}>
+        <Link to={userInfo ? '/plan' : '/register?redirect=/'}>
           <Button
-            className="homepage-button"
-            variant="primary"
-            size="lg"
+            className='homepage-button'
+            variant='primary'
+            size='lg'
             block
             onClick={() =>
               EventGaTracker('successfull Subscribe Now clicked', '/')
