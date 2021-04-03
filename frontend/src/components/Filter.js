@@ -4,23 +4,25 @@ import { Form, Button, InputGroup, FormControl, Col } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 
-const Filter = ({ keyword, pageNumber }) => {
+const Filter = ({
+  keyword,
+  pageNumber,
+  category,
+  setCategory,
+  filter,
+  setFilter,
+}) => {
   const dispatch = useDispatch()
 
   const initialOrder = ''
-  const initialCategory = ''
   const initialMinPrice = ''
   const initialMaxPrice = ''
   const initialRating = 0
 
   const [orderBy, setOrderBy] = useState(initialOrder)
-  const [category, setCategory] = useState(initialCategory)
   const [minPrice, setMinPrice] = useState(initialMinPrice)
   const [maxPrice, setMaxPrice] = useState(initialMaxPrice)
   const [rating, setRating] = useState(initialRating)
-
-  // changing this piece of state triggers useEffect
-  const [filter, setFilter] = useState(true)
 
   useEffect(() => {
     dispatch(
@@ -41,7 +43,7 @@ const Filter = ({ keyword, pageNumber }) => {
 
   const clearFilters = () => {
     setOrderBy(initialOrder)
-    setCategory(initialCategory)
+    setCategory('')
     setMinPrice(initialMinPrice)
     setMaxPrice(initialMaxPrice)
     setRating(initialRating)
