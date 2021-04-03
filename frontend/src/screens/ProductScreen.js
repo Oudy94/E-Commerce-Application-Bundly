@@ -52,7 +52,11 @@ const ProductScreen = ({ history, match }) => {
   }, [dispatch, match, successProductReview, product._id])
 
   const addToPlanHandler = () => {
-    history.push(`/plan/${match.params.id}`)
+    if (userInfo) {
+      history.push(`/plan/${match.params.id}`)
+    } else {
+      history.push(`/login`)
+    }
   }
   const submitHandler = (e) => {
     e.preventDefault()
@@ -88,7 +92,6 @@ const ProductScreen = ({ history, match }) => {
                   onClick={addToPlanHandler}
                   className='btn-success'
                   type='button'
-                  disabled={!userInfo}
                 >
                   Proceed To Plan Your Bundle
                 </Button>
