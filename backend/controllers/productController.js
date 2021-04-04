@@ -41,11 +41,9 @@ const getProducts = asyncHandler(async (req, res) => {
     : {}
 
   const foodItem = await FoodItem.find({ ...keyword })
-  console.log('foodItem', foodItem)
 
   const foodItemId = foodItem[0]?._id
   const bundle = foodItemId ? await Product.find({ foodItems: foodItemId }) : []
-
   const category = req.query.category ? { category: req.query.category } : {}
 
   const ratingNumber = Number(req.query.rating)
@@ -65,7 +63,7 @@ const getProducts = asyncHandler(async (req, res) => {
   }
 
   const count = await Product.countDocuments({ ...keyword })
-  const products = foodItemId
+  const products = !foodItemId
     ? await Product.find({
         ...keyword,
         ...category,
@@ -76,7 +74,6 @@ const getProducts = asyncHandler(async (req, res) => {
         .skip(pageSize * (page - 1))
         .populate(nestedDocs)
     : [...bundle]
-  console.log(bundle.length)
   switch (req.query.orderBy) {
     case 'lowPrice':
       products.sort((a, b) => a.price - b.price)
