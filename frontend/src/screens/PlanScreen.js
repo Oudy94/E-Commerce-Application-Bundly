@@ -126,7 +126,13 @@ const PlanScreen = ({ history, match, optimizely }) => {
                     variant='outline-success'
                     style={{ height: '6vh', width: '8em' }}
                     className='rounded'
-                    active={bundle === product._id ? true : false}
+                    active={
+                      bundle && bundle === product._id
+                        ? true
+                        : !bundle && match.params.id === product._id
+                        ? true
+                        : false
+                    }
                     value={product._id}
                     onClick={(e) => {
                       setBundle(e.target.value)
