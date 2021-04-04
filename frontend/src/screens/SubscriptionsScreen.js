@@ -132,6 +132,7 @@ const ProfileScreen = ({ history }) => {
             ))}
           </Table>
         )}
+        <p className='my-1'>*Only paid subscriptions will be shown here</p>
       </Col>
     </Row>
   )
