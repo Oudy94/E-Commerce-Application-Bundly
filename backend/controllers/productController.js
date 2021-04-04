@@ -65,19 +65,18 @@ const getProducts = asyncHandler(async (req, res) => {
   }
 
   const count = await Product.countDocuments({ ...keyword })
-  const products =
-    bundle.length == 0
-      ? await Product.find({
-          ...keyword,
-          ...category,
-          ...rating,
-          ...price,
-        })
-          .limit(pageSize)
-          .skip(pageSize * (page - 1))
-          .populate(nestedDocs)
-      : [...bundle]
-
+  const products = foodItemId
+    ? await Product.find({
+        ...keyword,
+        ...category,
+        ...rating,
+        ...price,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1))
+        .populate(nestedDocs)
+    : [...bundle]
+  console.log(bundle.length)
   switch (req.query.orderBy) {
     case 'lowPrice':
       products.sort((a, b) => a.price - b.price)

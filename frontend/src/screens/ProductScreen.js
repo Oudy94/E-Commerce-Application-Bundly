@@ -40,6 +40,15 @@ const ProductScreen = ({ history, match }) => {
     error: errorProductReview,
   } = productReviewCreate
 
+  const submitHandler = (e) => {
+    e.preventDefault()
+    dispatch(
+      createProductReview(match.params.id, {
+        rating,
+        comment,
+      })
+    )
+  }
   useEffect(() => {
     if (successProductReview) {
       setRating(0)
@@ -57,15 +66,6 @@ const ProductScreen = ({ history, match }) => {
     } else {
       history.push(`/login?redirect=plan/${match.params.id}`)
     }
-  }
-  const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(
-      createProductReview(match.params.id, {
-        rating,
-        comment,
-      })
-    )
   }
 
   return (
