@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
@@ -8,6 +8,8 @@ import { logout } from '../actions/userActions'
 import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const Header = () => {
+  let location = useLocation()
+
   const EventGaTracker = useEventGaTracker('Plan CTA')
   const userHistoryRoutes = useSelector((state) => state.userHistoryRoutes)
   const { routesHistory } = userHistoryRoutes
@@ -39,7 +41,14 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
-            <Nav className='ml-auto'>
+
+            <Nav
+              activeKey={location.pathname}
+              className='ml-auto'
+              onClick={() => {
+                EventGaTracker('Plan CTA clicked', signupOriginPath)
+              }}
+            >
               {userInfo && (
                 <LinkContainer to='/plan'>
                   <Nav.Link>
@@ -50,13 +59,7 @@ const Header = () => {
               <LinkContainer to='/faq'>
                 <Nav.Link>FAQ</Nav.Link>
               </LinkContainer>
-            </Nav>
-            <Nav
-              className='ml-auto'
-              onClick={() => {
-                EventGaTracker('Plan CTA clicked', signupOriginPath)
-              }}
-            >
+
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i> Cart
