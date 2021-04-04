@@ -40,8 +40,9 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {}
 
-  const foodItem = await FoodItem.find({ ...keyword })
-
+  const foodItem = Object.keys(keyword).length
+    ? await FoodItem.find({ ...keyword })
+    : []
   const foodItemId = foodItem[0]?._id
   const bundle = foodItemId ? await Product.find({ foodItems: foodItemId }) : []
   const category = req.query.category ? { category: req.query.category } : {}

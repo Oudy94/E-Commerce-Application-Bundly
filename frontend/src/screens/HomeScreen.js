@@ -53,9 +53,9 @@ const HomeScreen = ({ match }) => {
         setIsLoading(false)
       }
     }
-
+    console.log(products)
     getApiKey()
-  }, [keyword, pageNumber, apikey])
+  }, [keyword, pageNumber, apikey, products, productList])
 
   return (
     <>
