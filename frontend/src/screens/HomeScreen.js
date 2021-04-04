@@ -109,8 +109,10 @@ const HomeScreen = ({ match }) => {
       
         {!keyword && 
         <>
-          <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-          <BundleCategory filterCategory={filterCategory} />
+        <h1 className='homepage-headings my-5'>Bundle Categories</h1>
+        <Row>
+            <BundleCategory filterCategory={filterCategory} />
+        </Row>
         </>
         }
     </>

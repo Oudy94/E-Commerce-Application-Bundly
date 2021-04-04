@@ -1,10 +1,11 @@
 import React from 'react'
-import { Card, CardGroup } from 'react-bootstrap'
+import { Card, Col } from 'react-bootstrap'
 
 const BundleCategory = ({ filterCategory }) => {
   const cardStyle = {
     cursor: 'pointer',
-    margin: 5
+    margin: 5,
+    height: '100%'
   }
   const selectCategory = (category) => {
     filterCategory(category)
@@ -13,13 +14,14 @@ const BundleCategory = ({ filterCategory }) => {
     })
   }
   return (
-    <CardGroup>
+    <>
+    <Col sm={12} md={6} lg={4}>
       <Card
         className='card-bundle-category'
         onClick={() => selectCategory('Vegan')}
         style={cardStyle}
       >
-        <Card.Img variant='top' src='/images/vegan.jpg' /> 
+        <Card.Img variant='top' src='/images/vegan.jpg'/> 
         <Card.Body>
           <Card.Title as='h4' className='bundle-category'>
             Vegan
@@ -29,12 +31,13 @@ const BundleCategory = ({ filterCategory }) => {
           </Card.Text>
         </Card.Body>
       </Card>
-
+    </Col>
+    <Col sm={12} md={6} lg={4}>
       <Card
         onClick={() => selectCategory('Vegetarian')}
         style={cardStyle}
       >
-        <Card.Img variant='top' src='/images/roasted-veggies.jpg' />
+        <Card.Img variant='top' src='/images/roasted-veggies.jpg'/>
         <Card.Body>
           <Card.Title as='h4' className='bundle-category'>
               Vegetarian
@@ -44,12 +47,13 @@ const BundleCategory = ({ filterCategory }) => {
           </Card.Text>
         </Card.Body>
       </Card>
-
+    </Col>
+    <Col sm={12} md={6} lg={4}>
       <Card
         onClick={() => selectCategory('')}
         style={cardStyle}
       >
-        <Card.Img variant='top' src='/images/veggie-plate.jpg' />
+        <Card.Img variant='top' src='/images/veggie-plate.jpg'/>
         <Card.Body>
           <Card.Title as='h4' className='bundle-category'>
             Meat & Veggies
@@ -59,7 +63,8 @@ const BundleCategory = ({ filterCategory }) => {
           </Card.Text>
         </Card.Body>
       </Card>
-    </CardGroup>
+    </Col>
+    </>
   )
 }
 
