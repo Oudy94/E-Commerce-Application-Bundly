@@ -66,7 +66,7 @@ const HomeScreen = ({ match }) => {
         </Link>
       )}
 
-      {(!userInfo || userInfo.status !== 'active') && <Bundly />}
+      {(!userInfo || (userInfo.status !== 'active' && !keyword)) && <Bundly />}
 
       <h1 id='heading-latest-products' className='homepage-headings my-5'>
         Latest Products
