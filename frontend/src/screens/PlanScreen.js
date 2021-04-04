@@ -17,7 +17,7 @@ import { SUBSCRIPTION_UPDATE_PREFERENCES_CLEAR } from '../constants/subscription
 import useEventGaTracker from '../hooks/useEventGaTracker'
 
 const PlanScreen = ({ history, match, optimizely }) => {
-  const [bundle, setBundle] = useState('')
+  const [bundle, setBundle] = useState(match.params.id || '')
   const [persons, setPersons] = useState('')
   const [bundlePerWeek, setBundlePerWeek] = useState('')
   const [bundleName, setBundleName] = useState()
