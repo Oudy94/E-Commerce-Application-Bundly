@@ -47,7 +47,6 @@ const getProducts = asyncHandler(async (req, res) => {
     ? {
         rating: {
           $gte: ratingNumber,
-          $lt: ratingNumber + 1,
         },
       }
     : {}
