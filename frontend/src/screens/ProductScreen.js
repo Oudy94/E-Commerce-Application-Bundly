@@ -55,7 +55,7 @@ const ProductScreen = ({ history, match }) => {
     if (userInfo) {
       history.push(`/plan/${match.params.id}`)
     } else {
-      history.push(`/login`)
+      history.push(`/login?redirect=plan/${match.params.id}`)
     }
   }
   const submitHandler = (e) => {

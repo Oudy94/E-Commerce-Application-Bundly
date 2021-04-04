@@ -10,6 +10,30 @@ import {
   Row,
 } from 'react-bootstrap'
 
+const faqs = [
+  {
+    question: 'When I subscribe it does not show in my subscriptions?',
+    answer:
+      'To see your subscriptions details you have to proceed with the payment, then you will be able to see your subscriptions details.',
+  },
+  {
+    question: 'How I can place an order?',
+    answer: `
+    1- You have to be logged in first.  
+    2- go to select a plan, choose the suitable bundle for you then select the number of your family members and weekly requirement, then press select this button, which will drive you to the cart. 
+    3- review your order and  press proceed to check out. 
+    4- enter your address details, then press continue. 
+    5-choose payment methods. 
+    6-review your address details, then place the order. 
+    7- proceed with payment, then you will receive a confirmation email of your order.`,
+  },
+  {
+    question: 'Can I cancel my order?',
+    answer:
+      'Yes, but the order will be canceled after one week from the end of the current week',
+  },
+]
+
 const FAQScreen = ({ history }) => {
   const [openA, setOpenA] = useState(false)
   const [openB, setOpenB] = useState(false)
@@ -40,9 +64,7 @@ const FAQScreen = ({ history }) => {
             aria-expanded={openA}
           >
             <Col md={10}>
-              <h2 className='faqRow'>
-                What’s the benefit of an FAQ section on your website?
-              </h2>
+              <h2 className='faqRow'>{faqs[0].question}</h2>
             </Col>
             {!openA ? (
               <Col md={1}>
@@ -56,33 +78,24 @@ const FAQScreen = ({ history }) => {
           </Row>
           <Collapse in={openA}>
             <div id='example-collapse-one'>
-              <strong>It saves you time.</strong> If you spend a lot of your
-              time answering emails or social media queries, an FAQ can be a
-              real timesaver. <hr />
-              <strong>
-                It can also help prevent costly and time-consuming returns in
-                your online store.{' '}
-              </strong>
-              It brings new website traffic and new customers. Google’s goal is
-              to deliver answers to questions. If you put your text in a Q&A
-              format, you’re doing half the work already. Even better, if you
-              have a good answer to a question, you might get featured in one of
-              Google’s answer boxes or feature snippets, which will give you a
-              big traffic boost. <hr />
-              <strong>It builds trust and shows that you get it:</strong> A
-              well-written FAQ page shows experience. You know what customers
-              are thinking and you’ve already got an answer. It’s a great way to
-              increase the trust and professionalism of your website.
+              {faqs[0].answer}
               <hr />
               <hr />
               <h2>
                 Has this answer helped you?{' '}
-                <Button variant='light'>
+                <Button variant='light' onClick={() => alert('thank you')}>
                   <span role='img' aria-label='example-collapse-one'>
                     &#128077;
                   </span>
                 </Button>
-                <Button variant='light'>
+                <Button
+                  variant='light'
+                  onClick={() =>
+                    alert(
+                      'Please send us a feed back on our info email(info@bundly.com)'
+                    )
+                  }
+                >
                   <span role='img' aria-label='example-collapse-one'>
                     &#128078;
                   </span>
@@ -99,9 +112,7 @@ const FAQScreen = ({ history }) => {
             aria-expanded={openB}
           >
             <Col md={10}>
-              <h2 className='faqRow'>
-                How do you decide what questions to put in your FAQ?
-              </h2>
+              <h2 className='faqRow'>{faqs[1].question}</h2>
             </Col>
             {!openB ? (
               <Col md={1}>
@@ -115,28 +126,24 @@ const FAQScreen = ({ history }) => {
           </Row>
           <Collapse in={openB}>
             <div id='example-collapse-two'>
-              <strong>Look at your customers’ questions</strong> The first is
-              pretty obvious: What do your customers ask you? Look at your email
-              inbox or social media account and see which questions keep popping
-              up. What usually makes people hesitate before purchasing? What
-              doubts might they have? The more you can automate the answers to
-              these questions, these easier you’ll make it for your customers to
-              buy with confidence. And you’ll save yourself time too.
-              <hr />
-              <strong> Look at your competitors’ websites</strong> If you’re a
-              new business or don’t have a lot of customer queries yet, take a
-              look at similar websites for ideas. Bonus points if you can answer
-              the question better than they can.
+              {faqs[1].answer}
               <hr />
               <hr />
               <h2>
                 Has this answer helped you?{' '}
-                <Button variant='light'>
+                <Button variant='light' onClick={() => alert('thank you')}>
                   <span role='img' aria-label='example-collapse-two'>
                     &#128077;
                   </span>
                 </Button>
-                <Button variant='light'>
+                <Button
+                  variant='light'
+                  onClick={() =>
+                    alert(
+                      'Please send us a feed back on our info email(info@bundly.com)'
+                    )
+                  }
+                >
                   <span role='img' aria-label='example-collapse-two'>
                     &#128078;
                   </span>
@@ -153,7 +160,7 @@ const FAQScreen = ({ history }) => {
             aria-expanded={openC}
           >
             <Col md={10}>
-              <h2 className='faqRow'>Why you should make an FAQ page three?</h2>
+              <h2 className='faqRow'>{faqs[2].question}</h2>
             </Col>
             {!openC ? (
               <Col md={1}>
@@ -167,23 +174,24 @@ const FAQScreen = ({ history }) => {
           </Row>
           <Collapse in={openC}>
             <div id='example-collapse-three'>
-              The best FAQ pages do a lot of the heavy lifting on your website.
-              They’re one of the easiest ways to acquire new customers, close
-              sales, and save time answering repetitive questions.
-              <hr /> But lots of people forget to add a list of commonly asked
-              questions to their websites. No more! Read on for tips on how to
-              write an FAQ section and some of the reasons why it will help your
-              business!
+              {faqs[2].answer}
               <hr />
               <hr />
               <h2>
                 Has this answer helped you?{' '}
-                <Button variant='light'>
+                <Button variant='light' onClick={() => alert('thank you')}>
                   <span role='img' aria-label='example-collapse-three'>
                     &#128077;
                   </span>
                 </Button>
-                <Button variant='light'>
+                <Button
+                  variant='light'
+                  onClick={() =>
+                    alert(
+                      'Please send us a feed back on our info email(info@bundly.com)'
+                    )
+                  }
+                >
                   <span role='img' aria-label='example-collapse-three'>
                     &#128078;
                   </span>

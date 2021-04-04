@@ -104,15 +104,15 @@ const HomeScreen = ({ match }) => {
         {isloading ? (
           <Loader />
         ) : haserror ? (
-          'Error in loading the map'
-        ) : apikey ? (
+          <Message variant='danger'>Error in loading the map</Message>
+        ) : apikey && !keyword && (
           <GoogleMap data={farmeDetails} apikey={apikey} />
-        ) : (
-          <Loader />
         )}
       </Row>
       <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-      <BundleCategory filterCategory={filterCategory} />
+      <Row>
+          <BundleCategory filterCategory={filterCategory} />
+      </Row>
     </>
   )
 }
