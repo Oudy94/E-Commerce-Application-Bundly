@@ -53,9 +53,8 @@ const HomeScreen = ({ match }) => {
         setIsLoading(false)
       }
     }
-
     getApiKey()
-  }, [keyword, pageNumber, apikey])
+  }, [keyword, pageNumber, apikey, products, productList])
 
   return (
     <>
@@ -66,9 +65,12 @@ const HomeScreen = ({ match }) => {
         </Link>
       )}
 
-      {(!userInfo || userInfo.status !== 'active') && <Bundly />}
+      {((!userInfo && !keyword) ||
+        (userInfo?.status !== 'active' && !keyword)) && <Bundly />}
 
-      <h1 id="heading-latest-products" className='homepage-headings my-5'>Latest Products</h1>
+      <h1 id='heading-latest-products' className='homepage-headings my-5'>
+        Latest Products
+      </h1>
       <Filter
         keyword={keyword}
         pageNumber={pageNumber}
@@ -99,20 +101,25 @@ const HomeScreen = ({ match }) => {
           />
         </>
       )}
-      <h1 className='homepage-headings my-5'>Farms Locations</h1>
-      <Row>
+      <>
         {isloading ? (
           <Loader />
         ) : haserror ? (
           <Message variant='danger'>Error in loading the map</Message>
-        ) : apikey && !keyword && (
-          <GoogleMap data={farmeDetails} apikey={apikey} />
+        ) : (
+          apikey &&
+          !keyword && (
+            <>
+              <h1 className='homepage-headings my-5'>Farms Locations</h1>
+              <GoogleMap data={farmeDetails} apikey={apikey} />
+              <h1 className='homepage-headings my-5'>Bundle Categories</h1>
+              <Row>
+                <BundleCategory filterCategory={filterCategory} />
+              </Row>
+            </>
+          )
         )}
-      </Row>
-      <h1 className='homepage-headings my-5'>Bundle Categories</h1>
-      <Row>
-          <BundleCategory filterCategory={filterCategory} />
-      </Row>
+      </>
     </>
   )
 }
