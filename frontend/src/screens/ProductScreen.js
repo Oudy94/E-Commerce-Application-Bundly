@@ -54,11 +54,15 @@ const ProductScreen = ({ history, match }) => {
       setRating(0)
       setComment('')
     }
-    if (!product._id || product._id !== match.params.id) {
+    if (
+      !product._id ||
+      product._id !== match.params.id ||
+      successProductReview
+    ) {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview, product._id])
+  }, [dispatch, match, successProductReview, product._id, product])
 
   const addToPlanHandler = () => {
     if (userInfo) {

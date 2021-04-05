@@ -53,7 +53,6 @@ const HomeScreen = ({ match }) => {
         setIsLoading(false)
       }
     }
-    console.log(products)
     getApiKey()
   }, [keyword, pageNumber, apikey, products, productList])
 
@@ -66,7 +65,8 @@ const HomeScreen = ({ match }) => {
         </Link>
       )}
 
-      {(!userInfo || (userInfo.status !== 'active' && !keyword)) && <Bundly />}
+      {((!userInfo && !keyword) ||
+        (userInfo?.status !== 'active' && !keyword)) && <Bundly />}
 
       <h1 id='heading-latest-products' className='homepage-headings my-5'>
         Latest Products
