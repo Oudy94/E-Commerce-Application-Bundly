@@ -23,8 +23,8 @@ const importData = async () => {
     console.log(`food items length: ${foodItemsDataSet.length}`)
     console.log(`bundles length: ${bundlesDataSet.length}\n`)
     await Order.deleteMany()
-    await User.deleteMany()
-    const createdUsers = await User.insertMany(users)
+    // await User.deleteMany()
+    // const createdUsers = await User.insertMany(users)
     const adminUser = createdUsers[0]._id
 
     await Farmer.deleteMany()
@@ -42,7 +42,7 @@ const importData = async () => {
             : farmers[Math.floor(Math.random() * farmers.length)],
       }))
     )
-    const shift = Math.floor(foodItems.length / bundlesDataSet.length)
+    const shift = Math.ceil(foodItems.length / bundlesDataSet.length)
     await Product.insertMany(
       bundlesDataSet.map((bundle, i, arr) => ({
         ...bundle,
