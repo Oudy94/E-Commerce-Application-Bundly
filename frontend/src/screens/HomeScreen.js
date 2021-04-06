@@ -28,6 +28,11 @@ const HomeScreen = ({ match }) => {
   const [isloading, setIsLoading] = useState(false)
   const [haserror, setHasError] = useState(false)
 
+  const userSubscriptionStatus = useSelector(
+    (state) => state.userSubscriptionStatus
+  )
+  const { success: userStatus } = userSubscriptionStatus
+
   // filtering categories
   const [categoryFilter, setCategoryFilter] = useState('')
   const [filter, setFilter] = useState(true)
@@ -54,7 +59,7 @@ const HomeScreen = ({ match }) => {
       }
     }
     getApiKey()
-  }, [keyword, pageNumber, apikey, products, productList])
+  }, [keyword, pageNumber, apikey, products, productList, userStatus])
 
   return (
     <>
