@@ -1,4 +1,4 @@
-<h1>E-Commerce Application(Bundly)<h1>
+<h1>E-Commerce Application (Bundly)<h1>
   
 <h3>What is Bundly?</h3>
   <p>It is a subscription delivery service that allows you to receive ready-to-cook meal kits to your door on a weekly basis.</p>
